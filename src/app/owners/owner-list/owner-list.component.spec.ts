@@ -67,6 +67,7 @@ describe('OwnerListComponent', () => {
         address: '110 W. Liberty St.',
         city: 'Madison',
         telephone: '6085551023',
+        email: 'george.franklin@example.com',
         pets: null
     };
     let testOwners: Owner[];
@@ -97,6 +98,7 @@ describe('OwnerListComponent', () => {
                 address: '110 W. Liberty St.',
                 city: 'Madison',
                 telephone: '6085551023',
+                email: 'george.franklin@example.com',
                 pets: [{
                         id: 1,
                         name: 'Leo',
@@ -124,6 +126,21 @@ describe('OwnerListComponent', () => {
         expect(vi.mocked(spy).mock.calls.length > 0, 'getOwners called').toBe(true);
     });
 
+
+    it('should show the Email column header and the owner email cell', waitForAsync(() => {
+        fixture.detectChanges();
+        fixture.whenStable().then(() => {
+            fixture.detectChanges();
+            const headers = fixture.debugElement.queryAll(By.css('thead th'))
+                .map(header => header.nativeElement.textContent.trim());
+            expect(headers, 'Email column header is rendered').toContain('Email');
+
+            const emailCell = fixture.debugElement.queryAll(By.css('tbody tr td'))
+                .map(cell => cell.nativeElement.textContent.trim())
+                .find(text => text === testOwners[0].email);
+            expect(emailCell, 'owner email is rendered in the table').toBe(testOwners[0].email);
+        });
+    }));
 
     it(' should show full name after getOwners observable (async) ', waitForAsync(() => {
         fixture.detectChanges();

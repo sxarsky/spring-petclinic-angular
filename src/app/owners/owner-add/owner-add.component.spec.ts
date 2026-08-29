@@ -72,6 +72,20 @@ describe('OwnerAddComponent', () => {
 
 
 
+    it('renders the optional Email input and binds it to owner.email', waitForAsync(() => {
+        const emailInput = fixture.debugElement.query(By.css('input#email'));
+        expect(emailInput, 'Email input is rendered on the add form').toBeTruthy();
+        expect(emailInput.nativeElement.getAttribute('maxlength')).toBe('100');
+
+        emailInput.nativeElement.value = 'mary.john@example.com';
+        emailInput.nativeElement.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+
+        fixture.whenStable().then(() => {
+            expect(component.owner.email).toBe('mary.john@example.com');
+        });
+    }));
+
     it('back button routing', async () => {
         let buttons = fixture.debugElement.queryAll(By.css('button'));
         let backbutton = buttons[0];
