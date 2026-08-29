@@ -89,6 +89,12 @@ describe('VisitListComponent', () => {
                 id: 1,
                 date: '2016-09-07',
                 description: '',
+                durationMinutes: 45,
+                pet: testPet
+            }, {
+                id: 2,
+                date: '2016-09-08',
+                description: 'checkup',
                 pet: testPet
             }];
 
@@ -109,6 +115,27 @@ describe('VisitListComponent', () => {
         fixture.detectChanges();
         component.deleteVisit(component.visits[0]);
         expect(vi.mocked(spy).mock.calls.length > 0, 'deleteVisit called').toBe(true);
+    });
+
+    it('should render the Duration column for each visit', () => {
+        fixture.detectChanges();
+
+        const headers = Array.from(fixture.nativeElement.querySelectorAll('th'))
+            .map((th: any) => th.textContent.trim());
+        expect(headers).toContain('Duration');
+
+        const durationIndex = headers.indexOf('Duration');
+        const bodyRows = Array.from(fixture.nativeElement.querySelectorAll('tr'))
+            .filter((tr: any) => tr.querySelectorAll('td').length > 0);
+        expect(bodyRows.length).toBe(2);
+
+        // visit 1 has durationMinutes: 45 -> renders "45 min"
+        const withDuration = (bodyRows[0] as any).querySelectorAll('td')[durationIndex];
+        expect(withDuration.textContent.trim()).toBe('45 min');
+
+        // visit 2 has no durationMinutes -> renders an empty cell
+        const withoutDuration = (bodyRows[1] as any).querySelectorAll('td')[durationIndex];
+        expect(withoutDuration.textContent.trim()).toBe('');
     });
 
 });

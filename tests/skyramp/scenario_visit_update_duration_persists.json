@@ -1,0 +1,74 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"petId\": 7, \"date\": \"2026-08-01\", \"description\": \"duration persistence probe\", \"durationMinutes\": 45}",
+    "ResponseBody": "{\"id\": 9001, \"petId\": 7, \"date\": \"2026-08-01\", \"description\": \"duration persistence probe\", \"durationMinutes\": 45}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/visits",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-08-29T09:27:10.836Z",
+    "Scheme": "http",
+    "scenarioName": "visit_update_duration_persists"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"date\": \"2026-08-01\", \"description\": \"duration persistence probe\", \"durationMinutes\": 90}",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "PUT",
+    "Path": "/petclinic/api/visits/9001",
+    "QueryParams": {},
+    "StatusCode": 204,
+    "Port": 9966,
+    "Timestamp": "2026-08-29T09:27:11.836Z",
+    "Scheme": "http",
+    "scenarioName": "visit_update_duration_persists"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"id\": 9001, \"petId\": 7, \"date\": \"2026-08-01\", \"description\": \"duration persistence probe\", \"durationMinutes\": 90}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/petclinic/api/visits/9001",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 9966,
+    "Timestamp": "2026-08-29T09:27:12.836Z",
+    "Scheme": "http",
+    "scenarioName": "visit_update_duration_persists"
+  }
+]

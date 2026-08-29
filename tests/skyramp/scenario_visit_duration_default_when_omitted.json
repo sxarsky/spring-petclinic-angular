@@ -1,0 +1,50 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"petId\": 7, \"date\": \"2026-08-04\", \"description\": \"no duration supplied\"}",
+    "ResponseBody": "{\"id\": 9003, \"date\": \"2026-08-04\", \"description\": \"no duration supplied\", \"durationMinutes\": 30}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/visits",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-08-29T09:27:37.574Z",
+    "Scheme": "http",
+    "scenarioName": "visit_duration_default_when_omitted"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"id\": 9003, \"date\": \"2026-08-04\", \"description\": \"no duration supplied\", \"durationMinutes\": 30}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/petclinic/api/visits/9003",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 9966,
+    "Timestamp": "2026-08-29T09:27:38.574Z",
+    "Scheme": "http",
+    "scenarioName": "visit_duration_default_when_omitted"
+  }
+]

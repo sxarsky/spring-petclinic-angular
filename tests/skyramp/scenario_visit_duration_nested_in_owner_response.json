@@ -1,0 +1,50 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"petId\": 8, \"date\": \"2026-08-05\", \"description\": \"nested duration probe\", \"durationMinutes\": 75}",
+    "ResponseBody": "{\"id\": 9002, \"date\": \"2026-08-05\", \"description\": \"nested duration probe\", \"durationMinutes\": 75}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/visits",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-08-29T09:27:31.476Z",
+    "Scheme": "http",
+    "scenarioName": "visit_duration_nested_in_owner_response"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"firstName\": \"Jean\", \"lastName\": \"Coleman\", \"pets\": [{\"name\": \"Max\", \"visits\": [{\"id\": 9002, \"description\": \"nested duration probe\", \"durationMinutes\": 75}]}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/petclinic/api/owners/6",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 9966,
+    "Timestamp": "2026-08-29T09:27:32.476Z",
+    "Scheme": "http",
+    "scenarioName": "visit_duration_nested_in_owner_response"
+  }
+]
