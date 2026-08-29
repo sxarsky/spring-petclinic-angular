@@ -5,6 +5,7 @@ workspace:
 metadata:
   schemaVersion: v1
   executorVersion: v1.3.40
+  updatedAt: "2026-08-29T04:40:29.952Z"
 services:
   - serviceName: spring-petclinic-angular
     language: typescript
@@ -31,6 +32,7 @@ services:
     testDirectory: tests/skyramp
     api:
       authType: none
+      authHeader: ""
       baseUrl: http://localhost:9966/petclinic/api
     runtimeDetails:
       serverStartCommand: ./mvnw spring-boot:run

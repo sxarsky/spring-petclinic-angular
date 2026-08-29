@@ -32,6 +32,12 @@ async function mockBackend(page: Page) {
     const url = new URL(route.request().url());
     const resource = url.pathname.replace('/petclinic/api/', '');
 
+    if (resource === 'v2/owners' || resource.startsWith('v2/owners?')) {
+      await route.fulfill({
+        json: { content: [owner], page: 0, size: 5, totalElements: 1, totalPages: 1 }
+      });
+      return;
+    }
     if (resource === 'owners' || resource.startsWith('owners?')) {
       await route.fulfill({ json: [owner] });
       return;
@@ -109,6 +115,24 @@ test('displays backend data on list pages', async ({ page }) => {
   await page.route('**/petclinic/api/pettypes', route => route.fulfill({ json: petTypes }));
   await page.route('**/petclinic/api/specialties', route => route.fulfill({ json: specialties }));
   await page.route(
+    url => url.pathname.endsWith('/petclinic/api/v2/owners'),
+    (route, request) => {
+      const lastName = new URL(request.url()).searchParams.get('lastName');
+      const content = lastName === null
+        ? owners
+        : owners.filter(owner => owner.lastName.startsWith(lastName));
+      return route.fulfill({
+        json: {
+          content,
+          page: 0,
+          size: 5,
+          totalElements: content.length,
+          totalPages: 1
+        }
+      });
+    }
+  );
+  await page.route(
     url => url.pathname.endsWith('/petclinic/api/owners'),
     (route, request) => {
       const lastName = new URL(request.url()).searchParams.get('lastName');
@@ -139,8 +163,11 @@ test('displays backend data on list pages', async ({ page }) => {
   expect(renderedSpecialties).toEqual(expect.arrayContaining(['dentistry', 'surgery']));
 
   await page.goto('/petclinic/owners');
+  await expect(page.locator('#ownersTable tbody > tr')).toHaveCount(owners.length);
+
   await page.locator('#lastName').fill('Davis');
   await page.getByRole('button', { name: 'Find Owner' }).click();
+  await expect(page.locator('#ownersTable tbody > tr')).toHaveCount(2);
   await expect(page.getByRole('link', { name: 'Betty Davis' })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Harold Davis' })).toBeVisible();
   await expect(page.getByRole('link', { name: 'George Franklin' })).toHaveCount(0);
