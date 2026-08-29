@@ -28,7 +28,7 @@ const vets = [
 ];
 
 async function mockBackend(page: Page) {
-  await page.route('http://localhost:9966/petclinic/api/**', async route => {
+  await page.route('**/petclinic/api/**', async route => {
     const url = new URL(route.request().url());
     const resource = url.pathname.replace('/petclinic/api/', '');
 
