@@ -168,4 +168,78 @@ describe('OwnerService', () => {
         });
         req.flush('404 error', {status: 404, statusText: 'Not Found'});
     });
+
+    it('should surface the API per-field validation message on a 400', () => {
+        const owner = {
+            id: 1,
+            firstName: 'George',
+            lastName: 'Franklin',
+            address: '110 W. Liberty St.',
+            city: 'Madison',
+            telephone: 'abc',
+            pets: []
+        } as Owner;
+
+        // Shape captured from the live API: PUT /petclinic/api/owners/1 with an
+        // invalid telephone returns application/problem+json with per-field entries.
+        const problem = {
+            detail: 'The request contains invalid or missing parameters',
+            instance: '/petclinic/api/owners/1',
+            status: 400,
+            title: 'MethodArgumentNotValidException',
+            timestamp: '2026-08-29T05:04:56.350255085Z',
+            validationErrors: [
+                {
+                    message: 'Field \'telephone\' must match "^[0-9]*$" (rejected value: abc)',
+                    field: 'telephone',
+                    defaultMessage: 'must match "^[0-9]*$"',
+                    rejectedValue: 'abc',
+                },
+            ],
+        };
+
+        let surfaced: string | undefined;
+        let succeeded = false;
+        ownerService.updateOwner('1', owner).subscribe({
+            next: () => (succeeded = true),
+            error: (error) => (surfaced = error),
+        });
+
+        const req = httpTestingController.expectOne({
+            method: 'PUT',
+            url: ownerService.entityUrl + '/1',
+        });
+        req.flush(problem, {status: 400, statusText: 'Bad Request'});
+
+        expect(succeeded, 'should have failed with a 400 error').toBe(false);
+        expect(surfaced).toEqual(
+            'Field \'telephone\' must match "^[0-9]*$" (rejected value: abc)'
+        );
+    });
+
+    it('should fall back to the problem detail when no field errors are present', () => {
+        const problem = {
+            detail: 'The requested resource could not be processed due to a data constraint violation',
+            status: 404,
+            validationErrors: [],
+        };
+
+        let surfaced: string | undefined;
+        let succeeded = false;
+        ownerService.getOwnerById(9999).subscribe({
+            next: () => (succeeded = true),
+            error: (error) => (surfaced = error),
+        });
+
+        const req = httpTestingController.expectOne({
+            method: 'GET',
+            url: ownerService.entityUrl + '/9999',
+        });
+        req.flush(problem, {status: 404, statusText: 'Not Found'});
+
+        expect(succeeded, 'should have failed with a 404 error').toBe(false);
+        expect(surfaced).toEqual(
+            'The requested resource could not be processed due to a data constraint violation'
+        );
+    });
 });
