@@ -24,10 +24,11 @@ import type { Mock } from 'vitest';
  */
 
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { VisitAddComponent } from './visit-add.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgModel } from '@angular/forms';
 import { VisitService } from '../visit.service';
 import { PetService } from '../../pets/pet.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -107,5 +108,23 @@ describe('VisitAddComponent', () => {
 
     it('should create VisitAddComponent', () => {
         expect(component).toBeTruthy();
+    });
+
+    it('should cap the description input at 30 characters', () => {
+        const descriptionInput = fixture.debugElement.query(By.css('#description')).nativeElement;
+        expect(descriptionInput.getAttribute('maxlength')).toBe('30');
+    });
+
+    it('should show the 30-character maxlength message', () => {
+        const descriptionInput = fixture.debugElement.query(By.css('#description'));
+        const ngModel = descriptionInput.injector.get(NgModel);
+        ngModel.control.setValue('x'.repeat(31));
+        ngModel.control.markAsDirty();
+        fixture.detectChanges();
+
+        const feedback = fixture.debugElement
+            .queryAll(By.css('.invalid-feedback'))
+            .map(el => el.nativeElement.textContent.trim());
+        expect(feedback).toContain('Description may be at most 30 characters long');
     });
 });
