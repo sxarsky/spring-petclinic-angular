@@ -125,6 +125,16 @@ describe('OwnerListComponent', () => {
     });
 
 
+    it('labels the add action button "Add New Owner" once owners have loaded', waitForAsync(() => {
+        fixture.detectChanges();
+        fixture.whenStable().then(() => {
+            fixture.detectChanges(); // reveals the button guarded by *ngIf="isOwnersDataReceived"
+            const buttonLabels = fixture.debugElement.queryAll(By.css('button'))
+                .map(button => button.nativeElement.textContent.trim());
+            expect(buttonLabels).toContain('Add New Owner');
+        });
+    }));
+
     it(' should show full name after getOwners observable (async) ', waitForAsync(() => {
         fixture.detectChanges();
         fixture.whenStable().then(() => {
