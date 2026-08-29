@@ -39,6 +39,7 @@
           <div class="d-inline" *ngFor="let spec of vet.specialties">
             {{ spec.name }}
           </div>
+            <span *ngIf="!vet.specialties || vet.specialties.length === 0" class="text-muted">No specialties</span>
         </td>
         <td>
           <button class="btn btn-secondary" (click)="editVet(vet)">Edit Vet</button>
