@@ -21,7 +21,12 @@ services:
       runtime: local
   - serviceName: spring-petclinic-rest
     repository: sxarsky/spring-petclinic-rest
-    language: java
+    # ARM pc02: the only delta from pc01-base. The canary declared `java` here and
+    # produced zero backend-owned tests, leaving all seven backend-attributed
+    # candidates as recommendations. mern-records declared `javascript` for its
+    # backend service and got 3-15 tests in the related testDirectory every time.
+    # This isolates the declaration from the budget.
+    language: javascript
     framework: playwright
     # NOTE: resolved relative to the DELIVERY ROOT (this repo), not the backend
     # repo -- so this is spring-petclinic-angular/tests/skyramp/. Deliberately
