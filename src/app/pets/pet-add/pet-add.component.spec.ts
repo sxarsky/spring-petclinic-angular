@@ -88,6 +88,7 @@ describe('PetAddComponent', () => {
         testPet = {
             id: 1,
             name: 'Leo',
+            nickname: 'Bud',
             birthDate: '2010-09-07',
             type: { id: 1, name: 'cat' },
             ownerId: 1,
@@ -110,5 +111,19 @@ describe('PetAddComponent', () => {
 
     it('should create PetAddComponent', () => {
         expect(component).toBeTruthy();
+    });
+
+    it('should render the nickname input bound to pet.nickname', async () => {
+        component.pet = testPet;
+        fixture.detectChanges();
+        await fixture.whenStable();
+        fixture.detectChanges();
+
+        const input = fixture.nativeElement.querySelector('input#nickname') as HTMLInputElement;
+
+        expect(input, 'nickname input is rendered').toBeTruthy();
+        expect(input.getAttribute('name')).toBe('nickname');
+        expect(input.getAttribute('maxlength')).toBe('30');
+        expect(input.value).toBe('Bud');
     });
 });
