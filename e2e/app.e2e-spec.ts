@@ -92,7 +92,22 @@ test('displays backend data on list pages', async ({ page }) => {
       address: '638 Cardinal Ave.',
       city: 'Sun Prairie',
       telephone: '6085551749',
-      pets: []
+      pets: [
+        {
+          id: 2,
+          name: 'Basil',
+          birthDate: '2012-08-06',
+          type: { id: 6, name: 'hamster' },
+          visits: []
+        },
+        {
+          id: 3,
+          name: 'Rosy',
+          birthDate: '2011-04-17',
+          type: { id: 2, name: 'dog' },
+          visits: []
+        }
+      ]
     },
     {
       id: 4,
@@ -101,7 +116,15 @@ test('displays backend data on list pages', async ({ page }) => {
       address: '563 Friendly St.',
       city: 'Windsor',
       telephone: '6085553198',
-      pets: []
+      pets: [
+        {
+          id: 4,
+          name: 'Iggy',
+          birthDate: '2010-11-30',
+          type: { id: 3, name: 'lizard' },
+          visits: []
+        }
+      ]
     }
   ];
 
@@ -144,6 +167,14 @@ test('displays backend data on list pages', async ({ page }) => {
   await expect(page.getByRole('link', { name: 'Betty Davis' })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Harold Davis' })).toBeVisible();
   await expect(page.getByRole('link', { name: 'George Franklin' })).toHaveCount(0);
+
+  // The owners table renders a "No. of pets" column from owner.pets.length,
+  // so each row must report the pet count carried by the mocked owner.
+  const bettyDavisRow = page.locator('#ownersTable tbody tr').filter({ hasText: 'Betty Davis' });
+  await expect(bettyDavisRow.locator('td').nth(4)).toHaveText('2');
+
+  const haroldDavisRow = page.locator('#ownersTable tbody tr').filter({ hasText: 'Harold Davis' });
+  await expect(haroldDavisRow.locator('td').nth(4)).toHaveText('1');
 });
 test('desktop dropdowns open and navigate to owners and veterinarians', async ({ page }) => {
   await page.goto('/');
