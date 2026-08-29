@@ -125,6 +125,29 @@ describe('OwnerListComponent', () => {
     });
 
 
+    it('should reset lastName and restore the full owner list on clearSearch()', () => {
+        fixture.detectChanges();
+
+        // simulate the state left behind by a narrowed search that matched nothing
+        component.lastName = 'Davis';
+        component.owners = [];
+        const callsBeforeClear = vi.mocked(spy).mock.calls.length;
+
+        component.clearSearch();
+
+        expect(component.lastName).toBe('');
+        expect(vi.mocked(spy).mock.calls.length).toBe(callsBeforeClear + 1);
+        expect(component.owners).toEqual(testOwners);
+    });
+
+    it('should render the Clear button in the search form', () => {
+        fixture.detectChanges();
+        de = fixture.debugElement.query(By.css('#clearSearch'));
+        expect(de).toBeTruthy();
+        el = de.nativeElement;
+        expect(el.textContent).toContain('Clear');
+    });
+
     it(' should show full name after getOwners observable (async) ', waitForAsync(() => {
         fixture.detectChanges();
         fixture.whenStable().then(() => {
