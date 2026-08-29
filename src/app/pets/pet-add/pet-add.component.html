@@ -42,6 +42,13 @@
       </div>
 
       <div class="row mb-3">
+        <label for="nickname" class="col-sm-2 col-form-label">Nickname</label>
+        <div class="col-sm-10">
+          <input id="nickname" name="nickname" class="form-control" maxlength="30" type="text" [(ngModel)]="pet.nickname" #nickname="ngModel" [class.is-valid]="nickname.dirty && nickname.valid" [class.is-invalid]="nickname.dirty && nickname.invalid" />
+        </div>
+      </div>
+
+      <div class="row mb-3">
         <label for="birthDate" class="col-sm-2 col-form-label">Birth Date</label>
         <div class="col-sm-10">
           <input id="birthDate" matInput [matDatepicker]="birthDateDatepicker" required [ngModel]="pet.birthDate | date:'yyyy-MM-dd'" name="birthDate" #birthDate="ngModel" [class.is-valid]="birthDate.dirty && birthDate.valid" [class.is-invalid]="birthDate.dirty && birthDate.invalid" />
