@@ -135,4 +135,19 @@ describe('OwnerListComponent', () => {
         });
     }));
 
+    it('should reset lastName and restore the full owner list on clearSearch()', () => {
+        fixture.detectChanges();
+        component.lastName = 'Davis';
+        component.owners = null;
+
+        component.clearSearch();
+
+        expect(component.lastName).toBe('');
+        expect(component.owners).toEqual(testOwners);
+        expect(component.owners.length).toBe(1);
+        expect(component.owners[0].lastName).toBe('Franklin');
+        expect(component.owners[1]).toBeUndefined();
+        expect(vi.mocked(spy).mock.calls.length > 1, 'getOwners called again by clearSearch').toBe(true);
+    });
+
 });
