@@ -32,7 +32,7 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, provideRouter } from '@angular/router';
 import { OwnerService } from '../owner.service';
 import { Owner } from '../owner';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { PartsModule } from '../../parts/parts.module';
 import { ActivatedRouteStub } from '../../testing/router-stubs';
@@ -47,6 +47,10 @@ type Spy = Mock;
 class OwnerServiceStub {
     getOwners(): Observable<Owner[]> {
         return of();
+    }
+
+    searchOwners(lastName: string): Observable<Owner[]> {
+        return of([]);
     }
 }
 
@@ -134,5 +138,25 @@ describe('OwnerListComponent', () => {
             expect(el.textContent).toBe((testOwner.firstName.toString() + ' ' + testOwner.lastName.toString()));
         });
     }));
+
+    it('should show the empty-search alert and hide the table when no owner matches', () => {
+        // The backend returns 404 for a no-match lastName search
+        // (OwnerRestControllerV1.listOwners -> HttpStatus.NOT_FOUND when the result set is empty),
+        // and HttpErrorHandler.handleError re-throws, so searchByLastName's error
+        // callback sets owners = null and the *ngIf="!owners" alert renders.
+        vi.spyOn(ownerService, 'searchOwners').mockReturnValue(throwError(() => 'not found'));
+
+        fixture.detectChanges();
+        component.lastName = 'Zzzznotanowner';
+        component.searchByLastName('Zzzznotanowner');
+        fixture.detectChanges();
+
+        const alert = fixture.debugElement.query(By.css('.alert.alert-info'));
+        expect(alert).toBeTruthy();
+        expect(alert.nativeElement.textContent).toContain('No owners found with a last name starting with');
+        expect(alert.nativeElement.textContent).toContain('Zzzznotanowner');
+
+        expect(fixture.debugElement.query(By.css('#ownersTable'))).toBeNull();
+    });
 
 });
