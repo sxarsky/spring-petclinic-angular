@@ -135,4 +135,14 @@ describe('OwnerListComponent', () => {
         });
     }));
 
+    it(' should show the number of pets after getOwners observable (async) ', waitForAsync(() => {
+        fixture.detectChanges();
+        fixture.whenStable().then(() => {
+            fixture.detectChanges(); // update view with the pet count
+            const cells = fixture.debugElement.queryAll(By.css('tbody tr td'));
+            expect(cells[4].nativeElement.textContent.trim())
+                .toBe(testOwners[0].pets.length.toString());
+        });
+    }));
+
 });
