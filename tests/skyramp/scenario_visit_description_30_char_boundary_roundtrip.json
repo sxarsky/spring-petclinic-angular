@@ -1,0 +1,50 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"petId\": 1, \"date\": \"2026-08-29\", \"description\": \"123456789012345678901234567890\"}",
+    "ResponseBody": "{\"id\": 5, \"petId\": 1, \"date\": \"2026-08-29\", \"description\": \"123456789012345678901234567890\"}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/visits",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-08-29T09:25:59.381Z",
+    "Scheme": "http",
+    "scenarioName": "visit_description_30_char_boundary_roundtrip"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"id\": 5, \"petId\": 1, \"date\": \"2026-08-29\", \"description\": \"123456789012345678901234567890\"}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/petclinic/api/visits/5",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 9966,
+    "Timestamp": "2026-08-29T09:26:00.381Z",
+    "Scheme": "http",
+    "scenarioName": "visit_description_30_char_boundary_roundtrip"
+  }
+]
