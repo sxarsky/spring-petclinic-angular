@@ -48,6 +48,9 @@ class OwnerServiceStub {
     getOwners(): Observable<Owner[]> {
         return of();
     }
+    searchOwners(lastName: string): Observable<Owner[]> {
+        return of();
+    }
 }
 
 describe('OwnerListComponent', () => {
@@ -134,5 +137,24 @@ describe('OwnerListComponent', () => {
             expect(el.textContent).toBe((testOwner.firstName.toString() + ' ' + testOwner.lastName.toString()));
         });
     }));
+
+    it('should clear the last name and restore the full owner list on clearSearch()', () => {
+        const searchSpy = vi.spyOn(ownerService, 'searchOwners').mockReturnValue(of([]));
+        fixture.detectChanges();
+
+        // Run the filtered search path first so there is a query to clear.
+        component.lastName = 'Davis';
+        component.searchByLastName('Davis');
+        expect(vi.mocked(searchSpy).mock.calls.length).toBe(1);
+
+        const getOwnersCallsBeforeClear = vi.mocked(spy).mock.calls.length;
+
+        component.clearSearch();
+
+        expect(component.lastName).toBe('');
+        expect(vi.mocked(spy).mock.calls.length).toBe(getOwnersCallsBeforeClear + 1);
+        expect(vi.mocked(searchSpy).mock.calls.length).toBe(1);
+        expect(component.owners).toEqual(testOwners);
+    });
 
 });
