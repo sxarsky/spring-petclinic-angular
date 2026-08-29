@@ -64,13 +64,13 @@
       </div>
 
       <div class="row mb-3">
-        <label for="telephone" class="col-sm-2 col-form-label">Telephone</label>
+        <label for="phoneNumber" class="col-sm-2 col-form-label">Phone</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="telephone" [(ngModel)]="owner.telephone" name="telephone" required minlength="1" maxlength="20" pattern="^[0-9]*$" #telephone="ngModel" [class.is-valid]="telephone.dirty && telephone.valid" [class.is-invalid]="telephone.dirty && telephone.invalid" />
-          <div class="invalid-feedback" *ngIf="telephone.dirty && telephone.hasError('required')">Phone number is required</div>
-          <div class="invalid-feedback" *ngIf="telephone.dirty && telephone.hasError('minlength')">Phone number must be at least one digit long</div>
-          <div class="invalid-feedback" *ngIf="telephone.dirty && telephone.hasError('maxlength')">Phone number cannot be more than 20 digits long</div>
-          <div class="invalid-feedback" *ngIf="telephone.dirty && telephone.hasError('pattern')">Phone number only accepts digits</div>
+          <input type="text" class="form-control" id="phoneNumber" [(ngModel)]="owner.phoneNumber" name="phoneNumber" required minlength="1" maxlength="20" pattern="^[0-9]*$" #phoneNumber="ngModel" [class.is-valid]="phoneNumber.dirty && phoneNumber.valid" [class.is-invalid]="phoneNumber.dirty && phoneNumber.invalid" />
+          <div class="invalid-feedback" *ngIf="phoneNumber.dirty && phoneNumber.hasError('required')">Phone number is required</div>
+          <div class="invalid-feedback" *ngIf="phoneNumber.dirty && phoneNumber.hasError('minlength')">Phone number must be at least one digit long</div>
+          <div class="invalid-feedback" *ngIf="phoneNumber.dirty && phoneNumber.hasError('maxlength')">Phone number cannot be more than 20 digits long</div>
+          <div class="invalid-feedback" *ngIf="phoneNumber.dirty && phoneNumber.hasError('pattern')">Phone number only accepts digits</div>
         </div>
       </div>
 
