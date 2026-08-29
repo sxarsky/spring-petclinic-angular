@@ -5,13 +5,11 @@ workspace:
 metadata:
   schemaVersion: v1
   executorVersion: v1.3.40
+  updatedAt: "2026-08-29T09:12:18.685Z"
 services:
   - serviceName: spring-petclinic-angular
     language: typescript
     framework: playwright
-    # The repo's own suite lives here (playwright.config.ts: testDir './e2e').
-    # Generated specs join it, which is the point of this cluster: the agent
-    # extends an existing suite rather than seeding an empty one.
     testDirectory: e2e
     api:
       authType: none
@@ -19,17 +17,31 @@ services:
     runtimeDetails:
       serverStartCommand: npm start
       runtime: local
+      testSuites:
+        - framework: vitest
+          testRunCommand: npm run test:ci
+          pathGlobs:
+            - src/**/*.spec.ts
+          canaryStatus: unproven
+          canaryDetail: Angular unit suite (ng test, vitest runner) registered by Testbot to baseline external component specs.
+        - framework: playwright
+          testRunCommand: npx playwright test
+          testEnv:
+            CI: ""
+          pathGlobs:
+            - e2e/**/*.e2e-spec.ts
+          canaryStatus: unproven
+          canaryDetail: >-
+            Playwright e2e suite; CI is cleared so playwright.config.ts reuseExistingServer reuses the already-running
+            dev server on port 4200 instead of failing on a port clash.
   - serviceName: spring-petclinic-rest
     repository: sxarsky/spring-petclinic-rest
     language: java
     framework: playwright
-    # NOTE: resolved relative to the DELIVERY ROOT (this repo), not the backend
-    # repo -- so this is spring-petclinic-angular/tests/skyramp/. Deliberately
-    # outside playwright.config.ts's testDir ('./e2e'), per PORTING-GUIDE 5.7:
-    # otherwise the primary's suite silently acquires a runtime dependency on
-    # the backend service.
     testDirectory: tests/skyramp
     api:
+      schemaPath: >-
+        /home/runner/work/spring-petclinic-angular/spring-petclinic-angular/spring-petclinic-rest/src/main/resources/openapi.yml
       authType: none
       baseUrl: http://localhost:9966/petclinic/api
     runtimeDetails:
