@@ -34,44 +34,44 @@ export class VetService {
 
   entityUrl = environment.REST_API_URL + 'vets';
 
-  private readonly handlerError: HandleError;
+  private readonly handleErrorFor: HandleError;
 
   constructor(private http: HttpClient, private httpErrorHandler: HttpErrorHandler) {
-    this.handlerError = httpErrorHandler.createHandleError('OwnerService');
+    this.handleErrorFor = httpErrorHandler.createHandleError('OwnerService');
   }
 
   getVets(): Observable<Vet[]> {
     return this.http.get<Vet[]>(this.entityUrl)
       .pipe(
-        catchError(this.handlerError('getVets', []))
+        catchError(this.handleErrorFor('getVets', []))
       );
   }
 
   getVetById(vetId: string): Observable<Vet> {
     return this.http.get<Vet>((this.entityUrl + '/' + vetId))
       .pipe(
-        catchError(this.handlerError('getVetById', {} as Vet))
+        catchError(this.handleErrorFor('getVetById', {} as Vet))
       );
   }
 
   updateVet(vetId: string, vet: Vet): Observable<Vet> {
     return this.http.put<Vet>(this.entityUrl + '/' + vetId, vet)
       .pipe(
-        catchError(this.handlerError('updateVet', vet))
+        catchError(this.handleErrorFor('updateVet', vet))
       );
   }
 
   addVet(vet: Vet): Observable<Vet> {
     return this.http.post<Vet>(this.entityUrl, vet)
       .pipe(
-        catchError(this.handlerError('addVet', vet))
+        catchError(this.handleErrorFor('addVet', vet))
       );
   }
 
   deleteVet(vetId: string): Observable<number> {
     return this.http.delete<number>(this.entityUrl + '/' + vetId)
       .pipe(
-        catchError(this.handlerError('deleteVet', 0))
+        catchError(this.handleErrorFor('deleteVet', 0))
       );
   }
 
