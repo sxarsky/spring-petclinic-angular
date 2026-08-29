@@ -50,13 +50,13 @@ export class HttpErrorHandler {
       let message = (error.error instanceof ErrorEvent) ?
         error.error.message :
         `server returned code ${error.status} with body "${error.error}"`;
-      const errorsHeader = error.headers.get('errors');
-      if (errorsHeader) {
-        const errors = JSON.parse(errorsHeader);
-        // Retrieve the Spring MVC errorMessage of the first FieldError
-        if ((errors instanceof Array) && (errors.length > 0) && errors[0].errorMessage) {
-          message = errors[0].errorMessage;
-        }
+      // The API returns problem+json with a list of per-field validation
+      // messages, so surface the first one instead of the raw body.
+      const problem = error.error;
+      if (problem && Array.isArray(problem.schemaValidationErrors) && problem.schemaValidationErrors.length > 0) {
+        message = problem.schemaValidationErrors[0].message;
+      } else if (problem && problem.detail) {
+        message = problem.detail;
       }
 
       console.error(error);
