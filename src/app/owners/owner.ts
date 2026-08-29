@@ -28,6 +28,6 @@ export interface Owner {
   lastName: string;
   address: string;
   city: string;
-  telephone: string;
+  phoneNumber: string;
   pets: Pet[];
 }
