@@ -103,6 +103,7 @@ describe('VisitEditComponent', () => {
             id: 1,
             date: '2016-09-07',
             description: '',
+            durationMinutes: 60,
             pet: testPet
         };
 
@@ -114,5 +115,28 @@ describe('VisitEditComponent', () => {
 
     it('should create VisitEditComponent', () => {
         expect(component).toBeTruthy();
+    });
+
+    it('should bind and validate the duration input', async () => {
+        fixture.detectChanges();
+        await fixture.whenStable();
+        fixture.detectChanges();
+
+        const input = fixture.nativeElement.querySelector('#durationMinutes');
+        expect(input).toBeTruthy();
+        expect(input.getAttribute('min')).toBe('5');
+        expect(input.getAttribute('max')).toBe('240');
+
+        // 300 exceeds the 240-minute upper bound -> control must be flagged invalid
+        input.value = '300';
+        input.dispatchEvent(new Event('input'));
+        input.dispatchEvent(new Event('blur'));
+        fixture.detectChanges();
+        await fixture.whenStable();
+        fixture.detectChanges();
+
+        expect(input.classList.contains('is-invalid')).toBe(true);
+        expect(fixture.nativeElement.textContent)
+            .toContain('Duration must be between 5 and 240 minutes');
     });
 });

@@ -108,4 +108,28 @@ describe('VisitAddComponent', () => {
     it('should create VisitAddComponent', () => {
         expect(component).toBeTruthy();
     });
+
+    it('should render the duration input with 5-240 bounds', async () => {
+        fixture.detectChanges();
+        await fixture.whenStable();
+        fixture.detectChanges();
+
+        const input = fixture.nativeElement.querySelector('#durationMinutes');
+        expect(input).toBeTruthy();
+        expect(input.getAttribute('type')).toBe('number');
+        expect(input.getAttribute('min')).toBe('5');
+        expect(input.getAttribute('max')).toBe('240');
+
+        // 2 falls below the 5-minute lower bound -> control must be flagged invalid
+        input.value = '2';
+        input.dispatchEvent(new Event('input'));
+        input.dispatchEvent(new Event('blur'));
+        fixture.detectChanges();
+        await fixture.whenStable();
+        fixture.detectChanges();
+
+        expect(input.classList.contains('is-invalid')).toBe(true);
+        expect(fixture.nativeElement.textContent)
+            .toContain('Duration must be between 5 and 240 minutes');
+    });
 });
