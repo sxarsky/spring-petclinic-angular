@@ -22,6 +22,7 @@
 
 import { Injectable } from '@angular/core';
 import { Owner } from './owner';
+import { OwnerPage } from './owner-page';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
@@ -39,6 +40,14 @@ export class OwnerService {
     private httpErrorHandler: HttpErrorHandler
   ) {
     this.handlerError = httpErrorHandler.createHandleError('OwnerService');
+  }
+
+  getOwnersPage(lastName?: string): Observable<OwnerPage> {
+    const pagedUrl = environment.REST_API_URL + 'v2/owners';
+    const options = lastName ? {params: {lastName}} : {};
+    return this.http
+      .get<OwnerPage>(pagedUrl, options)
+      .pipe(catchError(this.handlerError('getOwnersPage', {content: [], page: 0, size: 0, totalElements: 0, totalPages: 0} as OwnerPage)));
   }
 
   getOwners(): Observable<Owner[]> {
