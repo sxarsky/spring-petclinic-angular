@@ -35,7 +35,7 @@ import { Observable, of } from 'rxjs';
 
 class OwnerServiceStub {
     getOwnerById(): Observable<Owner> {
-        return of({ id: 1, firstName: 'James', lastName: 'Franklin' } as Owner);
+        return of({ id: 1, firstName: 'James', lastName: 'Franklin', email: 'james.franklin@example.com' } as Owner);
     }
 }
 
@@ -66,6 +66,7 @@ describe('OwnerDetailComponent', () => {
         address: '110 W. Liberty St.',
         city: 'Madison',
         telephone: '6085551023',
+        email: 'james.franklin@example.com',
         pets: null,
     };
 
@@ -90,6 +91,18 @@ describe('OwnerDetailComponent', () => {
             expect(el.textContent).toBe(owner.firstName.toString() + ' ' + owner.lastName.toString());
         });
     });
+
+    it('renders the owner email in the detail table', waitForAsync(() => {
+        fixture.detectChanges();
+        fixture.whenStable().then(() => {
+            fixture.detectChanges();
+            const rows = fixture.debugElement.queryAll(By.css('table tr'));
+            const emailRow = rows.find((row) => row.nativeElement.querySelector('th')?.textContent.trim() === 'Email');
+            expect(emailRow, 'detail table should render an Email row').toBeTruthy();
+            expect(emailRow.nativeElement.querySelector('td').textContent.trim())
+                .toBe('james.franklin@example.com');
+        });
+    }));
 
     it('routing to owners page on click of editOwner,addPet,gotoOwnersList', () => {
         vi.spyOn(router, 'navigate').mockReturnValue(undefined);
