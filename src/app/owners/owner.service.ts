@@ -32,44 +32,44 @@ import { HandleError, HttpErrorHandler } from '../error.service';
 export class OwnerService {
   entityUrl = environment.REST_API_URL + 'owners';
 
-  private readonly handlerError: HandleError;
+  private readonly handleErrorFor: HandleError;
 
   constructor(
     private http: HttpClient,
     private httpErrorHandler: HttpErrorHandler
   ) {
-    this.handlerError = httpErrorHandler.createHandleError('OwnerService');
+    this.handleErrorFor = httpErrorHandler.createHandleError('OwnerService');
   }
 
   getOwners(): Observable<Owner[]> {
     return this.http
       .get<Owner[]>(this.entityUrl)
-      .pipe(catchError(this.handlerError('getOwners', [])));
+      .pipe(catchError(this.handleErrorFor('getOwners', [])));
   }
 
   getOwnerById(ownerId: number): Observable<Owner> {
     return this.http
       .get<Owner>(this.entityUrl + '/' + ownerId)
-      .pipe(catchError(this.handlerError('getOwnerById', {} as Owner)));
+      .pipe(catchError(this.handleErrorFor('getOwnerById', {} as Owner)));
   }
 
   addOwner(owner: Owner): Observable<Owner> {
     return this.http
       .post<Owner>(this.entityUrl, owner)
-      .pipe(catchError(this.handlerError('addOwner', owner)));
+      .pipe(catchError(this.handleErrorFor('addOwner', owner)));
   }
 
 
   updateOwner(ownerId: string, owner: Owner): Observable<{}> {
     return this.http
       .put<Owner>(this.entityUrl + '/' + ownerId, owner)
-      .pipe(catchError(this.handlerError('updateOwner', owner)));
+      .pipe(catchError(this.handleErrorFor('updateOwner', owner)));
   }
 
   deleteOwner(ownerId: string): Observable<{}> {
     return this.http
       .delete<Owner>(this.entityUrl + '/' + ownerId)
-      .pipe(catchError(this.handlerError('deleteOwner', [ownerId])));
+      .pipe(catchError(this.handleErrorFor('deleteOwner', [ownerId])));
   }
 
   searchOwners(lastName: string): Observable<Owner[]> {
@@ -79,6 +79,6 @@ export class OwnerService {
     }
     return this.http
       .get<Owner[]>(url)
-      .pipe(catchError(this.handlerError('searchOwners', [])));
+      .pipe(catchError(this.handleErrorFor('searchOwners', [])));
   }
 }
