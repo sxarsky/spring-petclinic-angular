@@ -77,6 +77,23 @@ describe('OwnerService', () => {
         req.flush(expectedOwners);
     });
 
+    it('should send the sort field as a query param when getOwners is called with a sort', () => {
+        ownerService
+            .getOwners('city')
+            .subscribe({
+                next: (owners) => expect(owners, 'should return expected owners').toEqual(expectedOwners),
+                error: (error) => expect.fail(`Unexpected error: ${error}`),
+            });
+
+        // The URL now carries a query string, so match by predicate rather than bare URL
+        const req = httpTestingController.expectOne(
+            (request) => request.url === ownerService.entityUrl && request.params.get('sort') === 'city'
+        );
+        expect(req.request.method).toEqual('GET');
+
+        req.flush(expectedOwners);
+    });
+
     it('search the owner by id', () => {
         ownerService.getOwnerById(1).subscribe((owners) => {
             expect(owners).toEqual(expectedOwners[0]);
