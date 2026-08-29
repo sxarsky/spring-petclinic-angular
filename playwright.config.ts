@@ -2,7 +2,9 @@ import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
   testDir: './e2e',
-  testMatch: '**/*.e2e-spec.ts',
+  // Skyramp-generated specs are emitted as *.spec.ts; keep the repo's own
+  // *.e2e-spec.ts pattern working alongside them.
+  testMatch: ['**/*.e2e-spec.ts', '**/*.spec.ts'],
   webServer: {
     command: 'npm start -- --host 127.0.0.1',
     url: 'http://127.0.0.1:4200',

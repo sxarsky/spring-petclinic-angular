@@ -35,7 +35,7 @@ import { Observable, of } from 'rxjs';
 
 class OwnerServiceStub {
     getOwnerById(): Observable<Owner> {
-        return of({ id: 1, firstName: 'James', lastName: 'Franklin' } as Owner);
+        return of({ id: 1, firstName: 'James', lastName: 'Franklin', email: 'james.franklin@example.com' } as Owner);
     }
 }
 
@@ -66,6 +66,7 @@ describe('OwnerDetailComponent', () => {
         address: '110 W. Liberty St.',
         city: 'Madison',
         telephone: '6085551023',
+        email: 'james.franklin@example.com',
         pets: null,
     };
 
@@ -88,6 +89,20 @@ describe('OwnerDetailComponent', () => {
             de = fixture.debugElement.query(By.css('.ownerFullName'));
             el = de.nativeElement;
             expect(el.textContent).toBe(owner.firstName.toString() + ' ' + owner.lastName.toString());
+        });
+    });
+
+    it('renders the owner email row from the loaded owner', () => {
+        fixture.detectChanges();
+        return fixture.whenStable().then(() => {
+            fixture.detectChanges(); // update view with the loaded owner
+            const rows = fixture.debugElement.queryAll(By.css('table tr'));
+            const emailRow = rows.find(
+                row => row.nativeElement.querySelector('th')?.textContent.trim() === 'Email'
+            );
+            expect(emailRow).toBeTruthy();
+            expect(emailRow.nativeElement.querySelector('td').textContent.trim())
+                .toBe('james.franklin@example.com');
         });
     });
 
