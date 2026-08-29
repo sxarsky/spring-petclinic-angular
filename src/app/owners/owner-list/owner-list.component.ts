@@ -38,6 +38,7 @@ export class OwnerListComponent implements OnInit {
   errorMessage: string;
   lastName: string;
   owners: Owner[];
+  sortField: string = '';
   listOfOwnersWithLastName: Owner[];
   isOwnersDataReceived: boolean = false;
 
@@ -54,6 +55,13 @@ export class OwnerListComponent implements OnInit {
     ).subscribe(
       owners => this.owners = owners,
       error => this.errorMessage = error as any);
+  }
+
+  sortBy(field: string) {
+    this.sortField = field;
+    this.ownerService.getOwners(field)
+      .pipe(finalize(() => this.changeDetectorRef.markForCheck()))
+      .subscribe(owners => this.owners = owners);
   }
 
   onSelect(owner: Owner) {
