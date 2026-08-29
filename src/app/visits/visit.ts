@@ -26,6 +26,7 @@ export interface Visit {
   id: number;
   date: string;
   description: string;
+  durationMinutes?: number;
   pet: Pet;
   petId?: number;
 }
