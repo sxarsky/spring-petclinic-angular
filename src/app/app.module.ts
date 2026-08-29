@@ -23,7 +23,8 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {ApiAuthInterceptor} from './api-auth.interceptor';
 import {AppComponent} from './app.component';
 import {AppRoutingModule} from './app-routing.module';
 import {OwnersModule} from './owners/owners.module';
@@ -56,6 +57,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     AppRoutingModule
   ],
   providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: ApiAuthInterceptor, multi: true},
     HttpErrorHandler,
   ],
   bootstrap: [AppComponent]

@@ -23,5 +23,7 @@
 
 export const environment = {
   production: false,
-  REST_API_URL: '/petclinic/api/'
+  REST_API_URL: '/petclinic/api/',
+  API_USERNAME: 'admin',
+  API_PASSWORD: 'admin'
 };
