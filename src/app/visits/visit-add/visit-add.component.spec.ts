@@ -25,9 +25,10 @@ import type { Mock } from 'vitest';
 
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { By } from '@angular/platform-browser';
 
 import { VisitAddComponent } from './visit-add.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgModel } from '@angular/forms';
 import { VisitService } from '../visit.service';
 import { PetService } from '../../pets/pet.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -107,5 +108,43 @@ describe('VisitAddComponent', () => {
 
     it('should create VisitAddComponent', () => {
         expect(component).toBeTruthy();
+    });
+
+    const descriptionInput = (): HTMLInputElement =>
+        fixture.debugElement.query(By.css('#description')).nativeElement;
+
+    const descriptionModel = (): NgModel =>
+        fixture.debugElement.query(By.css('#description')).injector.get(NgModel);
+
+    const MAXLENGTH_MESSAGE = 'Description may be at most 30 characters long';
+
+    it('caps the description input at 30 characters', () => {
+        const input = descriptionInput();
+
+        expect(input.getAttribute('maxlength')).toBe('30');
+        expect(input.getAttribute('minlength')).toBe('1');
+    });
+
+    it('marks the description invalid and shows the 30-character message when it exceeds 30 characters', () => {
+        const model = descriptionModel();
+
+        model.control.setValue('x'.repeat(31));
+        model.control.markAsDirty();
+        fixture.detectChanges();
+
+        expect(model.control.hasError('maxlength')).toBe(true);
+        expect(fixture.nativeElement.textContent).toContain(MAXLENGTH_MESSAGE);
+        expect(descriptionInput().classList.contains('is-invalid')).toBe(true);
+    });
+
+    it('accepts a description of exactly 30 characters', () => {
+        const model = descriptionModel();
+
+        model.control.setValue('x'.repeat(30));
+        model.control.markAsDirty();
+        fixture.detectChanges();
+
+        expect(model.control.hasError('maxlength')).toBe(false);
+        expect(fixture.nativeElement.textContent).not.toContain(MAXLENGTH_MESSAGE);
     });
 });
