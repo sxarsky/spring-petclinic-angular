@@ -91,6 +91,13 @@ describe('OwnerDetailComponent', () => {
         });
     });
 
+    it('labels the visit history section "Pets and visit history"', () => {
+        fixture.detectChanges();
+        const headings = fixture.debugElement.queryAll(By.css('h2'))
+            .map(heading => heading.nativeElement.textContent.trim());
+        expect(headings).toContain('Pets and visit history');
+    });
+
     it('routing to owners page on click of editOwner,addPet,gotoOwnersList', () => {
         vi.spyOn(router, 'navigate').mockReturnValue(undefined);
         let buttons = fixture.debugElement.queryAll(By.css('button'));
