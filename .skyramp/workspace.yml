@@ -1,36 +1,41 @@
 # Skyramp Workspace Configuration
 workspace:
   repoName: sxarsky/spring-petclinic-angular
-  repoUrl: https://github.com/sxarsky/spring-petclinic-angular.git
+  repoUrl: https://github.com/sxarsky/spring-petclinic-angular
 metadata:
   schemaVersion: v1
   executorVersion: v1.3.40
+  createdAt: "2026-08-29T05:55:26.073Z"
+  updatedAt: "2026-08-29T05:55:26.077Z"
 services:
   - serviceName: spring-petclinic-angular
     language: typescript
     framework: playwright
-    # The repo's own suite lives here (playwright.config.ts: testDir './e2e').
-    # Generated specs join it, which is the point of this cluster: the agent
-    # extends an existing suite rather than seeding an empty one.
     testDirectory: e2e
     api:
       authType: none
+      authHeader: ""
       baseUrl: http://localhost:4200
     runtimeDetails:
       serverStartCommand: npm start
       runtime: local
+      testSuites:
+        - framework: playwright
+          testRunCommand: npx playwright test
+          testEnv:
+            CI: ""
+          pathGlobs:
+            - e2e/**/*.e2e-spec.ts
   - serviceName: spring-petclinic-rest
     repository: sxarsky/spring-petclinic-rest
     language: java
     framework: playwright
-    # NOTE: resolved relative to the DELIVERY ROOT (this repo), not the backend
-    # repo -- so this is spring-petclinic-angular/tests/skyramp/. Deliberately
-    # outside playwright.config.ts's testDir ('./e2e'), per PORTING-GUIDE 5.7:
-    # otherwise the primary's suite silently acquires a runtime dependency on
-    # the backend service.
     testDirectory: tests/skyramp
     api:
-      authType: none
+      schemaPath: http://localhost:9966/petclinic/v3/api-docs
+      authType: basic
+      authHeader: Authorization
+      authScheme: Basic
       baseUrl: http://localhost:9966/petclinic/api
     runtimeDetails:
       serverStartCommand: ./mvnw spring-boot:run
