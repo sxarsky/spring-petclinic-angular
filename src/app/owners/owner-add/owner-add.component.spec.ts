@@ -81,6 +81,17 @@ describe('OwnerAddComponent', () => {
     });
 
 
+    it('binds the email input to owner.email', () => {
+        const emailInput = fixture.debugElement.query(By.css('#email'));
+        expect(emailInput).toBeTruthy();
+
+        emailInput.nativeElement.value = 'mary.john@example.com';
+        emailInput.nativeElement.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+
+        expect(component.owner.email).toBe('mary.john@example.com');
+    });
+
     it('add owner', waitForAsync(() => {
         let buttons = fixture.debugElement.queryAll(By.css('button'));
         let addOwnerButton = buttons[1].nativeElement;

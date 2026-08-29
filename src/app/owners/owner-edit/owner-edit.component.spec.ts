@@ -36,7 +36,7 @@ import { OwnerListComponent } from '../owner-list/owner-list.component';
 
 class OwnserServiceStub {
     getOwnerById(): Observable<Owner> {
-        return of({ id: 1, firstName: 'James' } as Owner);
+        return of({ id: 1, firstName: 'James', email: 'james.franklin@example.com' } as Owner);
     }
 }
 
@@ -79,6 +79,13 @@ describe('OwnerEditComponent', () => {
         expect(router.navigate).toHaveBeenCalledWith(['/owners', 1]);
     });
 
+
+    it('pre-populates the email input from the loaded owner', () => {
+        fixture.detectChanges();
+        const emailInput = fixture.debugElement.query(By.css('#email'));
+        expect(emailInput).toBeTruthy();
+        expect(emailInput.nativeElement.value).toBe('james.franklin@example.com');
+    });
 
     it('update owner', waitForAsync(() => {
         let buttons = fixture.debugElement.queryAll(By.css('button'));
