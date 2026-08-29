@@ -135,4 +135,13 @@ describe('OwnerListComponent', () => {
         });
     }));
 
+    it('should show the empty-state alert when no owners are loaded', () => {
+        vi.spyOn(ownerService, 'getOwners').mockReturnValue(of());
+        fixture.detectChanges();
+        const alertEl = fixture.debugElement.query(By.css('.alert.alert-info'));
+        expect(alertEl).toBeTruthy();
+        expect(alertEl.nativeElement.textContent).toContain('No owners found with a last name starting with');
+        expect(alertEl.nativeElement.textContent).toContain('clear the box to list everyone');
+    });
+
 });
