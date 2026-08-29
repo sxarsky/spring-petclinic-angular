@@ -26,6 +26,17 @@ jobs:
       github.event_name == 'workflow_dispatch' ||
       (github.event_name == 'issue_comment' && github.event.issue.pull_request && contains(github.event.comment.body, '@skyramp-testbot') && github.event.comment.user.login != 'skyramp-testbot[bot]')
     runs-on: ubuntu-latest
+    # Code-reuse features. Both are read from the runner environment by the
+    # action (src/mcp.ts) and normalised to "0"/"1" before being handed to the
+    # MCP server -- they are NOT action inputs, so they belong here and not in
+    # `with:`. Job level rather than step level so nothing depends on where the
+    # action reads process.env.
+    #   POM_REUSE   -- refactors generated UI tests against the repo's page
+    #                  objects instead of leaving raw locators.
+    #   UTILS_REUSE -- modularize/reuse post-steps for integration tests.
+    env:
+      SKYRAMP_FEATURE_POM_REUSE: '1'
+      SKYRAMP_FEATURE_UTILS_REUSE: '1'
     permissions:
       contents: write
       pull-requests: write
@@ -112,9 +123,9 @@ jobs:
           githubAppPrivateKey: ${{ secrets.SKYRAMP_TESTBOT_APP_PRIVATE_KEY }}
           workingDirectory: 'spring-petclinic-angular'
           skyrampMcpVersion: '0.3.6-rc.1'
-          # PORTING-GUIDE 4.6: run at the default budget so allocation across test
-          # types is visible. Do not raise this without making it the arm's variable.
-          maxGenerate: 3
+          # Raised from the default 3 for the reuse cohort, so allocation has
+          # room to show whether reuse changes what gets generated.
+          maxGenerate: 5
           # Read-only extra context for analysis. Tests and the report still land
           # in this repo (the primary checkout).
           relatedRepoPaths: |
