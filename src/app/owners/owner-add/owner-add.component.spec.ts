@@ -89,4 +89,38 @@ describe('OwnerAddComponent', () => {
         expect(component.onSubmit).toHaveBeenCalled();
     }));
 
+    it('renders an email input bound to owner.email', () => {
+        const emailInput = fixture.debugElement.query(By.css('input#email'));
+        expect(emailInput, 'add-owner form should render an email input').toBeTruthy();
+        expect(emailInput.nativeElement.getAttribute('name')).toBe('email');
+        expect(emailInput.nativeElement.getAttribute('maxlength')).toBe('100');
+    });
+
+    it('marks the email field invalid and shows feedback past 100 characters', waitForAsync(() => {
+        const emailInput = fixture.debugElement.query(By.css('input#email'));
+        const tooLong = 'a'.repeat(95) + '@example.com';
+        emailInput.nativeElement.value = tooLong;
+        emailInput.nativeElement.dispatchEvent(new Event('input'));
+        emailInput.nativeElement.dispatchEvent(new Event('blur'));
+        fixture.detectChanges();
+
+        fixture.whenStable().then(() => {
+            fixture.detectChanges();
+            expect(emailInput.nativeElement.classList.contains('is-invalid')).toBe(true);
+            expect(fixture.nativeElement.textContent).toContain('Email may be at most 100 characters long');
+        });
+    }));
+
+    it('submits without an email because the field is optional', waitForAsync(() => {
+        vi.spyOn(component, 'onSubmit').mockReturnValue(undefined);
+        const buttons = fixture.debugElement.queryAll(By.css('button'));
+        buttons[1].nativeElement.click();
+        fixture.detectChanges();
+
+        fixture.whenStable().then(() => {
+            expect(component.onSubmit).toHaveBeenCalled();
+            expect(component.owner.email, 'email should stay unset when never typed into').toBeFalsy();
+        });
+    }));
+
 });

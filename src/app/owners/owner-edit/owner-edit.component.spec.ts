@@ -36,7 +36,7 @@ import { OwnerListComponent } from '../owner-list/owner-list.component';
 
 class OwnserServiceStub {
     getOwnerById(): Observable<Owner> {
-        return of({ id: 1, firstName: 'James' } as Owner);
+        return of({ id: 1, firstName: 'James', email: 'james.franklin@example.com' } as Owner);
     }
 }
 
@@ -86,6 +86,44 @@ describe('OwnerEditComponent', () => {
         vi.spyOn(component, 'onSubmit').mockReturnValue(undefined);
         updateOwnerButton.click();
         expect(component.onSubmit).toHaveBeenCalled();
+    }));
+
+    it('pre-populates the email input from the loaded owner', waitForAsync(() => {
+        fixture.detectChanges();
+        fixture.whenStable().then(() => {
+            fixture.detectChanges();
+            const emailInput = fixture.debugElement.query(By.css('input#email'));
+            expect(emailInput, 'edit-owner form should render an email input').toBeTruthy();
+            expect(emailInput.nativeElement.value).toBe('james.franklin@example.com');
+        });
+    }));
+
+    it('marks the email field invalid and shows feedback past 100 characters', waitForAsync(() => {
+        const emailInput = fixture.debugElement.query(By.css('input#email'));
+        const tooLong = 'a'.repeat(95) + '@example.com';
+        emailInput.nativeElement.value = tooLong;
+        emailInput.nativeElement.dispatchEvent(new Event('input'));
+        emailInput.nativeElement.dispatchEvent(new Event('blur'));
+        fixture.detectChanges();
+
+        fixture.whenStable().then(() => {
+            fixture.detectChanges();
+            expect(emailInput.nativeElement.classList.contains('is-invalid')).toBe(true);
+            expect(fixture.nativeElement.textContent).toContain('Email may be at most 100 characters long');
+        });
+    }));
+
+    it('binds an edited email value onto the owner sent to updateOwner', waitForAsync(() => {
+        const emailInput = fixture.debugElement.query(By.css('input#email'));
+        emailInput.nativeElement.value = 'changed.email@example.com';
+        emailInput.nativeElement.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+
+        fixture.whenStable().then(() => {
+            fixture.detectChanges();
+            expect(component.owner.email, 'edited email must reach the owner sent to updateOwner')
+                .toBe('changed.email@example.com');
+        });
     }));
 
 });

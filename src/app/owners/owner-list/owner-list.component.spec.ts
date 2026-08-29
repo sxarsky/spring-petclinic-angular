@@ -67,6 +67,7 @@ describe('OwnerListComponent', () => {
         address: '110 W. Liberty St.',
         city: 'Madison',
         telephone: '6085551023',
+        email: 'george.franklin@example.com',
         pets: null
     };
     let testOwners: Owner[];
@@ -97,6 +98,7 @@ describe('OwnerListComponent', () => {
                 address: '110 W. Liberty St.',
                 city: 'Madison',
                 telephone: '6085551023',
+                email: 'george.franklin@example.com',
                 pets: [{
                         id: 1,
                         name: 'Leo',
@@ -132,6 +134,20 @@ describe('OwnerListComponent', () => {
             de = fixture.debugElement.query(By.css('.ownerFullName'));
             el = de.nativeElement;
             expect(el.textContent).toBe((testOwner.firstName.toString() + ' ' + testOwner.lastName.toString()));
+        });
+    }));
+
+    it(' should show the Email column and the owner email cell ', waitForAsync(() => {
+        fixture.detectChanges();
+        fixture.whenStable().then(() => {
+            fixture.detectChanges();
+            const headers = fixture.debugElement.queryAll(By.css('thead th'))
+                .map((header) => header.nativeElement.textContent.trim());
+            expect(headers, 'owners table should have an Email column').toContain('Email');
+
+            const cells = fixture.debugElement.queryAll(By.css('tbody td'))
+                .map((cell) => cell.nativeElement.textContent.trim());
+            expect(cells).toContain(testOwners[0].email);
         });
     }));
 
