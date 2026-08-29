@@ -71,6 +71,7 @@
           <div class="invalid-feedback" *ngIf="telephone.dirty && telephone.hasError('minlength')">Phone number must be at least one digit long</div>
           <div class="invalid-feedback" *ngIf="telephone.dirty && telephone.hasError('maxlength')">Phone number cannot be more than 20 digits long</div>
           <div class="invalid-feedback" *ngIf="telephone.dirty && telephone.hasError('pattern')">Phone number only accepts digits</div>
+          <div class="form-text">Digits only, no spaces or dashes.</div>
         </div>
       </div>
 
