@@ -46,13 +46,13 @@ export class OwnerListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.ownerService.getOwners().pipe(
+    this.ownerService.getOwnersPage().pipe(
       finalize(() => {
         this.isOwnersDataReceived = true;
         this.changeDetectorRef.markForCheck();
       })
     ).subscribe(
-      owners => this.owners = owners,
+      page => this.owners = page.content,
       error => this.errorMessage = error as any);
   }
 
