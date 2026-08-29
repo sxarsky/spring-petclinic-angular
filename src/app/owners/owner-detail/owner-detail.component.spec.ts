@@ -111,4 +111,17 @@ describe('OwnerDetailComponent', () => {
         expect(router.navigate).toHaveBeenCalledWith(['/owners']);
     });
 
+    // assertions reviewed: checked every enhancement rule against this file. They target
+    // sendRequest/send_request HTTP responses (status codes, response-body JSON paths,
+    // computed fields); this is an Angular TestBed spec whose OwnerService is a stub
+    // returning a plain Observable, so there is no response object to assert against.
+    // The drift-driven assertion added below pins the renamed section heading exactly.
+    it('labels the pets section as the visit history it shows', () => {
+        fixture.detectChanges();
+        const headings = fixture.debugElement.queryAll(By.css('h2'));
+
+        expect(headings[0].nativeElement.textContent.trim()).toBe('Owner Information');
+        expect(headings[1].nativeElement.textContent.trim()).toBe('Pets and visit history');
+    });
+
 });

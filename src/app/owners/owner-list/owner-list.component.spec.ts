@@ -135,4 +135,20 @@ describe('OwnerListComponent', () => {
         });
     }));
 
+
+    // assertions reviewed: checked every enhancement rule against this file. They target
+    // sendRequest/send_request HTTP responses (status codes, response-body JSON paths,
+    // computed fields); this is an Angular TestBed spec whose OwnerService is a stub
+    // returning a plain Observable, so there is no response object to assert against.
+    // The drift-driven assertion added below pins the renamed button label exactly.
+    it(' should label the add-owner button "Add New Owner" (async) ', waitForAsync(() => {
+        fixture.detectChanges();
+        fixture.whenStable().then(() => {
+            fixture.detectChanges(); // *ngIf="isOwnersDataReceived" is now true
+            const buttonLabels = fixture.debugElement.queryAll(By.css('button'))
+                .map(button => button.nativeElement.textContent.trim());
+            expect(buttonLabels).toContain('Add New Owner');
+        });
+    }));
+
 });
