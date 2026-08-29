@@ -157,9 +157,12 @@ jobs:
           # proxy -- which is the path the UI actually uses, because
           # src/environments/environment.ts sets a relative REST_API_URL.
           targetReadyCheckCommand: |
-            curl -sf http://127.0.0.1:9966/petclinic/api/pettypes > /dev/null || { echo "backend 9966 not serving /petclinic/api"; exit 1; }
+            # ARM pc03: the API requires authentication on this base, so the two
+            # API probes carry the seeded admin credentials. The frontend probe
+            # does not -- serving the app is still anonymous.
+            curl -sf -u admin:admin http://127.0.0.1:9966/petclinic/api/pettypes > /dev/null || { echo "backend 9966 not serving /petclinic/api"; exit 1; }
             curl -sf http://127.0.0.1:4200 > /dev/null || { echo "frontend 4200 not serving"; exit 1; }
-            curl -sf http://127.0.0.1:4200/petclinic/api/pettypes > /dev/null || { echo "dev-server proxy 4200 -> 9966 not working"; exit 1; }
+            curl -sf -u admin:admin http://127.0.0.1:4200/petclinic/api/pettypes > /dev/null || { echo "dev-server proxy 4200 -> 9966 not working"; exit 1; }
 
           targetReadyCheckDiagnosticsCommand: |
             echo "--- backend log ---"; tail -50 /tmp/petclinic-backend.log 2>/dev/null || true
