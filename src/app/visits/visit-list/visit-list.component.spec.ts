@@ -89,6 +89,12 @@ describe('VisitListComponent', () => {
                 id: 1,
                 date: '2016-09-07',
                 description: '',
+                durationMinutes: 45,
+                pet: testPet
+            }, {
+                id: 2,
+                date: '2016-09-08',
+                description: 'follow-up',
                 pet: testPet
             }];
 
@@ -103,6 +109,29 @@ describe('VisitListComponent', () => {
 
     it('should create VisitListComponent', () => {
         expect(component).toBeTruthy();
+    });
+
+    it('should render the Duration column', () => {
+        fixture.detectChanges();
+
+        const headers = Array.from(
+            fixture.nativeElement.querySelectorAll('th') as NodeListOf<HTMLElement>
+        ).map(th => th.textContent.trim());
+        expect(headers).toContain('Duration');
+
+        const durationIndex = headers.indexOf('Duration');
+        const bodyRows = Array.from(
+            fixture.nativeElement.querySelectorAll('tr') as NodeListOf<HTMLElement>
+        ).filter(tr => tr.querySelectorAll('td').length > 0);
+        expect(bodyRows.length).toBe(2);
+
+        const durationCellText = (row: HTMLElement) =>
+            row.querySelectorAll('td')[durationIndex].textContent.trim();
+
+        // visit 1 has durationMinutes: 45 -> truthy branch of the template ternary
+        expect(durationCellText(bodyRows[0])).toBe('45 min');
+        // visit 2 omits durationMinutes -> falsy branch renders an empty cell
+        expect(durationCellText(bodyRows[1])).toBe('');
     });
 
     it('should call deleteVisit() method', () => {
