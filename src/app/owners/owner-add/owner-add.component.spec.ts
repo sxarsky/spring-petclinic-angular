@@ -70,6 +70,12 @@ describe('OwnerAddComponent', () => {
         expect(component).toBeTruthy();
     });
 
+    it('shows the telephone helper text', () => {
+        let helperText = fixture.debugElement.query(By.css('.form-text'));
+        expect(helperText).toBeTruthy();
+        expect(helperText.nativeElement.textContent.trim()).toBe('Digits only, no spaces or dashes.');
+    });
+
 
 
     it('back button routing', async () => {
