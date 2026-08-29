@@ -141,11 +141,15 @@ jobs:
             cd "$GITHUB_WORKSPACE/spring-petclinic-angular"
             npm ci
             set -m
-            # angular.json's serve options carry host 0.0.0.0, the proxy config and
-            # allowedHosts, so `npm start` needs no flags here. Binding 0.0.0.0 and
-            # allowlisting host.docker.internal are both required: the executor runs
-            # tests in a container and rewrites localhost -> host.docker.internal.
-            npm start > /tmp/petclinic-frontend.log 2>&1 &
+            # --proxy-config is passed here rather than living in angular.json on
+            # purpose. The dev-server proxy targets the backend on :9966, and the
+            # repo's own Angular CI runs `ng serve` with NO backend: with the proxy
+            # configured by default, its 7-test Playwright suite drops to 3 passed /
+            # 4 failed on connection timeouts. Only the SUT needs the proxy, so only
+            # the SUT asks for it. host 0.0.0.0 and allowedHosts stay in angular.json
+            # (verified harmless to that suite) because the executor runs tests in a
+            # container and rewrites localhost -> host.docker.internal.
+            npm start -- --proxy-config proxy.conf.json > /tmp/petclinic-frontend.log 2>&1 &
             echo $! > /tmp/petclinic-frontend.pid
 
           # Ordered so a failure names the broken link instead of just "not ready":
