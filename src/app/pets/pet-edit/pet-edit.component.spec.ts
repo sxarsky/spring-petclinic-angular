@@ -87,6 +87,7 @@ describe('PetEditComponent', () => {
         testPet = {
             id: 1,
             name: 'Leo',
+            nickname: 'Buddy',
             birthDate: '2010-09-07',
             type: { id: 1, name: 'cat' },
             ownerId: 1,
@@ -109,5 +110,23 @@ describe('PetEditComponent', () => {
 
     it('should create PetEditComponent', () => {
         expect(component).toBeTruthy();
+    });
+
+    it('should pre-populate the nickname input from the loaded pet', async () => {
+        component.pet = testPet;
+        fixture.detectChanges();
+        // ngModel pushes the model value into the view on a microtask, so wait for
+        // the fixture to settle before reading the rendered input value.
+        await fixture.whenStable();
+        fixture.detectChanges();
+        const nicknameInput = fixture.nativeElement.querySelector('#nickname') as HTMLInputElement;
+        expect(nicknameInput).toBeTruthy();
+        expect(nicknameInput.value).toBe('Buddy');
+    });
+
+    it('should constrain the nickname input to 30 characters', () => {
+        fixture.detectChanges();
+        const nicknameInput = fixture.nativeElement.querySelector('#nickname') as HTMLInputElement;
+        expect(nicknameInput.maxLength).toBe(30);
     });
 });

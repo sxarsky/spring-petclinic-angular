@@ -67,6 +67,7 @@ describe('PetListComponent', () => {
         inputPet = {
             id: 1,
             name: 'Leo',
+            nickname: 'Buddy',
             birthDate: '2010-09-07',
             type: { id: 1, name: 'cat' },
             ownerId: 1,
@@ -96,5 +97,12 @@ describe('PetListComponent', () => {
         fixture.detectChanges();
         component.deletePet(component.pet);
         expect(vi.mocked(spy).mock.calls.length > 0, 'deletePet called').toBe(true);
+    });
+
+    it('should render the pet nickname', () => {
+        fixture.detectChanges();
+        const rendered = fixture.nativeElement.textContent;
+        expect(rendered).toContain('Nickname');
+        expect(rendered).toContain('Buddy');
     });
 });

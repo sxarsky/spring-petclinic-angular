@@ -11,6 +11,7 @@ const owner = {
     {
       id: 1,
       name: 'Leo',
+      nickname: 'Buddy',
       birthDate: '2010-09-07',
       type: { id: 1, name: 'cat' },
       visits: []
@@ -211,6 +212,11 @@ for (const viewport of [
       await page.goto(target.path);
       await expect(page.getByRole('heading', { name: target.heading })).toBeVisible();
       await expect(page.locator('main')).toBeVisible();
+
+      if (target.path === '/petclinic/owners/1') {
+        await expect(page.locator('main')).toContainText('Nickname');
+        await expect(page.locator('main')).toContainText('Buddy');
+      }
     }
 
     await testInfo.attach(`petclinic-${viewport.name}.png`, {
