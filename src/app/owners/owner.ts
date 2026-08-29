@@ -29,5 +29,6 @@ export interface Owner {
   address: string;
   city: string;
   telephone: string;
+  email: string;
   pets: Pet[];
 }
