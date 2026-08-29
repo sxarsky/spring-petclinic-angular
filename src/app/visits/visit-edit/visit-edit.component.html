@@ -49,6 +49,14 @@
         </div>
       </div>
 
+      <div class="row mb-3">
+        <label for="durationMinutes" class="col-sm-2 col-form-label">Duration (minutes)</label>
+        <div class="col-sm-10">
+          <input id="durationMinutes" name="durationMinutes" class="form-control" type="number" min="5" max="240" [(ngModel)]="visit.durationMinutes" #durationMinutes="ngModel" [class.is-valid]="durationMinutes.dirty && durationMinutes.valid" [class.is-invalid]="durationMinutes.dirty && durationMinutes.invalid" />
+          <div class="invalid-feedback" *ngIf="durationMinutes.dirty && durationMinutes.invalid">Duration must be between 5 and 240 minutes</div>
+        </div>
+      </div>
+
       <input type="hidden" name="id" id="id" [(ngModel)]="visit.id" />
       <input type="hidden" name="pet" id="pet" [(ngModel)]="visit.pet" />
       <div class="row">
