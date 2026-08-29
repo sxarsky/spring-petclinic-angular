@@ -46,6 +46,10 @@ export class OwnerListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loadOwners();
+  }
+
+  private loadOwners() {
     this.ownerService.getOwners().pipe(
       finalize(() => {
         this.isOwnersDataReceived = true;

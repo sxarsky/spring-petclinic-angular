@@ -44,6 +44,7 @@
           <th>Address</th>
           <th>City</th>
           <th>Telephone</th>
+          <th>No. of pets</th>
           <th>Pets</th>
         </tr>
         </thead>
@@ -55,6 +56,7 @@
           <td>{{ owner.address }}</td>
           <td>{{ owner.city }}</td>
           <td>{{ owner.telephone }}</td>
+          <td>{{ owner.pets?.length || 0 }}</td>
           <td>
         <tr *ngFor="let pet of owner.pets">
           {{ pet.name }}
