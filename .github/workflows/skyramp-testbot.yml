@@ -26,17 +26,6 @@ jobs:
       github.event_name == 'workflow_dispatch' ||
       (github.event_name == 'issue_comment' && github.event.issue.pull_request && contains(github.event.comment.body, '@skyramp-testbot') && github.event.comment.user.login != 'skyramp-testbot[bot]')
     runs-on: ubuntu-latest
-    # Code-reuse features. Both are read from the runner environment by the
-    # action (src/mcp.ts) and normalised to "0"/"1" before being handed to the
-    # MCP server -- they are NOT action inputs, so they belong here and not in
-    # `with:`. Job level rather than step level so nothing depends on where the
-    # action reads process.env.
-    #   POM_REUSE   -- refactors generated UI tests against the repo's page
-    #                  objects instead of leaving raw locators.
-    #   UTILS_REUSE -- modularize/reuse post-steps for integration tests.
-    env:
-      SKYRAMP_FEATURE_POM_REUSE: '1'
-      SKYRAMP_FEATURE_UTILS_REUSE: '1'
     permissions:
       contents: write
       pull-requests: write
@@ -115,6 +104,12 @@ jobs:
           node-version: '24'
 
       - uses: skyramp/testbot@56fac3cc7b777cd08598ed7a7586f8d9733f3507 # v0.11.11
+        env:
+          # SkyrampUtils code reuse for integration tests: modularize/reuse
+          # post-steps, off by default. Read from process.env by the action
+          # (src/mcp.ts), not an action input -- and it must be the string "1";
+          # anything else is treated as off.
+          SKYRAMP_FEATURE_UTILS_REUSE: "1"
         with:
           skyrampLicenseFile: ${{ secrets.SKYRAMP_LICENSE_FILE }}
           anthropicApiKey: ${{ secrets.SKYRAMP_TESTBOT_API_KEY }}
