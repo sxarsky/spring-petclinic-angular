@@ -45,7 +45,7 @@ type Spy = Mock;
 
 
 class OwnerServiceStub {
-    getOwners(): Observable<Owner[]> {
+    getOwners(sort?: string): Observable<Owner[]> {
         return of();
     }
 }
@@ -134,5 +134,15 @@ describe('OwnerListComponent', () => {
             expect(el.textContent).toBe((testOwner.firstName.toString() + ' ' + testOwner.lastName.toString()));
         });
     }));
+
+    it('should request owners sorted by city when sortBy() is called', () => {
+        fixture.detectChanges();
+        spy.mockClear();
+
+        component.sortBy('city');
+
+        expect(spy).toHaveBeenCalledWith('city');
+        expect(component.sortField).toBe('city');
+    });
 
 });

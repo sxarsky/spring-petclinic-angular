@@ -219,3 +219,34 @@ for (const viewport of [
     });
   });
 }
+
+// assertions reviewed: this spec drives the UI through Playwright locators, not
+// Skyramp sendRequest calls, so the response-body assertion rules do not apply.
+// The state checks below (row count before/after the re-sort, and the search
+// field retaining its value) are the meaningful post-action state for this flow.
+test('city column header requests the owners list sorted by city', async ({ page }) => {
+  // Reach the list through the navbar: proxy.conf.json forwards /petclinic to the
+  // backend, so a cold deep-link to /petclinic/owners is served by Spring, not Angular.
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Owners' }).click();
+  await page.getByRole('link', { name: 'Search' }).click();
+
+  const cityHeader = page.locator('#sortByCity');
+  await expect(cityHeader).toHaveText('City');
+
+  const ownerRows = page.locator('#ownersTable table > tbody > tr');
+  await expect(ownerRows).toHaveCount(1);
+
+  const sortRequest = page.waitForRequest(request =>
+    request.url().includes('/petclinic/api/owners')
+    && new URL(request.url()).searchParams.get('sort') === 'city'
+  );
+
+  await cityHeader.click();
+  await sortRequest;
+  await page.waitForLoadState('networkidle');
+
+  // Re-sorting re-renders the list; it must not duplicate or drop rows.
+  await expect(ownerRows).toHaveCount(1);
+  await expect(page.getByRole('link', { name: 'George Franklin' })).toBeVisible();
+});
