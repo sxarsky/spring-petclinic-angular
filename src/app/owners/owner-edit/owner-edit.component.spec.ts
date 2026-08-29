@@ -36,7 +36,7 @@ import { OwnerListComponent } from '../owner-list/owner-list.component';
 
 class OwnserServiceStub {
     getOwnerById(): Observable<Owner> {
-        return of({ id: 1, firstName: 'James' } as Owner);
+        return of({ id: 1, firstName: 'James', email: 'james.franklin@example.com' } as Owner);
     }
 }
 
@@ -70,6 +70,22 @@ describe('OwnerEditComponent', () => {
     it('should create OwnerEditComponent', () => {
         expect(component).toBeTruthy();
     });
+
+    it('pre-populates the Email input from the loaded owner and submits the edited value', waitForAsync(() => {
+        fixture.detectChanges();
+        fixture.whenStable().then(() => {
+            fixture.detectChanges();
+            const emailInput = fixture.debugElement.query(By.css('input#email'));
+            expect(emailInput, 'Email input is rendered on the edit form').toBeTruthy();
+            expect(emailInput.nativeElement.value).toBe('james.franklin@example.com');
+
+            emailInput.nativeElement.value = 'james.updated@example.com';
+            emailInput.nativeElement.dispatchEvent(new Event('input'));
+            fixture.detectChanges();
+
+            expect(component.owner.email).toBe('james.updated@example.com');
+        });
+    }));
 
     it('back button routing', async () => {
         let buttons = fixture.debugElement.queryAll(By.css('button'));
