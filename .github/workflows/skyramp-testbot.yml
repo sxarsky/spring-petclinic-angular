@@ -1,0 +1,169 @@
+name: Skyramp Testbot
+
+# Ported from the mern-records rig (multi-repo-eval/PORTING-GUIDE.md). Structural
+# parts that are load-bearing rather than cosmetic are commented inline.
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+  issue_comment:
+    types: [created]
+  workflow_dispatch:
+    inputs:
+      spring-petclinic-rest_ref:
+        description: 'Git ref (branch, tag, or SHA) of sxarsky/spring-petclinic-rest to analyze. Defaults to its default branch.'
+        required: false
+        type: string
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.event.issue.number || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' && github.actor != 'skyramp-testbot[bot]' }}
+
+jobs:
+  testbot:
+    if: >-
+      github.event_name == 'pull_request' ||
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'issue_comment' && github.event.issue.pull_request && contains(github.event.comment.body, '@skyramp-testbot') && github.event.comment.user.login != 'skyramp-testbot[bot]')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      checks: write
+
+    # No service container. spring-petclinic-rest runs the h2 profile by default
+    # (application.properties: spring.profiles.active=h2,spring-data-jpa), an
+    # in-memory database seeded from src/main/resources/db/h2/{schema,data}.sql.
+    # The mern-records rig needed a mongo container plus a seed step; this cluster
+    # needs neither, which removes the "empty datastore, vacuous assertions" trap.
+
+    steps:
+      - name: Generate GitHub App Token
+        id: skyramp-testbot-app-token
+        uses: actions/create-github-app-token@d72941d797fd3113feb6b93fd0dec494b13a2547 # v1
+        with:
+          app-id: ${{ secrets.SKYRAMP_TESTBOT_APP_ID }}
+          private-key: ${{ secrets.SKYRAMP_TESTBOT_APP_PRIVATE_KEY }}
+          # Fails closed if the app is not installed on BOTH repos.
+          repositories: spring-petclinic-angular,spring-petclinic-rest
+
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          # No `filter: blob:none`. A partial clone fetches blobs lazily, and with
+          # persist-credentials: false there are no credentials for that fetch, so
+          # Testbot's `git diff <base-sha>` dies with exit 128.
+          fetch-depth: 0
+          path: spring-petclinic-angular
+          token: ${{ steps.skyramp-testbot-app-token.outputs.token }}
+          persist-credentials: false
+
+      # Try the matching branch in the backend first, so a cross-repo change can be
+      # reviewed as one unit. Most frontend PRs have no backend counterpart, hence
+      # continue-on-error plus the default-branch fallback below.
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        id: skyramp-checkout-spring-petclinic-rest
+        continue-on-error: true
+        with:
+          repository: sxarsky/spring-petclinic-rest
+          path: spring-petclinic-rest
+          fetch-depth: 0
+          ref: ${{ inputs['spring-petclinic-rest_ref'] || github.head_ref || github.ref_name }}
+          token: ${{ steps.skyramp-testbot-app-token.outputs.token }}
+          persist-credentials: false
+
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        if: steps['skyramp-checkout-spring-petclinic-rest'].outcome == 'failure'
+        with:
+          repository: sxarsky/spring-petclinic-rest
+          path: spring-petclinic-rest
+          fetch-depth: 0
+          token: ${{ steps.skyramp-testbot-app-token.outputs.token }}
+          persist-credentials: false
+
+      # Which backend ref actually landed is the single most important fact for
+      # reading a multi-repo run, and it is otherwise buried in the checkout step.
+      - name: Report resolved backend ref
+        run: |
+          cd "$GITHUB_WORKSPACE/spring-petclinic-rest"
+          echo "backend ref: $(git rev-parse --abbrev-ref HEAD) @ $(git rev-parse --short HEAD)"
+          echo "matched-branch checkout outcome: ${{ steps['skyramp-checkout-spring-petclinic-rest'].outcome }}"
+
+      # Java 25 matches what the port was validated against locally. Spring Boot
+      # 4.1 needs 17+; `cache: maven` keeps the backend build off the critical
+      # path after the first run.
+      - uses: actions/setup-java@c5195efecf7bdfc987ee8bae7a71cb8b11521c00 # v4
+        with:
+          distribution: temurin
+          java-version: '25'
+          cache: maven
+          cache-dependency-path: spring-petclinic-rest/pom.xml
+
+      # package.json declares engines.node = 24.x.
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '24'
+
+      - uses: skyramp/testbot@56fac3cc7b777cd08598ed7a7586f8d9733f3507 # v0.11.11
+        with:
+          skyrampLicenseFile: ${{ secrets.SKYRAMP_LICENSE_FILE }}
+          anthropicApiKey: ${{ secrets.SKYRAMP_TESTBOT_API_KEY }}
+          githubToken: ${{ steps.skyramp-testbot-app-token.outputs.token }}
+          githubAppId: ${{ secrets.SKYRAMP_TESTBOT_APP_ID }}
+          githubAppPrivateKey: ${{ secrets.SKYRAMP_TESTBOT_APP_PRIVATE_KEY }}
+          workingDirectory: 'spring-petclinic-angular'
+          skyrampMcpVersion: '0.3.6-rc.1'
+          # PORTING-GUIDE 4.6: run at the default budget so allocation across test
+          # types is visible. Do not raise this without making it the arm's variable.
+          maxGenerate: 3
+          # Read-only extra context for analysis. Tests and the report still land
+          # in this repo (the primary checkout).
+          relatedRepoPaths: |
+            ./spring-petclinic-rest
+
+          # All three target commands run with cwd = workingDirectory
+          # ($GITHUB_WORKSPACE/spring-petclinic-angular), so the backend is
+          # addressed through $GITHUB_WORKSPACE rather than a relative path.
+          targetSetupCommand: |
+            set -e
+
+            # ---- backend: sxarsky/spring-petclinic-rest, port 9966 -------------
+            # Context path is /petclinic/, so the API root is
+            # http://localhost:9966/petclinic/api. H2 is in-memory and seeds
+            # itself; there is no database to start or populate.
+            cd "$GITHUB_WORKSPACE/spring-petclinic-rest"
+            # set -m puts the server in its own process group so teardown can kill
+            # the whole tree with `kill -- -PID`, not just the wrapper.
+            set -m
+            ./mvnw -B -q -DskipTests spring-boot:run > /tmp/petclinic-backend.log 2>&1 &
+            echo $! > /tmp/petclinic-backend.pid
+
+            # ---- frontend: this repo, port 4200 --------------------------------
+            cd "$GITHUB_WORKSPACE/spring-petclinic-angular"
+            npm ci
+            set -m
+            # angular.json's serve options carry host 0.0.0.0, the proxy config and
+            # allowedHosts, so `npm start` needs no flags here. Binding 0.0.0.0 and
+            # allowlisting host.docker.internal are both required: the executor runs
+            # tests in a container and rewrites localhost -> host.docker.internal.
+            npm start > /tmp/petclinic-frontend.log 2>&1 &
+            echo $! > /tmp/petclinic-frontend.pid
+
+          # Ordered so a failure names the broken link instead of just "not ready":
+          # backend direct, frontend root, then the API *through* the dev-server
+          # proxy -- which is the path the UI actually uses, because
+          # src/environments/environment.ts sets a relative REST_API_URL.
+          targetReadyCheckCommand: |
+            curl -sf http://127.0.0.1:9966/petclinic/api/pettypes > /dev/null || { echo "backend 9966 not serving /petclinic/api"; exit 1; }
+            curl -sf http://127.0.0.1:4200 > /dev/null || { echo "frontend 4200 not serving"; exit 1; }
+            curl -sf http://127.0.0.1:4200/petclinic/api/pettypes > /dev/null || { echo "dev-server proxy 4200 -> 9966 not working"; exit 1; }
+
+          targetReadyCheckDiagnosticsCommand: |
+            echo "--- backend log ---"; tail -50 /tmp/petclinic-backend.log 2>/dev/null || true
+            echo "--- frontend log ---"; tail -50 /tmp/petclinic-frontend.log 2>/dev/null || true
+
+          targetTeardownCommand: |
+            for pidfile in /tmp/petclinic-frontend.pid /tmp/petclinic-backend.pid; do
+              [ -f "$pidfile" ] || continue
+              kill -- -"$(cat "$pidfile")" 2>/dev/null || true
+              rm -f "$pidfile"
+            done
