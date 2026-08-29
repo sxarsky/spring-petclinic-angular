@@ -35,7 +35,10 @@ import {Observable, of} from 'rxjs';
 
 class VetServiceStub {
   getVets(): Observable<Vet[]> {
-    return of();
+    return of([
+      {id: 1, firstName: 'James', lastName: 'Carter', specialties: []},
+      {id: 3, firstName: 'Linda', lastName: 'Douglas', specialties: [{id: 3, name: 'dentistry'}, {id: 2, name: 'surgery'}]}
+    ] as Vet[]);
   }
 }
 
@@ -67,5 +70,21 @@ describe('VetListComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  function specialtiesCellText(rowIndex: number): string {
+    const row = fixture.nativeElement.querySelectorAll('#vets tbody tr')[rowIndex];
+    return row.querySelectorAll('td')[1].textContent.replace(/\s+/g, ' ').trim();
+  }
+
+  it('should show "No specialties" for a vet with no specialties', () => {
+    fixture.detectChanges();
+    expect(specialtiesCellText(0)).toBe('No specialties');
+  });
+
+  it('should render every specialty name for a vet with specialties', () => {
+    fixture.detectChanges();
+    expect(specialtiesCellText(1)).toBe('dentistry surgery');
+    expect(specialtiesCellText(1)).not.toContain('No specialties');
   });
 });

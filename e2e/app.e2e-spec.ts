@@ -123,6 +123,8 @@ test('displays backend data on list pages', async ({ page }) => {
   await expect(page.locator('#vets tbody > tr')).toHaveCount(6);
   await expect(page.locator('#vets')).toContainText('James Carter');
   await expect(page.locator('#vets')).toContainText('radiology');
+  await expect(page.locator('#vets')).toContainText('No specialties');
+  await expect(page.getByText('No specialties')).toHaveCount(5);
 
   await page.goto('/petclinic/pettypes');
   await expect(page.locator('#pettypes tbody > tr')).toHaveCount(6);
