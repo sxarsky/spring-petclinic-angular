@@ -145,6 +145,41 @@ test('displays backend data on list pages', async ({ page }) => {
   await expect(page.getByRole('link', { name: 'Harold Davis' })).toBeVisible();
   await expect(page.getByRole('link', { name: 'George Franklin' })).toHaveCount(0);
 });
+
+// NOTE: this suite mocks the backend (see mockBackend), so it can only verify the
+// request contract the frontend emits when the City header is clicked -- not that
+// the results actually come back sorted. Deliberately no sorting in the mock: doing
+// that would assert the mock's own behavior and hide the real backend's handling.
+test('clicking the City header requests owners sorted by city', async ({ page }) => {
+  const owners = [
+    { id: 1, firstName: 'George', lastName: 'Franklin', address: '110 W. Liberty St.', city: 'Madison', telephone: '6085551023', pets: [] },
+    { id: 2, firstName: 'Betty', lastName: 'Davis', address: '638 Cardinal Ave.', city: 'Sun Prairie', telephone: '6085551749', pets: [] }
+  ];
+  const requestedUrls: string[] = [];
+  await page.route(
+    url => url.pathname.endsWith('/petclinic/api/owners'),
+    (route, request) => {
+      requestedUrls.push(request.url());
+      return route.fulfill({ json: owners });
+    }
+  );
+
+  // Reach the list through the navbar rather than page.goto('/petclinic/owners'):
+  // the dev-server proxy forwards all of /petclinic/* to the API, so deep links
+  // never load the Angular app.
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Owners' }).click();
+  await page.locator('#petclinicNavbar').getByRole('link', { name: 'Search' }).click();
+  await expect(page.getByRole('link', { name: 'George Franklin' })).toBeVisible();
+
+  await page.locator('#sortByCity').click();
+
+  await expect
+    .poll(() => requestedUrls.some(url => new URL(url).searchParams.get('sort') === 'city'))
+    .toBe(true);
+  await expect(page.locator('#ownersTable tbody > tr')).toHaveCount(2);
+});
+
 test('desktop dropdowns open and navigate to owners and veterinarians', async ({ page }) => {
   await page.goto('/');
 

@@ -72,8 +72,27 @@ describe('OwnerService', () => {
         // OwnerService should have made one request to GET owners from expected URL
         const req = httpTestingController.expectOne(ownerService.entityUrl);
         expect(req.request.method).toEqual('GET');
+        expect(req.request.params.has('sort'), 'no sort param when called with no argument').toBe(false);
 
         // Respond with the mock owners
+        req.flush(expectedOwners);
+    });
+
+    it('should request owners sorted by the given field', () => {
+        ownerService
+            .getOwners('city')
+            .subscribe({
+                next: (owners) => expect(owners, 'should return expected owners').toEqual(expectedOwners),
+                error: (error) => expect.fail(`Unexpected error: ${error}`),
+            });
+
+        // HttpClient serializes {params: {sort}} into HttpParams, not into entityUrl
+        const req = httpTestingController.expectOne(
+            (r) => r.url === ownerService.entityUrl && r.params.get('sort') === 'city'
+        );
+        expect(req.request.method).toEqual('GET');
+        expect(req.request.params.get('sort')).toEqual('city');
+
         req.flush(expectedOwners);
     });
 
