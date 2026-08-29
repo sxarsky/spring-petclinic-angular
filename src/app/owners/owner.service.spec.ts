@@ -168,4 +168,103 @@ describe('OwnerService', () => {
         });
         req.flush('404 error', {status: 404, statusText: 'Not Found'});
     });
+    it('should surface the first per-field validation message from the response body', () => {
+        let actual: string | undefined;
+        ownerService.updateOwner('1', { id: 1, firstName: '' } as Owner).subscribe({
+            next: () => expect.fail('Should have failed with a 400 error'),
+            error: (error) => (actual = error),
+        });
+
+        const req = httpTestingController.expectOne({
+            method: 'PUT',
+            url: ownerService.entityUrl + '/1',
+        });
+        req.flush(
+            {
+                type: 'http://localhost/petclinic/api/owners/1',
+                title: 'MethodArgumentNotValidException',
+                status: 400,
+                detail: 'The request contains invalid or missing parameters',
+                schemaValidationErrors: [
+                    {
+                        message: "Field 'firstName' must not be blank (rejected value: )",
+                        field: 'firstName',
+                        rejectedValue: '',
+                        defaultMessage: 'must not be blank',
+                    },
+                ],
+            },
+            {status: 400, statusText: 'Bad Request'}
+        );
+
+        expect(actual).toBe("Field 'firstName' must not be blank (rejected value: )");
+        expect(actual).not.toBe('The request contains invalid or missing parameters');
+    });
+
+    it('should fall back to the problem detail when the validation list is empty', () => {
+        let actual: string | undefined;
+        ownerService.getOwnerById(1).subscribe({
+            next: () => expect.fail('Should have failed with a 404 error'),
+            error: (error) => (actual = error),
+        });
+
+        const req = httpTestingController.expectOne({
+            method: 'GET',
+            url: ownerService.entityUrl + '/1',
+        });
+        req.flush(
+            {
+                title: 'DataIntegrityViolationException',
+                status: 404,
+                detail:
+                    'The requested resource could not be processed due to a data constraint violation',
+                schemaValidationErrors: [],
+            },
+            {status: 404, statusText: 'Not Found'}
+        );
+
+        expect(actual).toBe(
+            'The requested resource could not be processed due to a data constraint violation'
+        );
+    });
+
+    // Regression guard for the spring-petclinic-rest contract. The API emits the
+    // per-field list under `validationErrors` (ExceptionControllerAdvice sets that
+    // property, and openapi.yml requires it); the body below is copied verbatim from
+    // a live PUT /petclinic/api/owners/1 response.
+    it('should surface the validation message for the shape the API actually returns', () => {
+        const expected =
+            'Field \'firstName\' must match "^[\\p{L}]+([ \'-][\\p{L}]+){0,2}$" (rejected value: George123)';
+        let actual: string | undefined;
+        ownerService.updateOwner('1', { id: 1, firstName: 'George123' } as Owner).subscribe({
+            next: () => expect.fail('Should have failed with a 400 error'),
+            error: (error) => (actual = error),
+        });
+
+        const req = httpTestingController.expectOne({
+            method: 'PUT',
+            url: ownerService.entityUrl + '/1',
+        });
+        req.flush(
+            {
+                detail: 'The request contains invalid or missing parameters',
+                instance: '/petclinic/api/owners/1',
+                status: 400,
+                title: 'MethodArgumentNotValidException',
+                type: 'http://localhost:9966/petclinic/api/owners/1',
+                validationErrors: [
+                    {
+                        message: expected,
+                        field: 'firstName',
+                        defaultMessage: 'must match "^[\\p{L}]+([ \'-][\\p{L}]+){0,2}$"',
+                        rejectedValue: 'George123',
+                    },
+                ],
+            },
+            {status: 400, statusText: 'Bad Request'}
+        );
+
+        expect(actual).toBe(expected);
+        expect(actual).not.toBe('The request contains invalid or missing parameters');
+    });
 });
