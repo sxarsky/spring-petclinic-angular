@@ -33,9 +33,15 @@ import {ActivatedRouteStub, RouterStub} from '../../testing/router-stubs';
 import {Vet} from '../vet';
 import {Observable, of} from 'rxjs';
 
+const VETS_FIXTURE: Vet[] = [
+  {id: 1, firstName: 'James', lastName: 'Carter', specialties: []},
+  {id: 2, firstName: 'Helen', lastName: 'Leary', specialties: [{id: 1, name: 'radiology'}]},
+  {id: 3, firstName: 'Linda', lastName: 'Douglas', specialties: [{id: 3, name: 'dentistry'}, {id: 2, name: 'surgery'}]}
+] as Vet[];
+
 class VetServiceStub {
   getVets(): Observable<Vet[]> {
-    return of();
+    return of(VETS_FIXTURE);
   }
 }
 
@@ -67,5 +73,46 @@ describe('VetListComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  function specialtiesCell(lastName: string): HTMLTableCellElement {
+    const rows = Array.from(
+      fixture.nativeElement.querySelectorAll('#vets tbody tr')
+    ) as HTMLTableRowElement[];
+    const row = rows.find(current => current.cells[0].textContent.includes(lastName));
+    expect(row).toBeTruthy();
+    return row.cells[1];
+  }
+
+  it('shows the "No specialties" placeholder for a vet with no specialties', () => {
+    fixture.detectChanges();
+
+    const cell = specialtiesCell('Carter');
+    const placeholder = cell.querySelector('span.text-muted');
+
+    expect(placeholder).toBeTruthy();
+    expect(placeholder.textContent.trim()).toBe('No specialties');
+  });
+
+  it('does not show the placeholder for a vet that has specialties', () => {
+    fixture.detectChanges();
+
+    const cell = specialtiesCell('Douglas');
+
+    expect(cell.querySelector('span.text-muted')).toBeNull();
+    expect(cell.textContent).not.toContain('No specialties');
+  });
+
+  it('renders every specialty of a vet inline in a single cell', () => {
+    fixture.detectChanges();
+
+    const cell = specialtiesCell('Douglas');
+    const inlineSpecialties = Array.from(
+      cell.querySelectorAll('div.d-inline')
+    ) as HTMLElement[];
+
+    expect(inlineSpecialties.length).toBe(2);
+    expect(inlineSpecialties.map(element => element.textContent.trim()))
+      .toEqual(['dentistry', 'surgery']);
   });
 });
