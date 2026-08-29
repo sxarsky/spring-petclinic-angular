@@ -135,4 +135,29 @@ describe('OwnerListComponent', () => {
         });
     }));
 
+    it('should render the "No. of pets" column header', waitForAsync(() => {
+        fixture.detectChanges();
+        fixture.whenStable().then(() => {
+            fixture.detectChanges();
+            const headers = fixture.debugElement
+                .queryAll(By.css('#ownersTable table thead th'))
+                .map(header => (header.nativeElement as HTMLElement).textContent.trim());
+            expect(headers).toContain('No. of pets');
+        });
+    }));
+
+    it('should show the number of pets for each owner', waitForAsync(() => {
+        fixture.detectChanges();
+        fixture.whenStable().then(() => {
+            fixture.detectChanges();
+            const petCountCell = fixture.debugElement.query(
+                By.css('#ownersTable table tbody tr:first-child td:nth-child(5)')
+            );
+            el = petCountCell.nativeElement;
+            // testOwners[0] carries exactly one pet (Leo), so the column must read '1'.
+            expect(el.textContent.trim()).toBe(testOwners[0].pets.length.toString());
+            expect(el.textContent.trim()).toBe('1');
+        });
+    }));
+
 });

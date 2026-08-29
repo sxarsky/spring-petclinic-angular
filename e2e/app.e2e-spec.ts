@@ -83,7 +83,10 @@ test('displays backend data on list pages', async ({ page }) => {
       address: '110 W. Liberty St.',
       city: 'Madison',
       telephone: '6085551023',
-      pets: []
+      pets: [
+        { id: 1, name: 'Leo', birthDate: '2010-09-07', type: { id: 1, name: 'cat' }, visits: [] },
+        { id: 2, name: 'Basil', birthDate: '2012-08-06', type: { id: 6, name: 'hamster' }, visits: [] }
+      ]
     },
     {
       id: 2,
@@ -139,6 +142,20 @@ test('displays backend data on list pages', async ({ page }) => {
   expect(renderedSpecialties).toEqual(expect.arrayContaining(['dentistry', 'surgery']));
 
   await page.goto('/petclinic/owners');
+
+  await expect(
+    page.locator('#ownersTable thead th', { hasText: 'No. of pets' })
+  ).toBeVisible();
+
+  // The count column must reflect each owner's real pets array, not a constant 0.
+  const ownerRows = page.locator('#ownersTable tbody tr');
+  await expect(
+    ownerRows.filter({ hasText: 'George Franklin' }).locator('td').nth(4)
+  ).toHaveText('2');
+  await expect(
+    ownerRows.filter({ hasText: 'Betty Davis' }).locator('td').nth(4)
+  ).toHaveText('0');
+
   await page.locator('#lastName').fill('Davis');
   await page.getByRole('button', { name: 'Find Owner' }).click();
   await expect(page.getByRole('link', { name: 'Betty Davis' })).toBeVisible();
