@@ -135,4 +135,18 @@ describe('OwnerListComponent', () => {
         });
     }));
 
+    it(' should show the number of pets after getOwners observable (async) ', waitForAsync(() => {
+        fixture.detectChanges();
+        fixture.whenStable().then(() => {
+            fixture.detectChanges(); // update view with the owners table
+
+            // Column order in the template: Name, Address, City, Telephone, No. of pets, Pets
+            const headers = fixture.debugElement.queryAll(By.css('#ownersTable thead th'));
+            expect(headers[4].nativeElement.textContent.trim()).toBe('No. of pets');
+
+            const cells = fixture.debugElement.queryAll(By.css('#ownersTable tbody tr td'));
+            expect(cells[4].nativeElement.textContent.trim()).toBe(testOwners[0].pets.length.toString());
+        });
+    }));
+
 });
