@@ -89,6 +89,12 @@ describe('VisitListComponent', () => {
                 id: 1,
                 date: '2016-09-07',
                 description: '',
+                durationMinutes: 45,
+                pet: testPet
+            }, {
+                id: 2,
+                date: '2016-09-08',
+                description: '',
                 pet: testPet
             }];
 
@@ -109,6 +115,23 @@ describe('VisitListComponent', () => {
         fixture.detectChanges();
         component.deleteVisit(component.visits[0]);
         expect(vi.mocked(spy).mock.calls.length > 0, 'deleteVisit called').toBe(true);
+    });
+
+    it('should render the duration column', () => {
+        fixture.detectChanges();
+
+        const rows = fixture.nativeElement.querySelectorAll('tr');
+        const headerCells = Array.from(rows[0].querySelectorAll('th'))
+            .map((cell: HTMLElement) => cell.textContent.trim());
+        expect(headerCells).toContain('Duration');
+
+        const durationCellText = (row: HTMLElement) =>
+            row.querySelectorAll('td')[2].textContent.trim();
+
+        // visit 1 has durationMinutes: 45 -> rendered as "45 min"
+        expect(durationCellText(rows[1])).toBe('45 min');
+        // visit 2 has no durationMinutes -> rendered as an empty cell
+        expect(durationCellText(rows[2])).toBe('');
     });
 
 });

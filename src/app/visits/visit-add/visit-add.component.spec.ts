@@ -108,4 +108,16 @@ describe('VisitAddComponent', () => {
     it('should create VisitAddComponent', () => {
         expect(component).toBeTruthy();
     });
+
+    it('should render the duration field with the 5-240 bound', () => {
+        fixture.detectChanges();
+
+        const durationInput: HTMLInputElement =
+            fixture.nativeElement.querySelector('#durationMinutes');
+        expect(durationInput).toBeTruthy();
+        expect(durationInput.getAttribute('type')).toBe('number');
+        // mirrors @Min(5)/@Max(240) on the backend VisitFieldsDto
+        expect(durationInput.getAttribute('min')).toBe('5');
+        expect(durationInput.getAttribute('max')).toBe('240');
+    });
 });
