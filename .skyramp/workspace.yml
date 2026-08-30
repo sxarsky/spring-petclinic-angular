@@ -5,13 +5,11 @@ workspace:
 metadata:
   schemaVersion: v1
   executorVersion: v1.3.40
+  updatedAt: "2026-08-30T08:33:28.826Z"
 services:
   - serviceName: spring-petclinic-angular
     language: typescript
     framework: playwright
-    # The repo's own suite lives here (playwright.config.ts: testDir './e2e').
-    # Generated specs join it, which is the point of this cluster: the agent
-    # extends an existing suite rather than seeding an empty one.
     testDirectory: e2e
     api:
       authType: none
@@ -23,14 +21,10 @@ services:
     repository: sxarsky/spring-petclinic-rest
     language: java
     framework: playwright
-    # NOTE: resolved relative to the DELIVERY ROOT (this repo), not the backend
-    # repo -- so this is spring-petclinic-angular/tests/skyramp/. Deliberately
-    # outside playwright.config.ts's testDir ('./e2e'), per PORTING-GUIDE 5.7:
-    # otherwise the primary's suite silently acquires a runtime dependency on
-    # the backend service.
     testDirectory: tests/skyramp
     api:
       authType: none
+      authHeader: ""
       baseUrl: http://localhost:9966/petclinic/api
     runtimeDetails:
       serverStartCommand: ./mvnw spring-boot:run
