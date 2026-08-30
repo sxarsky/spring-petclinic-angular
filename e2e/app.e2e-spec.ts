@@ -219,3 +219,58 @@ for (const viewport of [
     });
   });
 }
+
+test('clicking the City column header requests owners sorted by city', async ({ page }) => {
+  const owners = [
+    {
+      id: 4,
+      firstName: 'Harold',
+      lastName: 'Davis',
+      address: '563 Friendly St.',
+      city: 'Windsor',
+      telephone: '6085553198',
+      pets: []
+    },
+    {
+      id: 1,
+      firstName: 'George',
+      lastName: 'Franklin',
+      address: '110 W. Liberty St.',
+      city: 'Madison',
+      telephone: '6085551023',
+      pets: []
+    },
+    {
+      id: 2,
+      firstName: 'Betty',
+      lastName: 'Davis',
+      address: '638 Cardinal Ave.',
+      city: 'Sun Prairie',
+      telephone: '6085551749',
+      pets: []
+    }
+  ];
+
+  const requestedUrls: string[] = [];
+  await page.route(
+    url => url.pathname.endsWith('/petclinic/api/owners'),
+    (route, request) => {
+      requestedUrls.push(request.url());
+      const sort = new URL(request.url()).searchParams.get('sort');
+      const body = sort === 'city'
+        ? [...owners].sort((a, b) => a.city.localeCompare(b.city))
+        : owners;
+      return route.fulfill({ json: body });
+    }
+  );
+
+  await page.goto('/petclinic/owners');
+
+  const firstCity = page.locator('#ownersTable tbody > tr td:nth-child(3)').first();
+  await expect(firstCity).toHaveText('Windsor');
+
+  await page.locator('#sortByCity').click();
+
+  await expect.poll(() => requestedUrls.some(url => url.includes('sort=city'))).toBe(true);
+  await expect(firstCity).toHaveText('Madison');
+});
