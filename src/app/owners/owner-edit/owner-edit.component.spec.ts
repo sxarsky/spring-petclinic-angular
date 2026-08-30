@@ -36,7 +36,7 @@ import { OwnerListComponent } from '../owner-list/owner-list.component';
 
 class OwnserServiceStub {
     getOwnerById(): Observable<Owner> {
-        return of({ id: 1, firstName: 'James' } as Owner);
+        return of({ id: 1, firstName: 'James', email: 'james@example.com' } as Owner);
     }
 }
 
@@ -86,6 +86,17 @@ describe('OwnerEditComponent', () => {
         vi.spyOn(component, 'onSubmit').mockReturnValue(undefined);
         updateOwnerButton.click();
         expect(component.onSubmit).toHaveBeenCalled();
+    }));
+
+    it('pre-populates the email input from the loaded owner', waitForAsync(() => {
+        fixture.detectChanges();
+        fixture.whenStable().then(() => {
+            fixture.detectChanges(); // update view with the loaded owner
+            const emailDe = fixture.debugElement.query(By.css('#email'));
+            expect(emailDe, 'email input should be rendered on the Edit Owner form').toBeTruthy();
+            const emailInput: HTMLInputElement = emailDe.nativeElement;
+            expect(emailInput.value).toBe('james@example.com');
+        });
     }));
 
 });

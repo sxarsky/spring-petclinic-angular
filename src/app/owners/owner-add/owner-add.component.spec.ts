@@ -89,4 +89,20 @@ describe('OwnerAddComponent', () => {
         expect(component.onSubmit).toHaveBeenCalled();
     }));
 
+    it('email input two-way binds to owner.email', waitForAsync(() => {
+        const emailDe = fixture.debugElement.query(By.css('#email'));
+        expect(emailDe, 'email input should be rendered on the New Owner form').toBeTruthy();
+
+        const emailInput: HTMLInputElement = emailDe.nativeElement;
+        expect(emailInput.getAttribute('maxlength')).toBe('100');
+
+        emailInput.value = 'mary.john@example.com';
+        emailInput.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+
+        fixture.whenStable().then(() => {
+            expect(component.owner.email).toBe('mary.john@example.com');
+        });
+    }));
+
 });

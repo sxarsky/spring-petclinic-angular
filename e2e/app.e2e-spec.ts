@@ -7,6 +7,7 @@ const owner = {
   address: '110 W. Liberty St.',
   city: 'Madison',
   telephone: '6085551023',
+  email: 'george.franklin@example.com',
   pets: [
     {
       id: 1,
@@ -83,6 +84,7 @@ test('displays backend data on list pages', async ({ page }) => {
       address: '110 W. Liberty St.',
       city: 'Madison',
       telephone: '6085551023',
+      email: 'george.franklin@example.com',
       pets: []
     },
     {
@@ -92,6 +94,7 @@ test('displays backend data on list pages', async ({ page }) => {
       address: '638 Cardinal Ave.',
       city: 'Sun Prairie',
       telephone: '6085551749',
+      email: 'betty.davis@example.com',
       pets: []
     },
     {
@@ -101,6 +104,7 @@ test('displays backend data on list pages', async ({ page }) => {
       address: '563 Friendly St.',
       city: 'Windsor',
       telephone: '6085553198',
+      email: 'harold.davis@example.com',
       pets: []
     }
   ];
@@ -144,6 +148,10 @@ test('displays backend data on list pages', async ({ page }) => {
   await expect(page.getByRole('link', { name: 'Betty Davis' })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Harold Davis' })).toBeVisible();
   await expect(page.getByRole('link', { name: 'George Franklin' })).toHaveCount(0);
+
+  await expect(page.locator('#ownersTable')).toContainText('Email');
+  await expect(page.locator('#ownersTable')).toContainText('betty.davis@example.com');
+  await expect(page.locator('#ownersTable')).toContainText('harold.davis@example.com');
 });
 test('desktop dropdowns open and navigate to owners and veterinarians', async ({ page }) => {
   await page.goto('/');

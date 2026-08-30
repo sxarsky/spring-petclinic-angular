@@ -49,8 +49,8 @@ describe('OwnerService', () => {
         httpTestingController = TestBed.inject(HttpTestingController);
         ownerService = TestBed.inject(OwnerService);
         expectedOwners = [
-            { id: 1, firstName: 'A' },
-            { id: 2, firstName: 'B' },
+            { id: 1, firstName: 'A', email: 'a@example.com' },
+            { id: 2, firstName: 'B', email: 'b@example.com' },
         ] as Owner[];
         // Inject the http, test controller, and service-under-test
         // as they will be referenced by each test.
@@ -95,6 +95,7 @@ describe('OwnerService', () => {
             address: '110 W. Church St.',
             city: 'Madison',
             telephone: '6085551023',
+            email: 'mary.john@example.com',
             pets: []
 
         };
@@ -127,6 +128,7 @@ describe('OwnerService', () => {
             address: '110 W. Church St.',
             city: 'Madison',
             telephone: '6085551023',
+            email: 'george.franklin@example.com',
             pets: []
         };
 

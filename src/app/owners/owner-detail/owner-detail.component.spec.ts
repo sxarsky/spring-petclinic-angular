@@ -66,6 +66,7 @@ describe('OwnerDetailComponent', () => {
         address: '110 W. Liberty St.',
         city: 'Madison',
         telephone: '6085551023',
+        email: 'james.franklin@example.com',
         pets: null,
     };
 
