@@ -81,6 +81,12 @@ describe('OwnerAddComponent', () => {
     });
 
 
+    it('telephone field shows digits-only helper text', () => {
+        const helper = fixture.debugElement.query(By.css('.form-text'));
+        expect(helper).toBeTruthy();
+        expect(helper.nativeElement.textContent.trim()).toBe('Digits only, no spaces or dashes.');
+    });
+
     it('add owner', waitForAsync(() => {
         let buttons = fixture.debugElement.queryAll(By.css('button'));
         let addOwnerButton = buttons[1].nativeElement;
