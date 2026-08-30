@@ -119,6 +119,16 @@ describe('OwnerListComponent', () => {
         expect(component).toBeTruthy();
     });
 
+    it('renders the Add New Owner button once owners are loaded', waitForAsync(() => {
+        fixture.detectChanges();
+        fixture.whenStable().then(() => {
+            fixture.detectChanges();
+            const buttons = fixture.debugElement.queryAll(By.css('button'));
+            const labels = buttons.map(b => b.nativeElement.textContent.trim());
+            expect(labels).toContain('Add New Owner');
+        });
+    }));
+
     it('should call ngOnInit() method', () => {
         fixture.detectChanges();
         expect(vi.mocked(spy).mock.calls.length > 0, 'getOwners called').toBe(true);
