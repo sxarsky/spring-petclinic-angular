@@ -135,4 +135,14 @@ describe('OwnerListComponent', () => {
         });
     }));
 
+    it('should reset lastName and reload all owners when clearSearch() is called', () => {
+        component.lastName = 'Davis';
+
+        component.clearSearch();
+
+        expect(component.lastName).toBe('');
+        expect(vi.mocked(spy).mock.calls.length > 0, 'getOwners called').toBe(true);
+        expect(component.owners).toEqual(testOwners);
+    });
+
 });

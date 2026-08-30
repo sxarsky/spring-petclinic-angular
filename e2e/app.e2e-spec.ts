@@ -144,6 +144,11 @@ test('displays backend data on list pages', async ({ page }) => {
   await expect(page.getByRole('link', { name: 'Betty Davis' })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Harold Davis' })).toBeVisible();
   await expect(page.getByRole('link', { name: 'George Franklin' })).toHaveCount(0);
+
+  await page.getByRole('button', { name: 'Clear' }).click();
+  await expect(page.locator('#lastName')).toHaveValue('');
+  await expect(page.getByRole('link', { name: 'George Franklin' })).toBeVisible();
+  await expect(page.locator('#ownersTable tbody > tr')).toHaveCount(3);
 });
 test('desktop dropdowns open and navigate to owners and veterinarians', async ({ page }) => {
   await page.goto('/');
