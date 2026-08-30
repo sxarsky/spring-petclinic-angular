@@ -32,7 +32,7 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, provideRouter } from '@angular/router';
 import { OwnerService } from '../owner.service';
 import { Owner } from '../owner';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { PartsModule } from '../../parts/parts.module';
 import { ActivatedRouteStub } from '../../testing/router-stubs';
@@ -46,6 +46,10 @@ type Spy = Mock;
 
 class OwnerServiceStub {
     getOwners(): Observable<Owner[]> {
+        return of();
+    }
+
+    searchOwners(lastName: string): Observable<Owner[]> {
         return of();
     }
 }
@@ -134,5 +138,33 @@ describe('OwnerListComponent', () => {
             expect(el.textContent).toBe((testOwner.firstName.toString() + ' ' + testOwner.lastName.toString()));
         });
     }));
+
+    it('should show the empty-search alert when no owner matches the last name', () => {
+        fixture.detectChanges(); // ngOnInit loads testOwners and renders the table
+
+        vi.spyOn(ownerService, 'searchOwners').mockReturnValue(throwError(() => 'not found'));
+        component.lastName = 'Zzz'; // set by [(ngModel)] on the search input in the running app
+        component.searchByLastName(component.lastName);
+        fixture.detectChanges();
+
+        const alert = fixture.debugElement.query(By.css('.alert.alert-info'));
+        expect(alert).not.toBeNull();
+        expect((alert.nativeElement as HTMLElement).textContent).toContain(
+            'No owners found with a last name starting with "Zzz". ' +
+            'Try a shorter search, or clear the box to list everyone.');
+
+        // the table and the alert are mutually exclusive (*ngIf="owners" vs *ngIf="!owners")
+        expect(fixture.debugElement.query(By.css('#ownersTable'))).toBeNull();
+    });
+
+    it('should apply the column width classes to the owners table headers', () => {
+        fixture.detectChanges();
+
+        const headers = fixture.debugElement.queryAll(By.css('#ownersTable thead th'));
+        expect(headers.length).toBe(5);
+        expect((headers[0].nativeElement as HTMLElement).classList.contains('w-20')).toBe(true);
+        expect((headers[1].nativeElement as HTMLElement).classList.contains('w-25')).toBe(true);
+        expect((headers[2].nativeElement as HTMLElement).classList.contains('w-15')).toBe(true);
+    });
 
 });
