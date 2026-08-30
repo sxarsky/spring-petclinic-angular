@@ -80,6 +80,13 @@ describe('OwnerDetailComponent', () => {
         expect(component).toBeTruthy();
     });
 
+    it('renders the pets and visit history section heading', () => {
+        fixture.detectChanges();
+        const headings = fixture.debugElement.queryAll(By.css('h2'));
+        const texts = headings.map(h => h.nativeElement.textContent.trim());
+        expect(texts).toContain('Pets and visit history');
+    });
+
     it('find owner using ownerId', () => {
         fixture.detectChanges();
         fixture.whenStable().then(() => {
