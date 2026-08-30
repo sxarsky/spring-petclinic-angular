@@ -87,6 +87,7 @@ describe('PetEditComponent', () => {
         testPet = {
             id: 1,
             name: 'Leo',
+            nickname: 'Buddy',
             birthDate: '2010-09-07',
             type: { id: 1, name: 'cat' },
             ownerId: 1,
@@ -109,5 +110,14 @@ describe('PetEditComponent', () => {
 
     it('should create PetEditComponent', () => {
         expect(component).toBeTruthy();
+    });
+
+    it('should pre-fill the nickname input from the loaded pet', () => {
+        component.pet = testPet;
+        fixture.detectChanges();
+        const nicknameInput: HTMLInputElement =
+            fixture.nativeElement.querySelector('#nickname');
+        expect(nicknameInput).toBeTruthy();
+        expect(nicknameInput.value).toBe('Buddy');
     });
 });

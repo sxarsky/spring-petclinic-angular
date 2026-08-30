@@ -67,6 +67,7 @@ describe('PetListComponent', () => {
         inputPet = {
             id: 1,
             name: 'Leo',
+            nickname: 'Buddy',
             birthDate: '2010-09-07',
             type: { id: 1, name: 'cat' },
             ownerId: 1,
@@ -90,6 +91,15 @@ describe('PetListComponent', () => {
 
     it('should create PetListComponent', () => {
         expect(component).toBeTruthy();
+    });
+
+    it('should render the pet nickname', () => {
+        fixture.detectChanges();
+        const definitions: HTMLElement[] = Array.from(
+            fixture.nativeElement.querySelectorAll('dd')
+        );
+        const nicknames = definitions.map(dd => (dd.textContent || '').trim());
+        expect(nicknames).toContain('Buddy');
     });
 
     it('should call deletePet() method', () => {
