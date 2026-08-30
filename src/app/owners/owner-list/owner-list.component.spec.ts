@@ -45,7 +45,7 @@ type Spy = Mock;
 
 
 class OwnerServiceStub {
-    getOwners(): Observable<Owner[]> {
+    getOwners(sort?: string): Observable<Owner[]> {
         return of();
     }
 }
@@ -134,5 +134,17 @@ describe('OwnerListComponent', () => {
             expect(el.textContent).toBe((testOwner.firstName.toString() + ' ' + testOwner.lastName.toString()));
         });
     }));
+
+    it('should request owners sorted by city when the City header is clicked', () => {
+        fixture.detectChanges();
+
+        de = fixture.debugElement.query(By.css('#sortByCity'));
+        expect(de, 'City column header link is rendered').toBeTruthy();
+
+        de.triggerEventHandler('click', null);
+
+        expect(spy).toHaveBeenCalledWith('city');
+        expect(component.sortField).toBe('city');
+    });
 
 });
