@@ -117,7 +117,7 @@ jobs:
           githubAppId: ${{ secrets.SKYRAMP_TESTBOT_APP_ID }}
           githubAppPrivateKey: ${{ secrets.SKYRAMP_TESTBOT_APP_PRIVATE_KEY }}
           workingDirectory: 'spring-petclinic-angular'
-          skyrampMcpVersion: '0.3.6-rc.1'
+          skyrampMcpVersion: '0.3.6-rc.2.ac20'
           # Raised from the default 3 for the reuse cohort, so allocation has
           # room to show whether reuse changes what gets generated.
           maxGenerate: 5
