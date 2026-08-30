@@ -27,7 +27,8 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { VisitAddComponent } from './visit-add.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
+import { By } from '@angular/platform-browser';
 import { VisitService } from '../visit.service';
 import { PetService } from '../../pets/pet.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -107,5 +108,47 @@ describe('VisitAddComponent', () => {
 
     it('should create VisitAddComponent', () => {
         expect(component).toBeTruthy();
+    });
+
+    /**
+     * The API caps visit descriptions at 30 characters (VisitFields.description,
+     * maxLength: 30). The tests below lock the Add Visit form to that same limit so
+     * a regression back to the old 255 cap fails here rather than at save time.
+     */
+    async function setDescription(value: string): Promise<NgForm> {
+        const input: HTMLInputElement = fixture.nativeElement.querySelector('#description');
+        input.value = value;
+        input.dispatchEvent(new Event('input'));
+
+        const form = fixture.debugElement.query(By.directive(NgForm)).injector.get(NgForm);
+        form.controls['description'].markAsDirty();
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+        fixture.detectChanges();
+
+        return form;
+    }
+
+    it('should cap the description input at 30 characters', () => {
+        const input: HTMLInputElement = fixture.nativeElement.querySelector('#description');
+
+        expect(input.getAttribute('maxlength')).toBe('30');
+    });
+
+    it('should reject a 31 character description and accept a 30 character one', async () => {
+        let form = await setDescription('y'.repeat(31));
+        expect(form.controls['description'].hasError('maxlength')).toBe(true);
+
+        form = await setDescription('y'.repeat(30));
+        expect(form.controls['description'].hasError('maxlength')).toBe(false);
+    });
+
+    it('should report the 30 character limit in the maxlength feedback', async () => {
+        await setDescription('y'.repeat(31));
+
+        const text: string = fixture.nativeElement.textContent;
+        expect(text).toContain('Description may be at most 30 characters long');
+        expect(text).not.toContain('255');
     });
 });
