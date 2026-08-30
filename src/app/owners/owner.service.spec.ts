@@ -94,7 +94,7 @@ describe('OwnerService', () => {
             lastName: 'John',
             address: '110 W. Church St.',
             city: 'Madison',
-            telephone: '6085551023',
+            phoneNumber: '6085551023',
             pets: []
 
         };
@@ -126,7 +126,7 @@ describe('OwnerService', () => {
             lastName: 'Franklin',
             address: '110 W. Church St.',
             city: 'Madison',
-            telephone: '6085551023',
+            phoneNumber: '6085551023',
             pets: []
         };
 
