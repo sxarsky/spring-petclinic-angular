@@ -67,6 +67,7 @@ describe('OwnerListComponent', () => {
         address: '110 W. Liberty St.',
         city: 'Madison',
         telephone: '6085551023',
+        email: 'george.franklin@example.com',
         pets: null
     };
     let testOwners: Owner[];
@@ -97,6 +98,7 @@ describe('OwnerListComponent', () => {
                 address: '110 W. Liberty St.',
                 city: 'Madison',
                 telephone: '6085551023',
+                email: 'george.franklin@example.com',
                 pets: [{
                         id: 1,
                         name: 'Leo',
@@ -132,6 +134,16 @@ describe('OwnerListComponent', () => {
             de = fixture.debugElement.query(By.css('.ownerFullName'));
             el = de.nativeElement;
             expect(el.textContent).toBe((testOwner.firstName.toString() + ' ' + testOwner.lastName.toString()));
+        });
+    }));
+
+    it(' should show the owner email column after getOwners observable (async) ', waitForAsync(() => {
+        fixture.detectChanges();
+        fixture.whenStable().then(() => {
+            fixture.detectChanges(); // update view with email
+            const table: HTMLElement = fixture.debugElement.query(By.css('#ownersTable')).nativeElement;
+            expect(table.textContent).toContain('Email');
+            expect(table.textContent).toContain(testOwners[0].email);
         });
     }));
 
