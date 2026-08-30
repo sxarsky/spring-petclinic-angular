@@ -33,9 +33,14 @@ import {ActivatedRouteStub, RouterStub} from '../../testing/router-stubs';
 import {Vet} from '../vet';
 import {Observable, of} from 'rxjs';
 
+const VETS: Vet[] = [
+  {id: 1, firstName: 'James', lastName: 'Carter', specialties: []},
+  {id: 3, firstName: 'Linda', lastName: 'Douglas', specialties: [{id: 3, name: 'dentistry'}, {id: 2, name: 'surgery'}]}
+];
+
 class VetServiceStub {
   getVets(): Observable<Vet[]> {
-    return of();
+    return of(VETS);
   }
 }
 
@@ -67,5 +72,24 @@ describe('VetListComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('renders all specialties for a vet inline in a single cell', () => {
+    const rows = fixture.nativeElement.querySelectorAll('#vets tbody tr');
+    const specialtyCell = rows[1].querySelectorAll('td')[1];
+
+    expect(specialtyCell.textContent).toContain('dentistry');
+    expect(specialtyCell.textContent).toContain('surgery');
+    expect(specialtyCell.querySelectorAll('div.d-inline').length).toBe(2);
+    expect(specialtyCell.textContent).not.toContain('No specialties');
+  });
+
+  it('shows the No specialties placeholder for a vet with no specialties', () => {
+    const rows = fixture.nativeElement.querySelectorAll('#vets tbody tr');
+    const specialtyCell = rows[0].querySelectorAll('td')[1];
+
+    expect(specialtyCell.textContent).toContain('No specialties');
+    expect(specialtyCell.querySelector('span.text-muted')).toBeTruthy();
+    expect(specialtyCell.querySelectorAll('div.d-inline').length).toBe(0);
   });
 });
