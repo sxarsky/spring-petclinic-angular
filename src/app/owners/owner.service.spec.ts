@@ -95,6 +95,7 @@ describe('OwnerService', () => {
             address: '110 W. Church St.',
             city: 'Madison',
             telephone: '6085551023',
+            email: 'mary.john@example.com',
             pets: []
 
         };
@@ -109,6 +110,7 @@ describe('OwnerService', () => {
         const req = httpTestingController.expectOne(ownerService.entityUrl);
         expect(req.request.method).toEqual('POST');
         expect(req.request.body).toEqual(owner);
+        expect(req.request.body.email).toEqual('mary.john@example.com');
 
         //expect the server to return the owner after POST
         const expectedResponse = new HttpResponse({
@@ -127,6 +129,7 @@ describe('OwnerService', () => {
             address: '110 W. Church St.',
             city: 'Madison',
             telephone: '6085551023',
+            email: 'george.franklin@example.com',
             pets: []
         };
 
@@ -140,6 +143,7 @@ describe('OwnerService', () => {
         const req = httpTestingController.expectOne(ownerService.entityUrl + '/' + owner.id);
         expect(req.request.method).toEqual('PUT');
         expect(req.request.body).toEqual(owner);
+        expect(req.request.body.email).toEqual('george.franklin@example.com');
         const expectedResponse = new HttpResponse({
             status: 204,
             statusText: 'No Content',
