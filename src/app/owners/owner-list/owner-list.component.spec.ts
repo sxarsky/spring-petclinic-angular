@@ -135,4 +135,15 @@ describe('OwnerListComponent', () => {
         });
     }));
 
+
+    it('renders the renamed "Add New Owner" button once owners have loaded', waitForAsync(() => {
+        fixture.detectChanges();
+        fixture.whenStable().then(() => {
+            fixture.detectChanges(); // reveal the button gated on isOwnersDataReceived
+            const addButton = fixture.debugElement.query(By.css('#ownersTable button'));
+            expect(addButton).toBeTruthy();
+            expect(addButton.nativeElement.textContent.trim()).toBe('Add New Owner');
+        });
+    }));
+
 });

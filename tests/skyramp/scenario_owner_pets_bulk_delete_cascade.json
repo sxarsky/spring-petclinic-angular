@@ -1,0 +1,146 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"firstName\": \"Bulk\", \"lastName\": \"Deletecase\", \"address\": \"1 Cascade St\", \"city\": \"Testville\", \"telephone\": \"5550100200\"}",
+    "ResponseBody": "{\"id\": 480913, \"firstName\": \"Bulk\", \"lastName\": \"Deletecase\", \"address\": \"1 Cascade St\", \"city\": \"Testville\", \"telephone\": \"5550100200\", \"pets\": []}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-09-02T08:06:24.558Z",
+    "Scheme": "http",
+    "scenarioName": "owner_pets_bulk_delete_cascade"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"name\": \"CascadeA\", \"birthDate\": \"2020-01-01\", \"type\": {\"id\": 1, \"name\": \"cat\"}}",
+    "ResponseBody": "{\"id\": 715524, \"name\": \"CascadeA\", \"birthDate\": \"2020-01-01\", \"type\": {\"id\": 1, \"name\": \"cat\"}, \"visits\": []}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners/480913/pets",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-09-02T08:06:25.558Z",
+    "Scheme": "http",
+    "scenarioName": "owner_pets_bulk_delete_cascade"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"name\": \"CascadeB\", \"birthDate\": \"2021-02-02\", \"type\": {\"id\": 2, \"name\": \"dog\"}}",
+    "ResponseBody": "{\"id\": 826635, \"name\": \"CascadeB\", \"birthDate\": \"2021-02-02\", \"type\": {\"id\": 2, \"name\": \"dog\"}, \"visits\": []}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners/480913/pets",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-09-02T08:06:26.558Z",
+    "Scheme": "http",
+    "scenarioName": "owner_pets_bulk_delete_cascade"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"date\": \"2024-01-15\", \"description\": \"cascade probe visit\"}",
+    "ResponseBody": "{\"id\": 937746, \"date\": \"2024-01-15\", \"description\": \"cascade probe visit\"}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners/480913/pets/715524/visits",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-09-02T08:06:27.558Z",
+    "Scheme": "http",
+    "scenarioName": "owner_pets_bulk_delete_cascade"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "DELETE",
+    "Path": "/petclinic/api/owners/480913/pets",
+    "QueryParams": {},
+    "StatusCode": 204,
+    "Port": 9966,
+    "Timestamp": "2026-09-02T08:06:28.558Z",
+    "Scheme": "http",
+    "scenarioName": "owner_pets_bulk_delete_cascade"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"id\": 480913, \"firstName\": \"Bulk\", \"lastName\": \"Deletecase\", \"address\": \"1 Cascade St\", \"city\": \"Testville\", \"telephone\": \"5550100200\", \"pets\": []}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/petclinic/api/owners/480913",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 9966,
+    "Timestamp": "2026-09-02T08:06:29.558Z",
+    "Scheme": "http",
+    "scenarioName": "owner_pets_bulk_delete_cascade"
+  }
+]
