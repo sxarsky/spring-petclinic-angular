@@ -1,0 +1,122 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"firstName\": \"Nick\", \"lastName\": \"Nameson\", \"address\": \"1 Test Way\", \"city\": \"Madison\", \"telephone\": \"6085550000\"}",
+    "ResponseBody": "{\"id\": 907341, \"firstName\": \"Nick\", \"lastName\": \"Nameson\", \"address\": \"1 Test Way\", \"city\": \"Madison\", \"telephone\": \"6085550000\", \"pets\": []}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-09-02T08:11:23.963Z",
+    "Scheme": "http",
+    "scenarioName": "pet_nickname_create_read_update_lifecycle"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"name\": \"Leo\", \"nickname\": \"Bud\", \"birthDate\": \"2010-09-07\", \"type\": {\"id\": 1, \"name\": \"cat\"}}",
+    "ResponseBody": "{\"id\": 815502, \"name\": \"Leo\", \"nickname\": \"Bud\", \"birthDate\": \"2010-09-07\", \"type\": {\"id\": 1, \"name\": \"cat\"}, \"ownerId\": 907341, \"visits\": []}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners/907341/pets",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-09-02T08:11:24.963Z",
+    "Scheme": "http",
+    "scenarioName": "pet_nickname_create_read_update_lifecycle"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"id\": 815502, \"name\": \"Leo\", \"nickname\": \"Bud\", \"birthDate\": \"2010-09-07\", \"type\": {\"id\": 1, \"name\": \"cat\"}, \"ownerId\": 907341, \"visits\": []}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/petclinic/api/pets/815502",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 9966,
+    "Timestamp": "2026-09-02T08:11:25.963Z",
+    "Scheme": "http",
+    "scenarioName": "pet_nickname_create_read_update_lifecycle"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"id\": 815502, \"name\": \"Leo\", \"nickname\": \"Buddy\", \"birthDate\": \"2010-09-07\", \"type\": {\"id\": 1, \"name\": \"cat\"}, \"ownerId\": 907341, \"visits\": []}",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "PUT",
+    "Path": "/petclinic/api/pets/815502",
+    "QueryParams": {},
+    "StatusCode": 204,
+    "Port": 9966,
+    "Timestamp": "2026-09-02T08:11:26.963Z",
+    "Scheme": "http",
+    "scenarioName": "pet_nickname_create_read_update_lifecycle"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"id\": 815502, \"name\": \"Leo\", \"nickname\": \"Buddy\", \"birthDate\": \"2010-09-07\", \"type\": {\"id\": 1, \"name\": \"cat\"}, \"ownerId\": 907341, \"visits\": []}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/petclinic/api/pets/815502",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 9966,
+    "Timestamp": "2026-09-02T08:11:27.963Z",
+    "Scheme": "http",
+    "scenarioName": "pet_nickname_create_read_update_lifecycle"
+  }
+]
