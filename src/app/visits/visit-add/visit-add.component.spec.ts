@@ -108,4 +108,29 @@ describe('VisitAddComponent', () => {
     it('should create VisitAddComponent', () => {
         expect(component).toBeTruthy();
     });
+
+    it('should limit the visit description to the 30 characters the API accepts', () => {
+        const descriptionInput: HTMLInputElement = fixture.nativeElement.querySelector('#description');
+        expect(descriptionInput).toBeTruthy();
+        expect(descriptionInput.getAttribute('maxlength')).toBe('30');
+        expect(descriptionInput.getAttribute('minlength')).toBe('1');
+    });
+
+    it('should accept a 30 character description and reject a 31 character one', async () => {
+        const descriptionInput: HTMLInputElement = fixture.nativeElement.querySelector('#description');
+
+        descriptionInput.value = 'a'.repeat(30);
+        descriptionInput.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+        await fixture.whenStable();
+        expect(fixture.nativeElement.querySelector('#visit .invalid-feedback')).toBeNull();
+
+        descriptionInput.value = 'a'.repeat(31);
+        descriptionInput.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+        await fixture.whenStable();
+        const maxLengthError: HTMLElement = fixture.nativeElement.querySelector('#visit .invalid-feedback');
+        expect(maxLengthError).toBeTruthy();
+        expect(maxLengthError.textContent.trim()).toBe('Description may be at most 30 characters long');
+    });
 });
