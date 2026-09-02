@@ -1,0 +1,50 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"firstName\":\"Testowner\",\"lastName\":\"Casey\",\"address\":\"1 Main St\",\"city\":\"Madison\",\"telephone\":\"6085551234\"}",
+    "ResponseBody": "{\"id\":9001,\"firstName\":\"Testowner\",\"lastName\":\"Casey\",\"address\":\"1 Main St\",\"city\":\"Madison\",\"telephone\":\"6085551234\",\"pets\":[]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-09-02T08:10:57.237Z",
+    "Scheme": "http",
+    "scenarioName": "owner_update_invalid_returns_validation_errors"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"firstName\":\"A1\",\"lastName\":\"Casey\",\"address\":\"1 Main St\",\"city\":\"Madison\",\"telephone\":\"6085551234\"}",
+    "ResponseBody": "{\"detail\":\"The request contains invalid or missing parameters\",\"instance\":\"/petclinic/api/owners/9001\",\"status\":400,\"title\":\"MethodArgumentNotValidException\",\"validationErrors\":[{\"message\":\"Field 'firstName' must match \\\"^[\\\\p{L}]+([ '-][\\\\p{L}]+){0,2}$\\\" (rejected value: A1)\",\"field\":\"firstName\",\"defaultMessage\":\"must match \\\"^[\\\\p{L}]+([ '-][\\\\p{L}]+){0,2}$\\\"\",\"rejectedValue\":\"A1\"}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "PUT",
+    "Path": "/petclinic/api/owners/9001",
+    "QueryParams": {},
+    "StatusCode": 400,
+    "Port": 9966,
+    "Timestamp": "2026-09-02T08:10:58.237Z",
+    "Scheme": "http",
+    "scenarioName": "owner_update_invalid_returns_validation_errors"
+  }
+]
