@@ -125,6 +125,22 @@ describe('OwnerListComponent', () => {
     });
 
 
+    it('should render the empty-state alert with recovery guidance when no owners are returned', () => {
+        vi.spyOn(ownerService, 'getOwners').mockReturnValue(of(null));
+        component.lastName = 'Zzzzqqq';
+        component.owners = null;
+        fixture.detectChanges();
+
+        de = fixture.debugElement.query(By.css('.alert.alert-info'));
+        expect(de).toBeTruthy();
+
+        el = de.nativeElement;
+        expect(el.textContent).toContain('No owners found with a last name starting with "Zzzzqqq"');
+        expect(el.textContent).toContain('clear the box to list everyone');
+
+        expect(fixture.debugElement.query(By.css('#ownersTable'))).toBeNull();
+    });
+
     it(' should show full name after getOwners observable (async) ', waitForAsync(() => {
         fixture.detectChanges();
         fixture.whenStable().then(() => {
