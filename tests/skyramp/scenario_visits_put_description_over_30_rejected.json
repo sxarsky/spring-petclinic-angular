@@ -1,0 +1,50 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"petId\": 1, \"date\": \"2026-09-02\", \"description\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}",
+    "ResponseBody": "{\"id\": 9001, \"petId\": 1, \"date\": \"2026-09-02\", \"description\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/visits",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-09-02T07:59:57.986Z",
+    "Scheme": "http",
+    "scenarioName": "visits_put_description_over_30_rejected"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"date\": \"2026-09-02\", \"description\": \"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\"}",
+    "ResponseBody": "{\"status\": 400, \"title\": \"MethodArgumentNotValidException\", \"detail\": \"The request contains invalid or missing parameters\"}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "PUT",
+    "Path": "/petclinic/api/visits/9001",
+    "QueryParams": {},
+    "StatusCode": 400,
+    "Port": 9966,
+    "Timestamp": "2026-09-02T07:59:58.986Z",
+    "Scheme": "http",
+    "scenarioName": "visits_put_description_over_30_rejected"
+  }
+]
