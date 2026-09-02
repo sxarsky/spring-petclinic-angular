@@ -1,0 +1,50 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"firstName\": \"Grace\", \"lastName\": \"Hopper\", \"address\": \"34 Compiler Court\", \"city\": \"Llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogoch Llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogochxxx\", \"telephone\": \"6085559876\"}",
+    "ResponseBody": "{\"id\": 101, \"firstName\": \"Grace\", \"lastName\": \"Hopper\", \"address\": \"34 Compiler Court\", \"city\": \"Llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogoch Llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogochxxx\", \"telephone\": \"6085559876\", \"pets\": []}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-09-02T07:55:01.601Z",
+    "Scheme": "http",
+    "scenarioName": "owner-city-120-chars-round-trip"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"id\": 101, \"firstName\": \"Grace\", \"lastName\": \"Hopper\", \"address\": \"34 Compiler Court\", \"city\": \"Llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogoch Llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogochxxx\", \"telephone\": \"6085559876\", \"pets\": []}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/petclinic/api/owners/101",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 9966,
+    "Timestamp": "2026-09-02T07:55:02.601Z",
+    "Scheme": "http",
+    "scenarioName": "owner-city-120-chars-round-trip"
+  }
+]

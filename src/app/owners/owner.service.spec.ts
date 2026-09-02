@@ -77,6 +77,23 @@ describe('OwnerService', () => {
         req.flush(expectedOwners);
     });
 
+    it('should request owners sorted by city', () => {
+        ownerService
+            .getOwners('city')
+            .subscribe({
+                next: (owners) => expect(owners, 'should return expected owners').toEqual(expectedOwners),
+                error: (error) => expect.fail(`Unexpected error: ${error}`),
+            });
+
+        const req = httpTestingController.expectOne(
+            request => request.url === ownerService.entityUrl && request.params.get('sort') === 'city'
+        );
+        expect(req.request.method).toEqual('GET');
+        expect(req.request.params.get('sort')).toEqual('city');
+
+        req.flush(expectedOwners);
+    });
+
     it('search the owner by id', () => {
         ownerService.getOwnerById(1).subscribe((owners) => {
             expect(owners).toEqual(expectedOwners[0]);
