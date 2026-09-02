@@ -27,7 +27,8 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { VisitEditComponent } from './visit-edit.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgControl } from '@angular/forms';
+import { By } from '@angular/platform-browser';
 import { VisitService } from '../visit.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ActivatedRouteStub, RouterStub } from '../../testing/router-stubs';
@@ -103,6 +104,7 @@ describe('VisitEditComponent', () => {
             id: 1,
             date: '2016-09-07',
             description: '',
+            durationMinutes: 30,
             pet: testPet
         };
 
@@ -114,5 +116,36 @@ describe('VisitEditComponent', () => {
 
     it('should create VisitEditComponent', () => {
         expect(component).toBeTruthy();
+    });
+
+    it('should pre-populate the duration input from the loaded visit', async () => {
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(component.visit.durationMinutes).toBe(30);
+        const durationInput: HTMLInputElement =
+            fixture.nativeElement.querySelector('#durationMinutes');
+        expect(durationInput).toBeTruthy();
+        expect(durationInput.value).toBe('30');
+    });
+
+    it('should reject a duration above the 240 minute maximum', async () => {
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        const durationDebugEl = fixture.debugElement.query(By.css('#durationMinutes'));
+        const durationInput: HTMLInputElement = durationDebugEl.nativeElement;
+        durationInput.value = '300';
+        durationInput.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        const control = durationDebugEl.injector.get(NgControl);
+        expect(control.invalid).toBe(true);
+        expect(control.hasError('max')).toBe(true);
+
+        const submitButton: HTMLButtonElement =
+            fixture.nativeElement.querySelector('button[type=submit]');
+        expect(submitButton.disabled).toBe(true);
     });
 });

@@ -1,0 +1,122 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"firstName\": \"Testbot\", \"lastName\": \"Duration\", \"address\": \"1 Test Way\", \"city\": \"Testville\", \"telephone\": \"5550001111\"}",
+    "ResponseBody": "{\"id\": 917341, \"firstName\": \"Testbot\", \"lastName\": \"Duration\", \"address\": \"1 Test Way\", \"city\": \"Testville\", \"telephone\": \"5550001111\", \"pets\": []}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-09-02T08:08:08.314Z",
+    "Scheme": "http",
+    "scenarioName": "visit_duration_update_persists"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"name\": \"Probe\", \"birthDate\": \"2020-01-01\", \"type\": {\"id\": 1, \"name\": \"cat\"}}",
+    "ResponseBody": "{\"id\": 628455, \"name\": \"Probe\", \"birthDate\": \"2020-01-01\", \"type\": {\"id\": 1, \"name\": \"cat\"}, \"visits\": []}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners/917341/pets",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-09-02T08:08:09.314Z",
+    "Scheme": "http",
+    "scenarioName": "visit_duration_update_persists"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"date\": \"2026-09-02\", \"description\": \"annual checkup\", \"durationMinutes\": 30}",
+    "ResponseBody": "{\"id\": 503219, \"date\": \"2026-09-02\", \"description\": \"annual checkup\", \"durationMinutes\": 30}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners/917341/pets/628455/visits",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-09-02T08:08:10.314Z",
+    "Scheme": "http",
+    "scenarioName": "visit_duration_update_persists"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"date\": \"2026-09-02\", \"description\": \"annual checkup\", \"durationMinutes\": 90}",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "PUT",
+    "Path": "/petclinic/api/visits/503219",
+    "QueryParams": {},
+    "StatusCode": 204,
+    "Port": 9966,
+    "Timestamp": "2026-09-02T08:08:11.314Z",
+    "Scheme": "http",
+    "scenarioName": "visit_duration_update_persists"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"id\": 503219, \"date\": \"2026-09-02\", \"description\": \"annual checkup\", \"durationMinutes\": 90}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/petclinic/api/visits/503219",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 9966,
+    "Timestamp": "2026-09-02T08:08:12.314Z",
+    "Scheme": "http",
+    "scenarioName": "visit_duration_update_persists"
+  }
+]

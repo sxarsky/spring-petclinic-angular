@@ -1,0 +1,122 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"firstName\": \"Persist\", \"lastName\": \"Probe\", \"address\": \"2 Test Way\", \"city\": \"Testville\", \"telephone\": \"5550002222\"}",
+    "ResponseBody": "{\"id\": 774812, \"firstName\": \"Persist\", \"lastName\": \"Probe\", \"address\": \"2 Test Way\", \"city\": \"Testville\", \"telephone\": \"5550002222\", \"pets\": []}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-09-02T08:08:21.457Z",
+    "Scheme": "http",
+    "scenarioName": "visit_duration_create_and_read"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"name\": \"Persist\", \"birthDate\": \"2019-05-05\", \"type\": {\"id\": 1, \"name\": \"cat\"}}",
+    "ResponseBody": "{\"id\": 385107, \"name\": \"Persist\", \"birthDate\": \"2019-05-05\", \"type\": {\"id\": 1, \"name\": \"cat\"}, \"visits\": []}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners/774812/pets",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-09-02T08:08:22.457Z",
+    "Scheme": "http",
+    "scenarioName": "visit_duration_create_and_read"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"date\": \"2026-09-03\", \"description\": \"dental cleaning\", \"durationMinutes\": 45}",
+    "ResponseBody": "{\"id\": 291640, \"date\": \"2026-09-03\", \"description\": \"dental cleaning\", \"durationMinutes\": 45}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners/774812/pets/385107/visits",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-09-02T08:08:23.457Z",
+    "Scheme": "http",
+    "scenarioName": "visit_duration_create_and_read"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"id\": 291640, \"date\": \"2026-09-03\", \"description\": \"dental cleaning\", \"durationMinutes\": 45}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/petclinic/api/visits/291640",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 9966,
+    "Timestamp": "2026-09-02T08:08:24.457Z",
+    "Scheme": "http",
+    "scenarioName": "visit_duration_create_and_read"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"id\": 385107, \"name\": \"Persist\", \"birthDate\": \"2019-05-05\", \"type\": {\"id\": 1, \"name\": \"cat\"}, \"visits\": [{\"id\": 291640, \"date\": \"2026-09-03\", \"description\": \"dental cleaning\", \"durationMinutes\": 45}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/petclinic/api/pets/385107",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 9966,
+    "Timestamp": "2026-09-02T08:08:25.457Z",
+    "Scheme": "http",
+    "scenarioName": "visit_duration_create_and_read"
+  }
+]
