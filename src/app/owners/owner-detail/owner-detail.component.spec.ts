@@ -111,4 +111,15 @@ describe('OwnerDetailComponent', () => {
         expect(router.navigate).toHaveBeenCalledWith(['/owners']);
     });
 
+
+    it('renders the renamed "Pets and visit history" section heading', () => {
+        fixture.detectChanges();
+
+        const headings = fixture.debugElement.queryAll(By.css('h2'));
+
+        expect(headings.length).toBe(2);
+        expect(headings[0].nativeElement.textContent.trim()).toBe('Owner Information');
+        expect(headings[1].nativeElement.textContent.trim()).toBe('Pets and visit history');
+    });
+
 });
