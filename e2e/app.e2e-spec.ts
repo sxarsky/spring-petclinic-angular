@@ -139,6 +139,8 @@ test('displays backend data on list pages', async ({ page }) => {
   expect(renderedSpecialties).toEqual(expect.arrayContaining(['dentistry', 'surgery']));
 
   await page.goto('/petclinic/owners');
+  await expect(page.locator('#sortByCity')).toBeVisible();
+  await expect(page.locator('#sortByCity')).toHaveText('City');
   await page.locator('#lastName').fill('Davis');
   await page.getByRole('button', { name: 'Find Owner' }).click();
   await expect(page.getByRole('link', { name: 'Betty Davis' })).toBeVisible();
