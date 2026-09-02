@@ -1,0 +1,98 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"firstName\":\"Marie\",\"lastName\":\"Curie\",\"address\":\"9 Radium St.\",\"city\":\"Madison\",\"phoneNumber\":\"6085551111\"}",
+    "ResponseBody": "{\"id\":9001,\"firstName\":\"Marie\",\"lastName\":\"Curie\",\"address\":\"9 Radium St.\",\"city\":\"Madison\",\"phoneNumber\":\"6085551111\",\"telephone\":\"6085551111\",\"pets\":[]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-09-02T08:13:10.345Z",
+    "Scheme": "http",
+    "scenarioName": "owner-phonenumber-write-read-roundtrip"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"id\":9001,\"firstName\":\"Marie\",\"lastName\":\"Curie\",\"address\":\"9 Radium St.\",\"city\":\"Madison\",\"phoneNumber\":\"6085551111\",\"telephone\":\"6085551111\",\"pets\":[]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/petclinic/api/owners/9001",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 9966,
+    "Timestamp": "2026-09-02T08:13:11.345Z",
+    "Scheme": "http",
+    "scenarioName": "owner-phonenumber-write-read-roundtrip"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"firstName\":\"Marie\",\"lastName\":\"Curie\",\"address\":\"9 Radium St.\",\"city\":\"Madison\",\"phoneNumber\":\"6085552222\"}",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "PUT",
+    "Path": "/petclinic/api/owners/9001",
+    "QueryParams": {},
+    "StatusCode": 204,
+    "Port": 9966,
+    "Timestamp": "2026-09-02T08:13:12.345Z",
+    "Scheme": "http",
+    "scenarioName": "owner-phonenumber-write-read-roundtrip"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"id\":9001,\"firstName\":\"Marie\",\"lastName\":\"Curie\",\"address\":\"9 Radium St.\",\"city\":\"Madison\",\"phoneNumber\":\"6085552222\",\"telephone\":\"6085552222\",\"pets\":[]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/petclinic/api/owners/9001",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 9966,
+    "Timestamp": "2026-09-02T08:13:13.345Z",
+    "Scheme": "http",
+    "scenarioName": "owner-phonenumber-write-read-roundtrip"
+  }
+]
