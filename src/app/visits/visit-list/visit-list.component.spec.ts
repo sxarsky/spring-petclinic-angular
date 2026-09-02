@@ -89,6 +89,12 @@ describe('VisitListComponent', () => {
                 id: 1,
                 date: '2016-09-07',
                 description: '',
+                durationMinutes: 45,
+                pet: testPet
+            }, {
+                id: 2,
+                date: '2016-09-08',
+                description: 'checkup',
                 pet: testPet
             }];
 
@@ -109,6 +115,29 @@ describe('VisitListComponent', () => {
         fixture.detectChanges();
         component.deleteVisit(component.visits[0]);
         expect(vi.mocked(spy).mock.calls.length > 0, 'deleteVisit called').toBe(true);
+    });
+
+    it('should render the duration column', () => {
+        fixture.detectChanges();
+
+        const headerCells = Array.from(
+            fixture.nativeElement.querySelectorAll('thead th') as NodeListOf<HTMLTableCellElement>
+        ).map(cell => cell.textContent.trim());
+        expect(headerCells).toContain('Duration');
+
+        const durationColumnIndex = headerCells.indexOf('Duration');
+        const dataRows = Array.from(
+            fixture.nativeElement.querySelectorAll('tr') as NodeListOf<HTMLTableRowElement>
+        ).filter(row => row.querySelectorAll('td').length > 0);
+        expect(dataRows.length).toBe(2);
+
+        const durationCellText = (row: HTMLTableRowElement) =>
+            row.querySelectorAll('td')[durationColumnIndex].textContent.trim();
+
+        // visit 1 carries durationMinutes: 45 -> renders "45 min"
+        expect(durationCellText(dataRows[0])).toBe('45 min');
+        // visit 2 has no durationMinutes -> the ternary renders nothing, not "undefined min"
+        expect(durationCellText(dataRows[1])).toBe('');
     });
 
 });

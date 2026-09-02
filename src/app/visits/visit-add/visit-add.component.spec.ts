@@ -27,7 +27,8 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { VisitAddComponent } from './visit-add.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgControl } from '@angular/forms';
+import { By } from '@angular/platform-browser';
 import { VisitService } from '../visit.service';
 import { PetService } from '../../pets/pet.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -107,5 +108,33 @@ describe('VisitAddComponent', () => {
 
     it('should create VisitAddComponent', () => {
         expect(component).toBeTruthy();
+    });
+
+    it('should offer a duration input bounded to 5-240 minutes', async () => {
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        const durationInput: HTMLInputElement =
+            fixture.nativeElement.querySelector('#durationMinutes');
+        expect(durationInput).toBeTruthy();
+        expect(durationInput.type).toBe('number');
+        expect(durationInput.getAttribute('min')).toBe('5');
+        expect(durationInput.getAttribute('max')).toBe('240');
+    });
+
+    it('should reject a duration below the 5 minute minimum', async () => {
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        const durationDebugEl = fixture.debugElement.query(By.css('#durationMinutes'));
+        const durationInput: HTMLInputElement = durationDebugEl.nativeElement;
+        durationInput.value = '4';
+        durationInput.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        const control = durationDebugEl.injector.get(NgControl);
+        expect(control.invalid).toBe(true);
+        expect(control.hasError('min')).toBe(true);
     });
 });
