@@ -111,4 +111,17 @@ describe('PetAddComponent', () => {
     it('should create PetAddComponent', () => {
         expect(component).toBeTruthy();
     });
+
+    it('should bind the nickname input to pet.nickname', async () => {
+        const nicknameInput: HTMLInputElement =
+            fixture.nativeElement.querySelector('#nickname');
+        expect(nicknameInput).not.toBeNull();
+        expect(nicknameInput.getAttribute('maxlength')).toBe('30');
+
+        component.pet.nickname = 'Bud';
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(nicknameInput.value).toBe('Bud');
+    });
 });
