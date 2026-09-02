@@ -93,7 +93,7 @@ describe('VisitAddComponent', () => {
                 lastName: 'Franklin',
                 address: '110 W. Liberty St.',
                 city: 'Madison',
-                telephone: '6085551023',
+                phoneNumber: '6085551023',
                 pets: null
             },
             visits: null

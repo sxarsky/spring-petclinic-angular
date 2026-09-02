@@ -6,7 +6,7 @@ const owner = {
   lastName: 'Franklin',
   address: '110 W. Liberty St.',
   city: 'Madison',
-  telephone: '6085551023',
+  phoneNumber: '6085551023',
   pets: [
     {
       id: 1,
@@ -82,7 +82,7 @@ test('displays backend data on list pages', async ({ page }) => {
       lastName: 'Franklin',
       address: '110 W. Liberty St.',
       city: 'Madison',
-      telephone: '6085551023',
+      phoneNumber: '6085551023',
       pets: []
     },
     {
@@ -91,7 +91,7 @@ test('displays backend data on list pages', async ({ page }) => {
       lastName: 'Davis',
       address: '638 Cardinal Ave.',
       city: 'Sun Prairie',
-      telephone: '6085551749',
+      phoneNumber: '6085551749',
       pets: []
     },
     {
@@ -100,7 +100,7 @@ test('displays backend data on list pages', async ({ page }) => {
       lastName: 'Davis',
       address: '563 Friendly St.',
       city: 'Windsor',
-      telephone: '6085553198',
+      phoneNumber: '6085553198',
       pets: []
     }
   ];
@@ -142,6 +142,7 @@ test('displays backend data on list pages', async ({ page }) => {
   await page.locator('#lastName').fill('Davis');
   await page.getByRole('button', { name: 'Find Owner' }).click();
   await expect(page.getByRole('link', { name: 'Betty Davis' })).toBeVisible();
+  await expect(page.locator('#ownersTable')).toContainText('6085551749');
   await expect(page.getByRole('link', { name: 'Harold Davis' })).toBeVisible();
   await expect(page.getByRole('link', { name: 'George Franklin' })).toHaveCount(0);
 });
