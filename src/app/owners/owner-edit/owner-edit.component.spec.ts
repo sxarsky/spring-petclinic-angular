@@ -80,6 +80,13 @@ describe('OwnerEditComponent', () => {
     });
 
 
+    it('shows the telephone helper text', () => {
+        const helperText = fixture.debugElement.query(By.css('.form-text'));
+        expect(helperText).toBeTruthy();
+        expect(helperText.nativeElement.textContent.trim()).toBe('Digits only, no spaces or dashes.');
+    });
+
+
     it('update owner', waitForAsync(() => {
         let buttons = fixture.debugElement.queryAll(By.css('button'));
         let updateOwnerButton = buttons[1].nativeElement;
