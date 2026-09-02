@@ -135,4 +135,15 @@ describe('OwnerListComponent', () => {
         });
     }));
 
+    it('should reset lastName and reload the unfiltered owner list on clearSearch()', () => {
+        fixture.detectChanges();
+        component.lastName = 'Davis';
+        const callsBeforeClear = vi.mocked(spy).mock.calls.length;
+
+        component.clearSearch();
+
+        expect(component.lastName).toBe('');
+        expect(vi.mocked(spy).mock.calls.length).toBe(callsBeforeClear + 1);
+    });
+
 });

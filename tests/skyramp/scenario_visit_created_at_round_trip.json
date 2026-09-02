@@ -1,0 +1,50 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"petId\": 1, \"date\": \"2013-01-01\", \"description\": \"annual checkup\"}",
+    "ResponseBody": "{\"id\": 777, \"petId\": 1, \"date\": \"2013-01-01\", \"description\": \"annual checkup\", \"createdAt\": \"2026-09-02T07:48:00\"}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/visits",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-09-02T07:55:54.785Z",
+    "Scheme": "http",
+    "scenarioName": "visit_created_at_round_trip"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"id\": 777, \"petId\": 1, \"date\": \"2013-01-01\", \"description\": \"annual checkup\", \"createdAt\": \"2026-09-02T07:48:00\"}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/petclinic/api/visits/777",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 9966,
+    "Timestamp": "2026-09-02T07:55:55.785Z",
+    "Scheme": "http",
+    "scenarioName": "visit_created_at_round_trip"
+  }
+]
