@@ -33,6 +33,7 @@ import { ActivatedRoute, provideRouter } from '@angular/router';
 import { OwnerService } from '../owner.service';
 import { Owner } from '../owner';
 import { Observable, of } from 'rxjs';
+import { OwnerPage } from '../owner-page';
 import { CommonModule } from '@angular/common';
 import { PartsModule } from '../../parts/parts.module';
 import { ActivatedRouteStub } from '../../testing/router-stubs';
@@ -46,6 +47,9 @@ type Spy = Mock;
 
 class OwnerServiceStub {
     getOwners(): Observable<Owner[]> {
+        return of();
+    }
+    getOwnersPage(): Observable<OwnerPage> {
         return of();
     }
 }
@@ -111,7 +115,8 @@ describe('OwnerListComponent', () => {
         fixture = TestBed.createComponent(OwnerListComponent);
         component = fixture.componentInstance;
         ownerService = fixture.debugElement.injector.get(OwnerService);
-        spy = vi.spyOn(ownerService, 'getOwners').mockReturnValue(of(testOwners));
+        spy = vi.spyOn(ownerService, 'getOwnersPage').mockReturnValue(
+            of({ content: testOwners, page: 0, size: 5, totalElements: 1, totalPages: 1 } as OwnerPage));
 
     });
 
@@ -121,11 +126,11 @@ describe('OwnerListComponent', () => {
 
     it('should call ngOnInit() method', () => {
         fixture.detectChanges();
-        expect(vi.mocked(spy).mock.calls.length > 0, 'getOwners called').toBe(true);
+        expect(vi.mocked(spy).mock.calls.length > 0, 'getOwnersPage called').toBe(true);
     });
 
 
-    it(' should show full name after getOwners observable (async) ', waitForAsync(() => {
+    it(' should show full name after getOwnersPage observable (async) ', waitForAsync(() => {
         fixture.detectChanges();
         fixture.whenStable().then(() => {
             fixture.detectChanges(); // update view with name

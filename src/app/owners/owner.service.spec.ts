@@ -30,6 +30,7 @@ import { HttpResponse, provideHttpClient } from '@angular/common/http';
 import { HttpErrorHandler } from '../error.service';
 
 import { OwnerService } from './owner.service';
+import { environment } from '../../environments/environment';
 import { Owner } from './owner';
 
 describe('OwnerService', () => {
@@ -75,6 +76,55 @@ describe('OwnerService', () => {
 
         // Respond with the mock owners
         req.flush(expectedOwners);
+    });
+
+    it('should return a page of owners from the v2 endpoint', () => {
+        ownerService
+            .getOwnersPage()
+            .subscribe({
+                next: (page) => {
+                    expect(page.content, 'should return the owners in the page envelope').toEqual(expectedOwners);
+                    expect(page.page, 'should return the zero-based page index').toEqual(0);
+                    expect(page.size, 'should return the requested page size').toEqual(5);
+                    expect(page.totalElements, 'should return the total owner count').toEqual(10);
+                    expect(page.totalPages, 'should return the total page count').toEqual(2);
+                },
+                error: (error) => expect.fail(`Unexpected error: ${error}`),
+            });
+
+        // OwnerService should request the paged v2 endpoint, not the flat owners URL
+        const req = httpTestingController.expectOne(environment.REST_API_URL + 'v2/owners');
+        expect(req.request.method).toEqual('GET');
+
+        req.flush({
+            content: expectedOwners,
+            page: 0,
+            size: 5,
+            totalElements: 10,
+            totalPages: 2,
+        });
+    });
+
+    it('should send lastName as a query param on the v2 endpoint', () => {
+        ownerService
+            .getOwnersPage('Davis')
+            .subscribe({
+                next: (page) => expect(page.content, 'should return the filtered owners').toEqual(expectedOwners),
+                error: (error) => expect.fail(`Unexpected error: ${error}`),
+            });
+
+        const req = httpTestingController.expectOne(
+            (request) => request.url === environment.REST_API_URL + 'v2/owners');
+        expect(req.request.method).toEqual('GET');
+        expect(req.request.params.get('lastName')).toEqual('Davis');
+
+        req.flush({
+            content: expectedOwners,
+            page: 0,
+            size: 5,
+            totalElements: 2,
+            totalPages: 1,
+        });
     });
 
     it('search the owner by id', () => {
