@@ -1,0 +1,50 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "[{\"firstName\":\"George\",\"lastName\":\"Franklin\",\"address\":\"110 W. Liberty St.\",\"city\":\"Madison\",\"telephone\":\"6085551023\",\"pets\":[{\"name\":\"Leo\",\"birthDate\":\"2010-09-07\",\"type\":{\"name\":\"cat\",\"id\":1},\"id\":1,\"visits\":[],\"ownerId\":1}],\"id\":1},{\"firstName\":\"Jean\",\"lastName\":\"Coleman\",\"address\":\"105 N. Lake St.\",\"city\":\"Monona\",\"telephone\":\"6085552654\",\"pets\":[{\"name\":\"Max\",\"id\":7,\"ownerId\":6},{\"name\":\"Samantha\",\"id\":8,\"ownerId\":6}],\"id\":6}]",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/petclinic/api/owners",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 9966,
+    "Timestamp": "2026-09-02T07:58:39.557Z",
+    "Scheme": "http",
+    "scenarioName": "owner_pet_count_list_vs_detail_consistency"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"firstName\":\"Jean\",\"lastName\":\"Coleman\",\"address\":\"105 N. Lake St.\",\"city\":\"Monona\",\"telephone\":\"6085552654\",\"pets\":[{\"name\":\"Max\",\"birthDate\":\"2012-09-04\",\"type\":{\"name\":\"dog\",\"id\":2},\"id\":7,\"visits\":[],\"ownerId\":6},{\"name\":\"Samantha\",\"birthDate\":\"2012-09-04\",\"type\":{\"name\":\"cat\",\"id\":1},\"id\":8,\"visits\":[],\"ownerId\":6}],\"id\":6}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/petclinic/api/owners/6",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 9966,
+    "Timestamp": "2026-09-02T07:58:40.557Z",
+    "Scheme": "http",
+    "scenarioName": "owner_pet_count_list_vs_detail_consistency"
+  }
+]

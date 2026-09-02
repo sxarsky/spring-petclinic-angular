@@ -135,4 +135,17 @@ describe('OwnerListComponent', () => {
         });
     }));
 
+    it(' should show the number of pets per owner (async) ', waitForAsync(() => {
+        fixture.detectChanges();
+        fixture.whenStable().then(() => {
+            fixture.detectChanges(); // update view with the owners table
+
+            const headerCells = fixture.debugElement.queryAll(By.css('#ownersTable table thead th'));
+            expect(headerCells[4].nativeElement.textContent.trim()).toBe('No. of pets');
+
+            const firstRowCells = fixture.debugElement.queryAll(By.css('#ownersTable table tbody tr td'));
+            expect(firstRowCells[4].nativeElement.textContent.trim()).toBe('1');
+        });
+    }));
+
 });

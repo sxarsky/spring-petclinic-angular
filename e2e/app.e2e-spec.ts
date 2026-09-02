@@ -92,7 +92,15 @@ test('displays backend data on list pages', async ({ page }) => {
       address: '638 Cardinal Ave.',
       city: 'Sun Prairie',
       telephone: '6085551749',
-      pets: []
+      pets: [
+        {
+          id: 2,
+          name: 'Basil',
+          birthDate: '2012-08-06',
+          type: { id: 6, name: 'hamster' },
+          visits: []
+        }
+      ]
     },
     {
       id: 4,
@@ -144,6 +152,14 @@ test('displays backend data on list pages', async ({ page }) => {
   await expect(page.getByRole('link', { name: 'Betty Davis' })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Harold Davis' })).toBeVisible();
   await expect(page.getByRole('link', { name: 'George Franklin' })).toHaveCount(0);
+
+  await expect(page.locator('#ownersTable thead')).toContainText('No. of pets');
+  await expect(
+    page.locator('#ownersTable tbody tr', { hasText: 'Betty Davis' }).locator('td').nth(4)
+  ).toHaveText('1');
+  await expect(
+    page.locator('#ownersTable tbody tr', { hasText: 'Harold Davis' }).locator('td').nth(4)
+  ).toHaveText('0');
 });
 test('desktop dropdowns open and navigate to owners and veterinarians', async ({ page }) => {
   await page.goto('/');
