@@ -81,6 +81,20 @@ describe('OwnerAddComponent', () => {
     });
 
 
+    it('email input is rendered and bound to owner.email', () => {
+        const emailDe = fixture.debugElement.query(By.css('#email'));
+        expect(emailDe).toBeTruthy();
+
+        const emailInput: HTMLInputElement = emailDe.nativeElement;
+        expect(emailInput.getAttribute('maxlength')).toBe('100');
+
+        emailInput.value = 'mary.john@example.com';
+        emailInput.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+
+        expect(component.owner.email).toBe('mary.john@example.com');
+    });
+
     it('add owner', waitForAsync(() => {
         let buttons = fixture.debugElement.queryAll(By.css('button'));
         let addOwnerButton = buttons[1].nativeElement;

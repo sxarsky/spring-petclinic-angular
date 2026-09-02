@@ -1,0 +1,74 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"firstName\": \"Emailia\", \"lastName\": \"Updater\", \"address\": \"1 Update Way\", \"city\": \"Madison\", \"telephone\": \"6085550111\", \"email\": \"before.update@example.com\"}",
+    "ResponseBody": "{\"id\": 4021, \"firstName\": \"Emailia\", \"lastName\": \"Updater\", \"address\": \"1 Update Way\", \"city\": \"Madison\", \"telephone\": \"6085550111\", \"email\": \"before.update@example.com\", \"pets\": []}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-09-02T07:58:08.485Z",
+    "Scheme": "http",
+    "scenarioName": "owners_update_email_persists"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"firstName\": \"Emailia\", \"lastName\": \"Updater\", \"address\": \"1 Update Way\", \"city\": \"Madison\", \"telephone\": \"6085550111\", \"email\": \"after.update@example.com\"}",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "PUT",
+    "Path": "/petclinic/api/owners/4021",
+    "QueryParams": {},
+    "StatusCode": 204,
+    "Port": 9966,
+    "Timestamp": "2026-09-02T07:58:09.485Z",
+    "Scheme": "http",
+    "scenarioName": "owners_update_email_persists"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"id\": 4021, \"firstName\": \"Emailia\", \"lastName\": \"Updater\", \"address\": \"1 Update Way\", \"city\": \"Madison\", \"telephone\": \"6085550111\", \"email\": \"after.update@example.com\", \"pets\": []}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/petclinic/api/owners/4021",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 9966,
+    "Timestamp": "2026-09-02T07:58:10.485Z",
+    "Scheme": "http",
+    "scenarioName": "owners_update_email_persists"
+  }
+]
