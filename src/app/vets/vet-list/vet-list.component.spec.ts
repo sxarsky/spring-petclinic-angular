@@ -34,8 +34,10 @@ import {Vet} from '../vet';
 import {Observable, of} from 'rxjs';
 
 class VetServiceStub {
+  vets: Vet[] = [];
+
   getVets(): Observable<Vet[]> {
-    return of();
+    return of(this.vets);
   }
 }
 
@@ -67,5 +69,40 @@ describe('VetListComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('renders multiple specialties inline and shows "No specialties" when a vet has none', () => {
+    const stub = TestBed.inject(VetService) as unknown as VetServiceStub;
+    stub.vets = [
+      {
+        id: 1, firstName: 'Linda', lastName: 'Douglas',
+        specialties: [{id: 1, name: 'dentistry'}, {id: 2, name: 'surgery'}]
+      },
+      {id: 2, firstName: 'James', lastName: 'Carter', specialties: []}
+    ];
+
+    const seededFixture = TestBed.createComponent(VetListComponent);
+    seededFixture.detectChanges();
+
+    const rows = seededFixture.nativeElement.querySelectorAll('#vets tbody tr');
+    expect(rows.length).toBe(2);
+
+    const normalize = (node: Element) => node.textContent.replace(/\s+/g, ' ').trim();
+
+    const multiSpecialtyCell = rows[0].querySelectorAll('td')[1];
+    const inlineSpecialties = multiSpecialtyCell.querySelectorAll('div.d-inline');
+    expect(multiSpecialtyCell.querySelectorAll('div.d-inline').length).toBe(2);
+    expect(normalize(inlineSpecialties[0])).toBe('dentistry');
+    expect(normalize(inlineSpecialties[1])).toBe('surgery');
+    expect(multiSpecialtyCell.textContent).toContain('dentistry');
+    expect(multiSpecialtyCell.textContent).toContain('surgery');
+    expect(multiSpecialtyCell.textContent).not.toContain('No specialties');
+    expect(normalize(multiSpecialtyCell)).toBe('dentistry surgery');
+
+    const noSpecialtyCell = rows[1].querySelectorAll('td')[1];
+    expect(noSpecialtyCell.querySelectorAll('div.d-inline').length).toBe(0);
+    expect(noSpecialtyCell.textContent).toContain('No specialties');
+    expect(normalize(noSpecialtyCell)).toBe('No specialties');
+    expect(noSpecialtyCell.querySelector('span.text-muted')).not.toBeNull();
   });
 });
