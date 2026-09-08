@@ -1,0 +1,98 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"firstName\":\"Probe\",\"lastName\":\"Tester\",\"address\":\"1 Probe Way\",\"city\":\"Testville\",\"telephone\":\"5551234567\"}",
+    "ResponseBody": "{\"firstName\":\"Probe\",\"lastName\":\"Tester\",\"address\":\"1 Probe Way\",\"city\":\"Testville\",\"telephone\":\"5551234567\",\"pets\":[],\"id\":7317}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:18:35.134Z",
+    "Scheme": "http",
+    "scenarioName": "owner-update-telephone-constraint-returns-validation-message"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"firstName\":\"Probe\",\"lastName\":\"Tester\",\"address\":\"1 Probe Way\",\"city\":\"Testville\",\"telephone\":\"12345\"}",
+    "ResponseBody": "{\"detail\":\"The request contains invalid or missing parameters\",\"status\":400,\"title\":\"MethodArgumentNotValidException\",\"validationErrors\":[{\"message\":\"Field 'telephone' Phone number must be exactly 10 digits (rejected value: 12345)\",\"field\":\"telephone\",\"defaultMessage\":\"Phone number must be exactly 10 digits\",\"rejectedValue\":\"12345\"}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "PUT",
+    "Path": "/petclinic/api/owners/7317",
+    "QueryParams": {},
+    "StatusCode": 400,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:18:36.134Z",
+    "Scheme": "http",
+    "scenarioName": "owner-update-telephone-constraint-returns-validation-message"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"firstName\":\"Probe\",\"lastName\":\"Tester\",\"address\":\"1 Probe Way\",\"city\":\"Testville\",\"telephone\":\"5551234567\",\"pets\":[],\"id\":7317}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/petclinic/api/owners/7317",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:18:37.134Z",
+    "Scheme": "http",
+    "scenarioName": "owner-update-telephone-constraint-returns-validation-message"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "DELETE",
+    "Path": "/petclinic/api/owners/7317",
+    "QueryParams": {},
+    "StatusCode": 204,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:18:38.134Z",
+    "Scheme": "http",
+    "scenarioName": "owner-update-telephone-constraint-returns-validation-message"
+  }
+]
