@@ -71,6 +71,12 @@ describe('OwnerEditComponent', () => {
         expect(component).toBeTruthy();
     });
 
+    it('shows the telephone helper text', () => {
+        const hint = fixture.debugElement.query(By.css('.form-text'));
+        expect(hint).toBeTruthy();
+        expect(hint.nativeElement.textContent.trim()).toBe('Digits only, no spaces or dashes.');
+    });
+
     it('back button routing', async () => {
         let buttons = fixture.debugElement.queryAll(By.css('button'));
         let backbutton = buttons[0];

@@ -1,0 +1,170 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"firstName\":\"Skyramp\",\"lastName\":\"Tendigit\",\"address\":\"1 Contract Way\",\"city\":\"Madison\",\"telephone\":\"6085551099\"}",
+    "ResponseBody": "{\"id\":9001,\"firstName\":\"Skyramp\",\"lastName\":\"Tendigit\",\"address\":\"1 Contract Way\",\"city\":\"Madison\",\"telephone\":\"6085551099\",\"pets\":[]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:10:31.768Z",
+    "Scheme": "http",
+    "scenarioName": "owners_telephone_10_digit_contract"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"id\":9001,\"firstName\":\"Skyramp\",\"lastName\":\"Tendigit\",\"address\":\"1 Contract Way\",\"city\":\"Madison\",\"telephone\":\"6085551099\",\"pets\":[]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/petclinic/api/owners/9001",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:10:32.768Z",
+    "Scheme": "http",
+    "scenarioName": "owners_telephone_10_digit_contract"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"firstName\":\"Skyramp\",\"lastName\":\"Ninedigit\",\"address\":\"1 Contract Way\",\"city\":\"Madison\",\"telephone\":\"608555109\"}",
+    "ResponseBody": "{\"status\":400,\"title\":\"MethodArgumentNotValidException\"}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners",
+    "QueryParams": {},
+    "StatusCode": 400,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:10:33.768Z",
+    "Scheme": "http",
+    "scenarioName": "owners_telephone_10_digit_contract"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"firstName\":\"Skyramp\",\"lastName\":\"Elevendigit\",\"address\":\"1 Contract Way\",\"city\":\"Madison\",\"telephone\":\"60855510999\"}",
+    "ResponseBody": "{\"status\":400,\"title\":\"MethodArgumentNotValidException\"}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners",
+    "QueryParams": {},
+    "StatusCode": 400,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:10:34.768Z",
+    "Scheme": "http",
+    "scenarioName": "owners_telephone_10_digit_contract"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"firstName\":\"Skyramp\",\"lastName\":\"Dashed\",\"address\":\"1 Contract Way\",\"city\":\"Madison\",\"telephone\":\"608-555-1099\"}",
+    "ResponseBody": "{\"status\":400,\"title\":\"MethodArgumentNotValidException\"}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners",
+    "QueryParams": {},
+    "StatusCode": 400,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:10:35.768Z",
+    "Scheme": "http",
+    "scenarioName": "owners_telephone_10_digit_contract"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"firstName\":\"Skyramp\",\"lastName\":\"Notel\",\"address\":\"1 Contract Way\",\"city\":\"Madison\"}",
+    "ResponseBody": "{\"status\":400,\"title\":\"MethodArgumentNotValidException\"}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners",
+    "QueryParams": {},
+    "StatusCode": 400,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:10:36.768Z",
+    "Scheme": "http",
+    "scenarioName": "owners_telephone_10_digit_contract"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "DELETE",
+    "Path": "/petclinic/api/owners/9001",
+    "QueryParams": {},
+    "StatusCode": 204,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:10:37.768Z",
+    "Scheme": "http",
+    "scenarioName": "owners_telephone_10_digit_contract"
+  }
+]
