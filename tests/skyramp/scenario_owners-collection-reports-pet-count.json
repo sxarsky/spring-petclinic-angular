@@ -1,0 +1,229 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"name\":\"skyramp-count-type\"}",
+    "ResponseBody": "{\"name\":\"skyramp-count-type\",\"id\":7001}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/pettypes",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:21:17.692Z",
+    "Scheme": "http",
+    "scenarioName": "owners-collection-reports-pet-count",
+    "UniqueFields": [
+      "name"
+    ]
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"firstName\":\"Petcount\",\"lastName\":\"Skyrampcount\",\"address\":\"1 Collection Way\",\"city\":\"Madison\",\"telephone\":\"6085550111\"}",
+    "ResponseBody": "{\"firstName\":\"Petcount\",\"lastName\":\"Skyrampcount\",\"address\":\"1 Collection Way\",\"city\":\"Madison\",\"telephone\":\"6085550111\",\"pets\":[],\"id\":9001}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:21:18.692Z",
+    "Scheme": "http",
+    "scenarioName": "owners-collection-reports-pet-count"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"name\":\"Countable\",\"birthDate\":\"2020-05-01\",\"type\":{\"id\":7001,\"name\":\"skyramp-count-type\"}}",
+    "ResponseBody": "{\"name\":\"Countable\",\"birthDate\":\"2020-05-01\",\"type\":{\"name\":\"skyramp-count-type\",\"id\":7001},\"id\":8001,\"visits\":[],\"ownerId\":9001}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners/9001/pets",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:21:19.692Z",
+    "Scheme": "http",
+    "scenarioName": "owners-collection-reports-pet-count"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"firstName\":\"Petcount\",\"lastName\":\"Skyrampcount\",\"address\":\"1 Collection Way\",\"city\":\"Madison\",\"telephone\":\"6085550111\",\"pets\":[{\"name\":\"Countable\",\"birthDate\":\"2020-05-01\",\"type\":{\"name\":\"skyramp-count-type\",\"id\":7001},\"id\":8001,\"visits\":[],\"ownerId\":9001}],\"id\":9001}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/petclinic/api/owners/9001",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:21:20.692Z",
+    "Scheme": "http",
+    "scenarioName": "owners-collection-reports-pet-count"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "[{\"firstName\":\"Petcount\",\"lastName\":\"Skyrampcount\",\"address\":\"1 Collection Way\",\"city\":\"Madison\",\"telephone\":\"6085550111\",\"pets\":[{\"name\":\"Countable\",\"birthDate\":\"2020-05-01\",\"type\":{\"name\":\"skyramp-count-type\",\"id\":7001},\"id\":8001,\"visits\":[],\"ownerId\":9001}],\"id\":9001}]",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/petclinic/api/owners",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:21:21.692Z",
+    "Scheme": "http",
+    "scenarioName": "owners-collection-reports-pet-count"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "[{\"firstName\":\"Petcount\",\"lastName\":\"Skyrampcount\",\"address\":\"1 Collection Way\",\"city\":\"Madison\",\"telephone\":\"6085550111\",\"pets\":[{\"name\":\"Countable\",\"birthDate\":\"2020-05-01\",\"type\":{\"name\":\"skyramp-count-type\",\"id\":7001},\"id\":8001,\"visits\":[],\"ownerId\":9001}],\"id\":9001}]",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/petclinic/api/owners",
+    "QueryParams": {
+      "lastName": [
+        "Skyrampcount"
+      ]
+    },
+    "StatusCode": 200,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:21:22.692Z",
+    "Scheme": "http",
+    "scenarioName": "owners-collection-reports-pet-count"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"status\":404,\"title\":\"NotFound\"}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/petclinic/api/owners",
+    "QueryParams": {
+      "lastName": [
+        "Zzzznosuchowner"
+      ]
+    },
+    "StatusCode": 404,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:21:23.692Z",
+    "Scheme": "http",
+    "scenarioName": "owners-collection-reports-pet-count"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"status\":404,\"title\":\"NotFound\"}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/petclinic/api/owners/99999999",
+    "QueryParams": {},
+    "StatusCode": 404,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:21:24.692Z",
+    "Scheme": "http",
+    "scenarioName": "owners-collection-reports-pet-count"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "DELETE",
+    "Path": "/petclinic/api/owners/9001",
+    "QueryParams": {},
+    "StatusCode": 204,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:21:25.692Z",
+    "Scheme": "http",
+    "scenarioName": "owners-collection-reports-pet-count"
+  }
+]
