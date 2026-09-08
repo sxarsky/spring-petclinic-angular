@@ -1,0 +1,122 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"firstName\":\"Phonethree\",\"lastName\":\"Validcase\",\"address\":\"5 Contract Way\",\"city\":\"Madison\",\"phoneNumber\":\"6085550555\"}",
+    "ResponseBody": "{\"id\":765432,\"firstName\":\"Phonethree\",\"lastName\":\"Validcase\",\"address\":\"5 Contract Way\",\"city\":\"Madison\",\"phoneNumber\":\"6085550555\",\"telephone\":\"6085550555\",\"pets\":[]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:16:17.294Z",
+    "Scheme": "http",
+    "scenarioName": "owner_post_phone_number_validation"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "DELETE",
+    "Path": "/petclinic/api/owners/765432",
+    "QueryParams": {},
+    "StatusCode": 204,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:16:18.294Z",
+    "Scheme": "http",
+    "scenarioName": "owner_post_phone_number_validation"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"firstName\":\"Phonethree\",\"lastName\":\"Baddigits\",\"address\":\"5 Contract Way\",\"city\":\"Madison\",\"phoneNumber\":\"abc123\"}",
+    "ResponseBody": "{\"status\":400,\"title\":\"MethodArgumentNotValidException\"}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners",
+    "QueryParams": {},
+    "StatusCode": 400,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:16:19.294Z",
+    "Scheme": "http",
+    "scenarioName": "owner_post_phone_number_validation"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"firstName\":\"Phonethree\",\"lastName\":\"Longphone\",\"address\":\"5 Contract Way\",\"city\":\"Madison\",\"phoneNumber\":\"123456789012345678901\"}",
+    "ResponseBody": "{\"status\":400,\"title\":\"MethodArgumentNotValidException\"}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners",
+    "QueryParams": {},
+    "StatusCode": 400,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:16:20.294Z",
+    "Scheme": "http",
+    "scenarioName": "owner_post_phone_number_validation"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"firstName\":\"Phonethree\",\"lastName\":\"Nophone\",\"address\":\"5 Contract Way\",\"city\":\"Madison\"}",
+    "ResponseBody": "{\"status\":400}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners",
+    "QueryParams": {},
+    "StatusCode": 400,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:16:21.294Z",
+    "Scheme": "http",
+    "scenarioName": "owner_post_phone_number_validation"
+  }
+]
