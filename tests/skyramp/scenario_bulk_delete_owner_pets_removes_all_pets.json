@@ -1,0 +1,146 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"firstName\":\"Bulkdelete\",\"lastName\":\"Owner\",\"address\":\"1 Bulk Way\",\"city\":\"Madison\",\"telephone\":\"6085550111\"}",
+    "ResponseBody": "{\"id\":1001,\"firstName\":\"Bulkdelete\",\"lastName\":\"Owner\",\"address\":\"1 Bulk Way\",\"city\":\"Madison\",\"telephone\":\"6085550111\",\"pets\":[]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:08:42.298Z",
+    "Scheme": "http",
+    "scenarioName": "bulk_delete_owner_pets_removes_all_pets"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"name\":\"BulkPetOne\",\"birthDate\":\"2020-01-01\",\"type\":{\"id\":1,\"name\":\"cat\"}}",
+    "ResponseBody": "{\"id\":2001,\"name\":\"BulkPetOne\",\"birthDate\":\"2020-01-01\",\"type\":{\"id\":1,\"name\":\"cat\"},\"visits\":[]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners/1001/pets",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:08:43.298Z",
+    "Scheme": "http",
+    "scenarioName": "bulk_delete_owner_pets_removes_all_pets"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"name\":\"BulkPetTwo\",\"birthDate\":\"2021-02-02\",\"type\":{\"id\":1,\"name\":\"cat\"}}",
+    "ResponseBody": "{\"id\":2002,\"name\":\"BulkPetTwo\",\"birthDate\":\"2021-02-02\",\"type\":{\"id\":1,\"name\":\"cat\"},\"visits\":[]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners/1001/pets",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:08:44.298Z",
+    "Scheme": "http",
+    "scenarioName": "bulk_delete_owner_pets_removes_all_pets"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "DELETE",
+    "Path": "/petclinic/api/owners/1001/pets",
+    "QueryParams": {},
+    "StatusCode": 204,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:08:45.298Z",
+    "Scheme": "http",
+    "scenarioName": "bulk_delete_owner_pets_removes_all_pets"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"id\":1001,\"firstName\":\"Bulkdelete\",\"lastName\":\"Owner\",\"address\":\"1 Bulk Way\",\"city\":\"Madison\",\"telephone\":\"6085550111\",\"pets\":[]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/petclinic/api/owners/1001",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:08:46.298Z",
+    "Scheme": "http",
+    "scenarioName": "bulk_delete_owner_pets_removes_all_pets"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "DELETE",
+    "Path": "/petclinic/api/owners/1001",
+    "QueryParams": {},
+    "StatusCode": 204,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:08:47.298Z",
+    "Scheme": "http",
+    "scenarioName": "bulk_delete_owner_pets_removes_all_pets"
+  }
+]
