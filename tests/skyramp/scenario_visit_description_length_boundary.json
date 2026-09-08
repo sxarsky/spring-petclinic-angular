@@ -1,0 +1,170 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"date\":\"2026-09-08\",\"description\":\"Annual wellness exam and rabie\"}",
+    "ResponseBody": "{\"description\":\"Annual wellness exam and rabie\",\"id\":90210,\"date\":\"2026-09-08\"}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners/1/pets/1/visits",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:11:42.519Z",
+    "Scheme": "http",
+    "scenarioName": "visit_description_length_boundary"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"description\":\"Annual wellness exam and rabie\",\"id\":90210,\"date\":\"2026-09-08\"}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/petclinic/api/visits/90210",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:11:43.519Z",
+    "Scheme": "http",
+    "scenarioName": "visit_description_length_boundary"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"date\":\"2026-09-08\",\"description\":\"Annual wellness exam and rabies\"}",
+    "ResponseBody": "{\"status\":400,\"title\":\"MethodArgumentNotValidException\",\"detail\":\"The request contains invalid or missing parameters\"}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners/1/pets/1/visits",
+    "QueryParams": {},
+    "StatusCode": 400,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:11:44.519Z",
+    "Scheme": "http",
+    "scenarioName": "visit_description_length_boundary"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"date\":\"2026-09-08\",\"description\":\"\"}",
+    "ResponseBody": "{\"status\":400,\"title\":\"MethodArgumentNotValidException\",\"detail\":\"The request contains invalid or missing parameters\"}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners/1/pets/1/visits",
+    "QueryParams": {},
+    "StatusCode": 400,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:11:45.519Z",
+    "Scheme": "http",
+    "scenarioName": "visit_description_length_boundary"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"date\":\"2026-09-08\"}",
+    "ResponseBody": "{\"status\":400,\"title\":\"MethodArgumentNotValidException\",\"detail\":\"The request contains invalid or missing parameters\"}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners/1/pets/1/visits",
+    "QueryParams": {},
+    "StatusCode": 400,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:11:46.519Z",
+    "Scheme": "http",
+    "scenarioName": "visit_description_length_boundary"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"date\":\"2026-09-08\",\"description\":\"Annual wellness exam and rabie\"}",
+    "ResponseBody": "{\"status\":404,\"title\":\"DataIntegrityViolationException\",\"detail\":\"The requested resource could not be processed due to a data constraint violation\"}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners/1/pets/999999/visits",
+    "QueryParams": {},
+    "StatusCode": 404,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:11:47.519Z",
+    "Scheme": "http",
+    "scenarioName": "visit_description_length_boundary"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "DELETE",
+    "Path": "/petclinic/api/visits/90210",
+    "QueryParams": {},
+    "StatusCode": 204,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:11:48.519Z",
+    "Scheme": "http",
+    "scenarioName": "visit_description_length_boundary"
+  }
+]
