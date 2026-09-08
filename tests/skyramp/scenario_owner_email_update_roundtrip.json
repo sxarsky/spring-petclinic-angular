@@ -1,0 +1,146 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"firstName\":\"Noah\",\"lastName\":\"Update\",\"address\":\"2 Test Way\",\"city\":\"Monona\",\"telephone\":\"6085551005\",\"email\":\"noah.before@example.com\"}",
+    "ResponseBody": "{\"id\":3003,\"firstName\":\"Noah\",\"lastName\":\"Update\",\"address\":\"2 Test Way\",\"city\":\"Monona\",\"telephone\":\"6085551005\",\"email\":\"noah.before@example.com\",\"pets\":[]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:16:07.239Z",
+    "Scheme": "http",
+    "scenarioName": "owner_email_update_roundtrip"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"firstName\":\"Noah\",\"lastName\":\"Update\",\"address\":\"2 Test Way\",\"city\":\"Monona\",\"telephone\":\"6085551005\",\"email\":\"not-an-email\"}",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "PUT",
+    "Path": "/petclinic/api/owners/3003",
+    "QueryParams": {},
+    "StatusCode": 400,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:16:08.239Z",
+    "Scheme": "http",
+    "scenarioName": "owner_email_update_roundtrip"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"firstName\":\"Noah\",\"lastName\":\"Update\",\"address\":\"2 Test Way\",\"city\":\"Monona\",\"telephone\":\"6085551005\",\"email\":\"noah.after@example.com\"}",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "PUT",
+    "Path": "/petclinic/api/owners/999999",
+    "QueryParams": {},
+    "StatusCode": 404,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:16:09.239Z",
+    "Scheme": "http",
+    "scenarioName": "owner_email_update_roundtrip"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"firstName\":\"Noah\",\"lastName\":\"Update\",\"address\":\"2 Test Way\",\"city\":\"Monona\",\"telephone\":\"6085551005\",\"email\":\"noah.after@example.com\"}",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "PUT",
+    "Path": "/petclinic/api/owners/3003",
+    "QueryParams": {},
+    "StatusCode": 204,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:16:10.239Z",
+    "Scheme": "http",
+    "scenarioName": "owner_email_update_roundtrip"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"id\":3003,\"firstName\":\"Noah\",\"lastName\":\"Update\",\"address\":\"2 Test Way\",\"city\":\"Monona\",\"telephone\":\"6085551005\",\"email\":\"noah.after@example.com\",\"pets\":[]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/petclinic/api/owners/3003",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:16:11.239Z",
+    "Scheme": "http",
+    "scenarioName": "owner_email_update_roundtrip"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "DELETE",
+    "Path": "/petclinic/api/owners/3003",
+    "QueryParams": {},
+    "StatusCode": 204,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:16:12.239Z",
+    "Scheme": "http",
+    "scenarioName": "owner_email_update_roundtrip"
+  }
+]

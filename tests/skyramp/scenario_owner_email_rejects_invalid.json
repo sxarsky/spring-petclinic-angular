@@ -1,0 +1,122 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"firstName\":\"Bad\",\"lastName\":\"Format\",\"address\":\"1 Test Way\",\"city\":\"Madison\",\"telephone\":\"6085551001\",\"email\":\"not-an-email\"}",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners",
+    "QueryParams": {},
+    "StatusCode": 400,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:15:55.073Z",
+    "Scheme": "http",
+    "scenarioName": "owner_email_rejects_invalid"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"firstName\":\"Bad\",\"lastName\":\"Empty\",\"address\":\"1 Test Way\",\"city\":\"Madison\",\"telephone\":\"6085551002\",\"email\":\"\"}",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners",
+    "QueryParams": {},
+    "StatusCode": 400,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:15:56.073Z",
+    "Scheme": "http",
+    "scenarioName": "owner_email_rejects_invalid"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"firstName\":\"Bad\",\"lastName\":\"TooLong\",\"address\":\"1 Test Way\",\"city\":\"Madison\",\"telephone\":\"6085551003\",\"email\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@example.com\"}",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners",
+    "QueryParams": {},
+    "StatusCode": 400,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:15:57.073Z",
+    "Scheme": "http",
+    "scenarioName": "owner_email_rejects_invalid"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"firstName\":\"NoEmail\",\"lastName\":\"Optional\",\"address\":\"1 Test Way\",\"city\":\"Madison\",\"telephone\":\"6085551004\"}",
+    "ResponseBody": "{\"id\":2002,\"firstName\":\"NoEmail\",\"lastName\":\"Optional\",\"address\":\"1 Test Way\",\"city\":\"Madison\",\"telephone\":\"6085551004\",\"pets\":[]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:15:58.073Z",
+    "Scheme": "http",
+    "scenarioName": "owner_email_rejects_invalid"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "DELETE",
+    "Path": "/petclinic/api/owners/2002",
+    "QueryParams": {},
+    "StatusCode": 204,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:15:59.073Z",
+    "Scheme": "http",
+    "scenarioName": "owner_email_rejects_invalid"
+  }
+]
