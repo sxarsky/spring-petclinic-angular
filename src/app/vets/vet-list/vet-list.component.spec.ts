@@ -35,7 +35,10 @@ import {Observable, of} from 'rxjs';
 
 class VetServiceStub {
   getVets(): Observable<Vet[]> {
-    return of();
+    return of([
+      {id: 1, firstName: 'James', lastName: 'Carter', specialties: []},
+      {id: 3, firstName: 'Linda', lastName: 'Douglas', specialties: [{id: 3, name: 'dentistry'}, {id: 2, name: 'surgery'}]}
+    ]);
   }
 }
 
@@ -67,5 +70,25 @@ describe('VetListComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  function specialtiesCellOfRow(rowIndex: number): HTMLTableCellElement {
+    const rows = fixture.nativeElement.querySelectorAll('#vets tbody tr');
+    return rows[rowIndex].querySelectorAll('td')[1] as HTMLTableCellElement;
+  }
+
+  it('labels a vet with no specialties', () => {
+    expect(specialtiesCellOfRow(0).textContent.trim()).toBe('No specialties');
+  });
+
+  it('lists every specialty of a vet inline and omits the no-specialties label', () => {
+    const rows = fixture.nativeElement.querySelectorAll('#vets tbody tr');
+    expect(rows.length).toBe(2);
+
+    const cell = specialtiesCellOfRow(1);
+
+    expect(cell.textContent.replace(/\s+/g, ' ').trim()).toBe('dentistry surgery');
+    expect(cell.textContent).not.toContain('No specialties');
+    expect(cell.querySelectorAll('div.d-inline').length).toBe(2);
   });
 });
