@@ -108,4 +108,14 @@ describe('VisitAddComponent', () => {
     it('should create VisitAddComponent', () => {
         expect(component).toBeTruthy();
     });
+
+    it('should render a Duration (minutes) input bounded to 5-240', () => {
+        fixture.detectChanges();
+
+        const duration = fixture.nativeElement.querySelector('#durationMinutes');
+        expect(duration).toBeTruthy();
+        expect(duration.getAttribute('type')).toBe('number');
+        expect(duration.getAttribute('min')).toBe('5');
+        expect(duration.getAttribute('max')).toBe('240');
+    });
 });

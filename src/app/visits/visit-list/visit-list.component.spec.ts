@@ -90,6 +90,12 @@ describe('VisitListComponent', () => {
                 date: '2016-09-07',
                 description: '',
                 pet: testPet
+            }, {
+                id: 2,
+                date: '2016-09-08',
+                description: 'dental cleaning',
+                durationMinutes: 45,
+                pet: testPet
             }];
 
         visitService = fixture.debugElement.injector.get(VisitService);
@@ -103,6 +109,23 @@ describe('VisitListComponent', () => {
 
     it('should create VisitListComponent', () => {
         expect(component).toBeTruthy();
+    });
+
+    it('should render the Duration column, showing "<n> min" only for visits that have a duration', () => {
+        fixture.detectChanges();
+
+        const headerCells = fixture.nativeElement.querySelectorAll('thead th');
+        expect(headerCells[2].textContent.trim()).toBe('Duration');
+
+        // Rows follow the order of component.visits: [0] has no durationMinutes, [1] has 45.
+        const rows = Array.from(fixture.nativeElement.querySelectorAll('tr'))
+            .filter((row: any) => row.querySelectorAll('td').length > 0) as HTMLElement[];
+        const withoutDuration = rows[0].querySelectorAll('td');
+        const withDuration = rows[1].querySelectorAll('td');
+
+        expect(withDuration[1].textContent.trim()).toBe('dental cleaning');
+        expect(withDuration[2].textContent.trim()).toBe('45 min');
+        expect(withoutDuration[2].textContent.trim()).toBe('');
     });
 
     it('should call deleteVisit() method', () => {

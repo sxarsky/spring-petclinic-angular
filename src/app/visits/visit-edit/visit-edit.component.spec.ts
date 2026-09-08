@@ -103,6 +103,7 @@ describe('VisitEditComponent', () => {
             id: 1,
             date: '2016-09-07',
             description: '',
+            durationMinutes: 45,
             pet: testPet
         };
 
@@ -114,5 +115,17 @@ describe('VisitEditComponent', () => {
 
     it('should create VisitEditComponent', () => {
         expect(component).toBeTruthy();
+    });
+
+    it('should load the stored duration into the Duration (minutes) input, bounded to 5-240', () => {
+        fixture.detectChanges();
+
+        expect(component.visit.durationMinutes).toBe(45);
+
+        const duration = fixture.nativeElement.querySelector('#durationMinutes');
+        expect(duration).toBeTruthy();
+        expect(duration.getAttribute('type')).toBe('number');
+        expect(duration.getAttribute('min')).toBe('5');
+        expect(duration.getAttribute('max')).toBe('240');
     });
 });
