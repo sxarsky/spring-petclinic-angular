@@ -1,0 +1,122 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"firstName\":\"Phoneone\",\"lastName\":\"Updatecase\",\"address\":\"1 Contract Way\",\"city\":\"Madison\",\"phoneNumber\":\"6085550111\"}",
+    "ResponseBody": "{\"id\":987654,\"firstName\":\"Phoneone\",\"lastName\":\"Updatecase\",\"address\":\"1 Contract Way\",\"city\":\"Madison\",\"phoneNumber\":\"6085550111\",\"telephone\":\"6085550111\",\"pets\":[]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:15:55.721Z",
+    "Scheme": "http",
+    "scenarioName": "owner_phone_number_update_persists"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"firstName\":\"Phoneone\",\"lastName\":\"Updatecase\",\"address\":\"1 Contract Way\",\"city\":\"Madison\",\"phoneNumber\":\"6085550222\"}",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "PUT",
+    "Path": "/petclinic/api/owners/999999",
+    "QueryParams": {},
+    "StatusCode": 404,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:15:56.721Z",
+    "Scheme": "http",
+    "scenarioName": "owner_phone_number_update_persists"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"firstName\":\"Phoneone\",\"lastName\":\"Updatecase\",\"address\":\"2 Contract Way\",\"city\":\"Madison\",\"telephone\":\"6085550111\",\"phoneNumber\":\"6085550222\"}",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "PUT",
+    "Path": "/petclinic/api/owners/987654",
+    "QueryParams": {},
+    "StatusCode": 204,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:15:57.721Z",
+    "Scheme": "http",
+    "scenarioName": "owner_phone_number_update_persists"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"id\":987654,\"firstName\":\"Phoneone\",\"lastName\":\"Updatecase\",\"address\":\"2 Contract Way\",\"city\":\"Madison\",\"phoneNumber\":\"6085550222\",\"telephone\":\"6085550222\",\"pets\":[]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/petclinic/api/owners/987654",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:15:58.721Z",
+    "Scheme": "http",
+    "scenarioName": "owner_phone_number_update_persists"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "DELETE",
+    "Path": "/petclinic/api/owners/987654",
+    "QueryParams": {},
+    "StatusCode": 204,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:15:59.721Z",
+    "Scheme": "http",
+    "scenarioName": "owner_phone_number_update_persists"
+  }
+]
