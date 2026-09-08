@@ -92,7 +92,10 @@ test('displays backend data on list pages', async ({ page }) => {
       address: '638 Cardinal Ave.',
       city: 'Sun Prairie',
       telephone: '6085551749',
-      pets: []
+      pets: [
+        { id: 21, name: 'Basil', birthDate: '2012-08-06', type: { id: 6, name: 'hamster' }, visits: [] },
+        { id: 22, name: 'Iggy', birthDate: '2010-11-30', type: { id: 3, name: 'lizard' }, visits: [] }
+      ]
     },
     {
       id: 4,
@@ -139,6 +142,16 @@ test('displays backend data on list pages', async ({ page }) => {
   expect(renderedSpecialties).toEqual(expect.arrayContaining(['dentistry', 'surgery']));
 
   await page.goto('/petclinic/owners');
+
+  const ownerRow = (name: string) =>
+    page.locator('#ownersTable table tbody tr')
+      .filter({ has: page.getByRole('link', { name }) });
+
+  await expect(page.locator('#ownersTable thead th').nth(4)).toHaveText('No. of pets');
+  await expect(ownerRow('Betty Davis').locator('td').nth(4)).toHaveText('2');
+  await expect(ownerRow('George Franklin').locator('td').nth(4)).toHaveText('0');
+  await expect(ownerRow('Harold Davis').locator('td').nth(4)).toHaveText('0');
+
   await page.locator('#lastName').fill('Davis');
   await page.getByRole('button', { name: 'Find Owner' }).click();
   await expect(page.getByRole('link', { name: 'Betty Davis' })).toBeVisible();

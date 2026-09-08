@@ -135,4 +135,39 @@ describe('OwnerListComponent', () => {
         });
     }));
 
+    it(' should show the number of pets of each owner (async) ', waitForAsync(() => {
+        fixture.detectChanges();
+        fixture.whenStable().then(() => {
+            fixture.detectChanges(); // update view with the pet count
+            const headerTexts = fixture.debugElement
+                .queryAll(By.css('#ownersTable table thead th'))
+                .map(th => th.nativeElement.textContent.trim());
+            const petCountIndex = headerTexts.indexOf('No. of pets');
+            expect(petCountIndex, 'No. of pets column is rendered').toBeGreaterThan(-1);
+
+            const cells = fixture.debugElement
+                .queryAll(By.css('#ownersTable table tbody tr'))[0]
+                .queryAll(By.css('td'));
+            expect(cells[petCountIndex].nativeElement.textContent.trim())
+                .toBe(String(testOwners[0].pets.length));
+        });
+    }));
+
+    it(' should show 0 pets for an owner without a pets array (async) ', waitForAsync(() => {
+        spy = vi.spyOn(ownerService, 'getOwners').mockReturnValue(of([testOwner]));
+        fixture.detectChanges();
+        fixture.whenStable().then(() => {
+            fixture.detectChanges(); // update view with the pet count
+            const headerTexts = fixture.debugElement
+                .queryAll(By.css('#ownersTable table thead th'))
+                .map(th => th.nativeElement.textContent.trim());
+            const petCountIndex = headerTexts.indexOf('No. of pets');
+
+            const cells = fixture.debugElement
+                .queryAll(By.css('#ownersTable table tbody tr'))[0]
+                .queryAll(By.css('td'));
+            expect(cells[petCountIndex].nativeElement.textContent.trim()).toBe('0');
+        });
+    }));
+
 });

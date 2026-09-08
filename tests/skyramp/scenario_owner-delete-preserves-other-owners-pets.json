@@ -1,0 +1,221 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"name\":\"skyramp-shared-type\"}",
+    "ResponseBody": "{\"name\":\"skyramp-shared-type\",\"id\":7101}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/pettypes",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:21:34.129Z",
+    "Scheme": "http",
+    "scenarioName": "owner-delete-preserves-other-owners-pets",
+    "UniqueFields": [
+      "name"
+    ]
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"firstName\":\"Doomed\",\"lastName\":\"Skyrampdoomed\",\"address\":\"1 Cascade St.\",\"city\":\"Madison\",\"telephone\":\"6085550221\"}",
+    "ResponseBody": "{\"firstName\":\"Doomed\",\"lastName\":\"Skyrampdoomed\",\"address\":\"1 Cascade St.\",\"city\":\"Madison\",\"telephone\":\"6085550221\",\"pets\":[],\"id\":9201}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:21:35.129Z",
+    "Scheme": "http",
+    "scenarioName": "owner-delete-preserves-other-owners-pets"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"firstName\":\"Bystander\",\"lastName\":\"Skyrampbystander\",\"address\":\"2 Cascade St.\",\"city\":\"Madison\",\"telephone\":\"6085550222\"}",
+    "ResponseBody": "{\"firstName\":\"Bystander\",\"lastName\":\"Skyrampbystander\",\"address\":\"2 Cascade St.\",\"city\":\"Madison\",\"telephone\":\"6085550222\",\"pets\":[],\"id\":9302}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:21:36.129Z",
+    "Scheme": "http",
+    "scenarioName": "owner-delete-preserves-other-owners-pets"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"name\":\"PetOfA\",\"birthDate\":\"2020-05-01\",\"type\":{\"id\":7101,\"name\":\"skyramp-shared-type\"}}",
+    "ResponseBody": "{\"name\":\"PetOfA\",\"birthDate\":\"2020-05-01\",\"type\":{\"name\":\"skyramp-shared-type\",\"id\":7101},\"id\":8401,\"visits\":[],\"ownerId\":9201}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners/9201/pets",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:21:37.129Z",
+    "Scheme": "http",
+    "scenarioName": "owner-delete-preserves-other-owners-pets"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"name\":\"PetOfB\",\"birthDate\":\"2020-06-01\",\"type\":{\"id\":7101,\"name\":\"skyramp-shared-type\"}}",
+    "ResponseBody": "{\"name\":\"PetOfB\",\"birthDate\":\"2020-06-01\",\"type\":{\"name\":\"skyramp-shared-type\",\"id\":7101},\"id\":8502,\"visits\":[],\"ownerId\":9302}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners/9302/pets",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:21:38.129Z",
+    "Scheme": "http",
+    "scenarioName": "owner-delete-preserves-other-owners-pets"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "DELETE",
+    "Path": "/petclinic/api/owners/9201",
+    "QueryParams": {},
+    "StatusCode": 204,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:21:39.129Z",
+    "Scheme": "http",
+    "scenarioName": "owner-delete-preserves-other-owners-pets"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"firstName\":\"Bystander\",\"lastName\":\"Skyrampbystander\",\"address\":\"2 Cascade St.\",\"city\":\"Madison\",\"telephone\":\"6085550222\",\"pets\":[{\"name\":\"PetOfB\",\"birthDate\":\"2020-06-01\",\"type\":{\"name\":\"skyramp-shared-type\",\"id\":7101},\"id\":8502,\"visits\":[],\"ownerId\":9302}],\"id\":9302}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/petclinic/api/owners/9302",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:21:40.129Z",
+    "Scheme": "http",
+    "scenarioName": "owner-delete-preserves-other-owners-pets"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "[{\"name\":\"skyramp-shared-type\",\"id\":7101}]",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/petclinic/api/pettypes",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:21:41.129Z",
+    "Scheme": "http",
+    "scenarioName": "owner-delete-preserves-other-owners-pets"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "DELETE",
+    "Path": "/petclinic/api/owners/9302",
+    "QueryParams": {},
+    "StatusCode": 204,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:21:42.129Z",
+    "Scheme": "http",
+    "scenarioName": "owner-delete-preserves-other-owners-pets"
+  }
+]
