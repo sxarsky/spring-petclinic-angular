@@ -43,7 +43,7 @@
           <th>Name</th>
           <th>Address</th>
           <th>City</th>
-          <th>Telephone</th>
+          <th>Phone</th>
           <th>Pets</th>
         </tr>
         </thead>
@@ -54,7 +54,7 @@
                                        (click)="onSelect(owner)">{{ owner.firstName }} {{ owner.lastName }}</a></td>
           <td>{{ owner.address }}</td>
           <td>{{ owner.city }}</td>
-          <td>{{ owner.telephone }}</td>
+          <td>{{ owner.phoneNumber }}</td>
           <td>
         <tr *ngFor="let pet of owner.pets">
           {{ pet.name }}
