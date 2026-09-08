@@ -168,4 +168,60 @@ describe('OwnerService', () => {
         });
         req.flush('404 error', {status: 404, statusText: 'Not Found'});
     });
+
+    it('should surface the problem detail from the response body', () => {
+        let reportedMessage: string;
+        ownerService.getOwnerById(1).subscribe({
+            next: () => expect.fail('Should have failed with a 400 error'),
+            error: (error) => (reportedMessage = error as any),
+        });
+
+        const req = httpTestingController.expectOne({
+            method: 'GET',
+            url: ownerService.entityUrl + '/1',
+        });
+        req.flush({
+            type: 'http://localhost:9966/petclinic/api/owners/1',
+            title: 'MethodArgumentNotValidException',
+            status: 400,
+            detail: 'The request contains invalid or missing parameters',
+            instance: '/petclinic/api/owners/1',
+            timestamp: '2026-09-08T18:56:15.794285475Z',
+            validationErrors: [],
+        }, {status: 400, statusText: 'Bad Request'});
+
+        expect(reportedMessage).toEqual('The request contains invalid or missing parameters');
+    });
+
+    it('should surface the first field validation message from the response body', () => {
+        let reportedMessage: string;
+        ownerService.getOwnerById(1).subscribe({
+            next: () => expect.fail('Should have failed with a 400 error'),
+            error: (error) => (reportedMessage = error as any),
+        });
+
+        const req = httpTestingController.expectOne({
+            method: 'GET',
+            url: ownerService.entityUrl + '/1',
+        });
+        req.flush({
+            type: 'http://localhost:9966/petclinic/api/owners/1',
+            title: 'MethodArgumentNotValidException',
+            status: 400,
+            detail: 'The request contains invalid or missing parameters',
+            instance: '/petclinic/api/owners/1',
+            timestamp: '2026-09-08T18:56:15.794285475Z',
+            validationErrors: [
+                {
+                    message: "Field 'firstName' size must be between 1 and 30 (rejected value: )",
+                    field: 'firstName',
+                    defaultMessage: 'size must be between 1 and 30',
+                    rejectedValue: '',
+                },
+            ],
+        }, {status: 400, statusText: 'Bad Request'});
+
+        expect(reportedMessage).toEqual(
+            "Field 'firstName' size must be between 1 and 30 (rejected value: )");
+    });
 });
