@@ -38,9 +38,13 @@ import { Observable, of } from 'rxjs';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { PetType } from '../../pettypes/pettype';
+import { Owner } from '../../owners/owner';
 type Spy = Mock;
 
 class OwnerServiceStub {
+    getOwnerById(ownerId: number): Observable<Owner> {
+        return of();
+    }
 }
 
 class PetServiceStub {
@@ -87,6 +91,7 @@ describe('PetEditComponent', () => {
         testPet = {
             id: 1,
             name: 'Leo',
+            nickname: 'Leonardo',
             birthDate: '2010-09-07',
             type: { id: 1, name: 'cat' },
             ownerId: 1,
@@ -103,11 +108,22 @@ describe('PetEditComponent', () => {
         };
         petService = fixture.debugElement.injector.get(PetService);
         spy = vi.spyOn(petService, 'updatePet').mockReturnValue(of(testPet));
+        vi.spyOn(petService, 'getPetById').mockReturnValue(of(testPet));
 
         fixture.detectChanges();
     });
 
     it('should create PetEditComponent', () => {
         expect(component).toBeTruthy();
+    });
+
+    it('should pre-populate the Nickname input from the loaded pet', () => {
+        fixture.detectChanges();
+
+        const input = fixture.nativeElement.querySelector('#nickname') as HTMLInputElement;
+
+        expect(input).toBeTruthy();
+        expect(input.value).toBe('Leonardo');
+        expect(input.maxLength).toBe(30);
     });
 });

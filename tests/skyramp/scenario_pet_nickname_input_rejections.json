@@ -1,0 +1,242 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"firstName\":\"Nickname\",\"lastName\":\"Bounds\",\"address\":\"2 Nickname St.\",\"city\":\"Madison\",\"telephone\":\"6085550002\"}",
+    "ResponseBody": "{\"id\":900011,\"firstName\":\"Nickname\",\"lastName\":\"Bounds\",\"address\":\"2 Nickname St.\",\"city\":\"Madison\",\"telephone\":\"6085550002\",\"pets\":[]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:30:49.187Z",
+    "Scheme": "http",
+    "scenarioName": "pet_nickname_input_rejections"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"name\":\"MaxNick\",\"birthDate\":\"2020-01-01\",\"type\":{\"id\":1,\"name\":\"cat\"},\"nickname\":\"123456789012345678901234567890\"}",
+    "ResponseBody": "{\"id\":900012,\"name\":\"MaxNick\",\"nickname\":\"123456789012345678901234567890\",\"birthDate\":\"2020-01-01\",\"type\":{\"id\":1,\"name\":\"cat\"},\"ownerId\":900011,\"visits\":[]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners/900011/pets",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:30:50.187Z",
+    "Scheme": "http",
+    "scenarioName": "pet_nickname_input_rejections"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"name\":\"NoNick\",\"birthDate\":\"2020-01-01\",\"type\":{\"id\":1,\"name\":\"cat\"}}",
+    "ResponseBody": "{\"id\":900013,\"name\":\"NoNick\",\"birthDate\":\"2020-01-01\",\"type\":{\"id\":1,\"name\":\"cat\"},\"ownerId\":900011,\"visits\":[]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners/900011/pets",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:30:51.187Z",
+    "Scheme": "http",
+    "scenarioName": "pet_nickname_input_rejections"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"name\":\"EmptyNick\",\"birthDate\":\"2020-01-01\",\"type\":{\"id\":1,\"name\":\"cat\"},\"nickname\":\"\"}",
+    "ResponseBody": "{\"status\":400,\"title\":\"MethodArgumentNotValidException\",\"schemaValidationErrors\":[{\"field\":\"nickname\",\"defaultMessage\":\"size must be between 1 and 30\"}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners/900011/pets",
+    "QueryParams": {},
+    "StatusCode": 400,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:30:52.187Z",
+    "Scheme": "http",
+    "scenarioName": "pet_nickname_input_rejections"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"name\":\"LongNick\",\"birthDate\":\"2020-01-01\",\"type\":{\"id\":1,\"name\":\"cat\"},\"nickname\":\"1234567890123456789012345678901\"}",
+    "ResponseBody": "{\"status\":400,\"title\":\"MethodArgumentNotValidException\",\"schemaValidationErrors\":[{\"field\":\"nickname\",\"defaultMessage\":\"size must be between 1 and 30\"}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners/900011/pets",
+    "QueryParams": {},
+    "StatusCode": 400,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:30:53.187Z",
+    "Scheme": "http",
+    "scenarioName": "pet_nickname_input_rejections"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"name\":\"OrphanNick\",\"birthDate\":\"2020-01-01\",\"type\":{\"id\":1,\"name\":\"cat\"},\"nickname\":\"Buddy\"}",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners/999999/pets",
+    "QueryParams": {},
+    "StatusCode": 404,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:30:54.187Z",
+    "Scheme": "http",
+    "scenarioName": "pet_nickname_input_rejections"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"id\":999999,\"name\":\"OrphanNick\",\"birthDate\":\"2020-01-01\",\"type\":{\"id\":1,\"name\":\"cat\"},\"ownerId\":900011,\"nickname\":\"Buddy\"}",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "PUT",
+    "Path": "/petclinic/api/pets/999999",
+    "QueryParams": {},
+    "StatusCode": 404,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:30:55.187Z",
+    "Scheme": "http",
+    "scenarioName": "pet_nickname_input_rejections"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "DELETE",
+    "Path": "/petclinic/api/pets/900012",
+    "QueryParams": {},
+    "StatusCode": 204,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:30:56.187Z",
+    "Scheme": "http",
+    "scenarioName": "pet_nickname_input_rejections"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "DELETE",
+    "Path": "/petclinic/api/pets/900013",
+    "QueryParams": {},
+    "StatusCode": 204,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:30:57.187Z",
+    "Scheme": "http",
+    "scenarioName": "pet_nickname_input_rejections"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "DELETE",
+    "Path": "/petclinic/api/owners/900011",
+    "QueryParams": {},
+    "StatusCode": 204,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:30:58.187Z",
+    "Scheme": "http",
+    "scenarioName": "pet_nickname_input_rejections"
+  }
+]

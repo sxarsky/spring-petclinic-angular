@@ -88,6 +88,7 @@ describe('PetAddComponent', () => {
         testPet = {
             id: 1,
             name: 'Leo',
+            nickname: 'Leonardo',
             birthDate: '2010-09-07',
             type: { id: 1, name: 'cat' },
             ownerId: 1,
@@ -110,5 +111,16 @@ describe('PetAddComponent', () => {
 
     it('should create PetAddComponent', () => {
         expect(component).toBeTruthy();
+    });
+
+    it('should expose an optional Nickname input capped at 30 characters', () => {
+        fixture.detectChanges();
+
+        const input = fixture.nativeElement.querySelector('#nickname') as HTMLInputElement;
+
+        expect(input).toBeTruthy();
+        expect(input.getAttribute('name')).toBe('nickname');
+        expect(input.maxLength).toBe(30);
+        expect(input.required).toBe(false);
     });
 });
