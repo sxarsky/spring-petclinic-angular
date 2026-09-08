@@ -41,9 +41,10 @@ export class OwnerService {
     this.handlerError = httpErrorHandler.createHandleError('OwnerService');
   }
 
-  getOwners(): Observable<Owner[]> {
+  getOwners(sort?: string): Observable<Owner[]> {
+    const options = sort ? {params: {sort}} : {};
     return this.http
-      .get<Owner[]>(this.entityUrl)
+      .get<Owner[]>(this.entityUrl, options)
       .pipe(catchError(this.handlerError('getOwners', [])));
   }
 
