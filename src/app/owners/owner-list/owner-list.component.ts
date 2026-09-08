@@ -56,6 +56,11 @@ export class OwnerListComponent implements OnInit {
       error => this.errorMessage = error as any);
   }
 
+  clearSearch() {
+    this.lastName = '';
+    this.searchByLastName('');
+  }
+
   onSelect(owner: Owner) {
     this.router.navigate(['/owners', owner.id]);
   }
