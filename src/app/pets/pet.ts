@@ -28,6 +28,7 @@ export interface Pet {
   id: number;
   ownerId: number;
   name: string;
+  nickname?: string;
   birthDate: string;
   type: PetType;
   owner: Owner;
