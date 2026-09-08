@@ -1,0 +1,54 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "[{\"id\":1,\"firstName\":\"George\",\"lastName\":\"Franklin\",\"address\":\"110 W. Liberty St.\",\"city\":\"Madison\",\"telephone\":\"6085551023\"},{\"id\":2,\"firstName\":\"Betty\",\"lastName\":\"Davis\",\"address\":\"638 Cardinal Ave.\",\"city\":\"Sun Prairie\",\"telephone\":\"6085551749\"},{\"id\":3,\"firstName\":\"Eduardo\",\"lastName\":\"Rodriquez\",\"address\":\"2693 Commerce St.\",\"city\":\"McFarland\",\"telephone\":\"6085558763\"}]",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/petclinic/api/owners",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:11:48.165Z",
+    "Scheme": "http",
+    "scenarioName": "owners-list-sort-by-city-api"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "[{\"id\":1,\"firstName\":\"George\",\"lastName\":\"Franklin\",\"address\":\"110 W. Liberty St.\",\"city\":\"Madison\",\"telephone\":\"6085551023\"},{\"id\":3,\"firstName\":\"Eduardo\",\"lastName\":\"Rodriquez\",\"address\":\"2693 Commerce St.\",\"city\":\"McFarland\",\"telephone\":\"6085558763\"},{\"id\":4,\"firstName\":\"Harold\",\"lastName\":\"Davis\",\"address\":\"563 Friendly St.\",\"city\":\"Windsor\",\"telephone\":\"6085553198\"}]",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/petclinic/api/owners",
+    "QueryParams": {
+      "sort": [
+        "city"
+      ]
+    },
+    "StatusCode": 200,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:11:49.165Z",
+    "Scheme": "http",
+    "scenarioName": "owners-list-sort-by-city-api"
+  }
+]

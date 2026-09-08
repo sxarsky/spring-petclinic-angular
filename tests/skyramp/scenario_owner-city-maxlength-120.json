@@ -1,0 +1,122 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"firstName\":\"Cityboundary\",\"lastName\":\"Maxlen\",\"address\":\"1 Boundary St\",\"city\":\"Skyramp Boundary City xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\",\"telephone\":\"6085550120\"}",
+    "ResponseBody": "{\"id\":11,\"firstName\":\"Cityboundary\",\"lastName\":\"Maxlen\",\"address\":\"1 Boundary St\",\"city\":\"Skyramp Boundary City xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\",\"telephone\":\"6085550120\",\"pets\":[]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:12:03.548Z",
+    "Scheme": "http",
+    "scenarioName": "owner-city-maxlength-120"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"id\":11,\"firstName\":\"Cityboundary\",\"lastName\":\"Maxlen\",\"address\":\"1 Boundary St\",\"city\":\"Skyramp Boundary City xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\",\"telephone\":\"6085550120\",\"pets\":[]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/petclinic/api/owners/11",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:12:04.548Z",
+    "Scheme": "http",
+    "scenarioName": "owner-city-maxlength-120"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"firstName\":\"Cityboundary\",\"lastName\":\"Toolong\",\"address\":\"1 Boundary St\",\"city\":\"Skyramp Boundary City xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\",\"telephone\":\"6085550121\"}",
+    "ResponseBody": "{\"title\":\"Constraint Violation\",\"status\":400,\"schemaValidationErrors\":[{\"message\":\"Field 'city' size must be between 1 and 120\",\"field\":\"city\",\"defaultMessage\":\"size must be between 1 and 120\"}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners",
+    "QueryParams": {},
+    "StatusCode": 400,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:12:05.548Z",
+    "Scheme": "http",
+    "scenarioName": "owner-city-maxlength-120"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"firstName\":\"Cityboundary\",\"lastName\":\"Emptycity\",\"address\":\"1 Boundary St\",\"city\":\"\",\"telephone\":\"6085550122\"}",
+    "ResponseBody": "{\"title\":\"Constraint Violation\",\"status\":400,\"schemaValidationErrors\":[{\"message\":\"Field 'city' size must be between 1 and 120\",\"field\":\"city\",\"defaultMessage\":\"size must be between 1 and 120\",\"rejectedValue\":\"\"}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners",
+    "QueryParams": {},
+    "StatusCode": 400,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:12:06.548Z",
+    "Scheme": "http",
+    "scenarioName": "owner-city-maxlength-120"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "DELETE",
+    "Path": "/petclinic/api/owners/11",
+    "QueryParams": {},
+    "StatusCode": 204,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:12:07.548Z",
+    "Scheme": "http",
+    "scenarioName": "owner-city-maxlength-120"
+  }
+]

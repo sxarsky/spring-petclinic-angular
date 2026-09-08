@@ -45,7 +45,7 @@ type Spy = Mock;
 
 
 class OwnerServiceStub {
-    getOwners(): Observable<Owner[]> {
+    getOwners(sort?: string): Observable<Owner[]> {
         return of();
     }
 }
@@ -124,6 +124,26 @@ describe('OwnerListComponent', () => {
         expect(vi.mocked(spy).mock.calls.length > 0, 'getOwners called').toBe(true);
     });
 
+
+    it('should request owners sorted by city when the City header is clicked', () => {
+        fixture.detectChanges();
+
+        const cityHeaderLink = fixture.debugElement.query(By.css('#sortByCity'));
+        expect(cityHeaderLink, 'City column header link').toBeTruthy();
+
+        cityHeaderLink.nativeElement.click();
+        fixture.detectChanges();
+
+        expect(spy).toHaveBeenCalledWith('city');
+    });
+
+    it('should record the active sort field', () => {
+        fixture.detectChanges();
+
+        component.sortBy('city');
+
+        expect(component.sortField).toBe('city');
+    });
 
     it(' should show full name after getOwners observable (async) ', waitForAsync(() => {
         fixture.detectChanges();

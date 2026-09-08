@@ -77,6 +77,39 @@ describe('OwnerService', () => {
         req.flush(expectedOwners);
     });
 
+    it('appends the sort query param when a sort field is given', () => {
+        ownerService
+            .getOwners('city')
+            .subscribe({
+                next: (owners) => expect(owners, 'should return expected owners').toEqual(expectedOwners),
+                error: (error) => expect.fail(`Unexpected error: ${error}`),
+            });
+
+        const req = httpTestingController.expectOne(
+            (request) => request.url === ownerService.entityUrl && request.params.get('sort') === 'city'
+        );
+        expect(req.request.method).toEqual('GET');
+        expect(req.request.url).toEqual(ownerService.entityUrl);
+        expect(req.request.params.get('sort')).toEqual('city');
+
+        req.flush(expectedOwners);
+    });
+
+    it('sends no sort param when called with no argument', () => {
+        ownerService
+            .getOwners()
+            .subscribe({
+                next: (owners) => expect(owners, 'should return expected owners').toEqual(expectedOwners),
+                error: (error) => expect.fail(`Unexpected error: ${error}`),
+            });
+
+        const req = httpTestingController.expectOne(ownerService.entityUrl);
+        expect(req.request.method).toEqual('GET');
+        expect(req.request.params.has('sort')).toBe(false);
+
+        req.flush(expectedOwners);
+    });
+
     it('search the owner by id', () => {
         ownerService.getOwnerById(1).subscribe((owners) => {
             expect(owners).toEqual(expectedOwners[0]);
