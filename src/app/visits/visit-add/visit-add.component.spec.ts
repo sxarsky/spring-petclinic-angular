@@ -108,4 +108,21 @@ describe('VisitAddComponent', () => {
     it('should create VisitAddComponent', () => {
         expect(component).toBeTruthy();
     });
+
+    it('should cap the description field at 30 characters', () => {
+        const input: HTMLInputElement = fixture.nativeElement.querySelector('#description');
+        expect(input).toBeTruthy();
+        expect(input.getAttribute('maxlength')).toBe('30');
+
+        // Assigning value directly bypasses the native maxlength cap, so the
+        // Angular validator sees 31 characters and renders its feedback.
+        input.value = 'x'.repeat(31);
+        input.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+
+        const feedback: string[] = Array.from(
+            fixture.nativeElement.querySelectorAll('.invalid-feedback') as NodeListOf<HTMLElement>
+        ).map(element => element.textContent ?? '');
+        expect(feedback.some(text => text.includes('at most 30 characters long'))).toBe(true);
+    });
 });
