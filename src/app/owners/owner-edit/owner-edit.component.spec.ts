@@ -71,6 +71,12 @@ describe('OwnerEditComponent', () => {
         expect(component).toBeTruthy();
     });
 
+    it('renders the email input with a 100 character limit', () => {
+        const email = fixture.debugElement.query(By.css('#email'));
+        expect(email).not.toBeNull();
+        expect(email.nativeElement.getAttribute('maxlength')).toBe('100');
+    });
+
     it('back button routing', async () => {
         let buttons = fixture.debugElement.queryAll(By.css('button'));
         let backbutton = buttons[0];

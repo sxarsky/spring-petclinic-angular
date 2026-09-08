@@ -67,6 +67,7 @@ describe('OwnerListComponent', () => {
         address: '110 W. Liberty St.',
         city: 'Madison',
         telephone: '6085551023',
+        email: 'george.franklin@example.com',
         pets: null
     };
     let testOwners: Owner[];
@@ -97,6 +98,7 @@ describe('OwnerListComponent', () => {
                 address: '110 W. Liberty St.',
                 city: 'Madison',
                 telephone: '6085551023',
+                email: 'george.franklin@example.com',
                 pets: [{
                         id: 1,
                         name: 'Leo',
@@ -123,6 +125,17 @@ describe('OwnerListComponent', () => {
         fixture.detectChanges();
         expect(vi.mocked(spy).mock.calls.length > 0, 'getOwners called').toBe(true);
     });
+
+
+    it('should show the owner email column after getOwners observable (async)', waitForAsync(() => {
+        fixture.detectChanges();
+        fixture.whenStable().then(() => {
+            fixture.detectChanges(); // update view with email
+            de = fixture.debugElement.query(By.css('#ownersTable'));
+            el = de.nativeElement;
+            expect(el.textContent).toContain('george.franklin@example.com');
+        });
+    }));
 
 
     it(' should show full name after getOwners observable (async) ', waitForAsync(() => {

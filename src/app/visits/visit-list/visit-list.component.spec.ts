@@ -81,6 +81,7 @@ describe('VisitListComponent', () => {
                 address: '110 W. Liberty St.',
                 city: 'Madison',
                 telephone: '6085551023',
+                email: 'george.franklin@example.com',
                 pets: null
             },
             visits: null
