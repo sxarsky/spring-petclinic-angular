@@ -32,6 +32,12 @@ async function mockBackend(page: Page) {
     const url = new URL(route.request().url());
     const resource = url.pathname.replace('/petclinic/api/', '');
 
+    if (resource === 'v2/owners' || resource.startsWith('v2/owners?')) {
+      await route.fulfill({
+        json: { content: [owner], page: 0, size: 5, totalElements: 1, totalPages: 1 }
+      });
+      return;
+    }
     if (resource === 'owners' || resource.startsWith('owners?')) {
       await route.fulfill({ json: [owner] });
       return;
@@ -108,6 +114,12 @@ test('displays backend data on list pages', async ({ page }) => {
   await page.route('**/petclinic/api/vets', route => route.fulfill({ json: vets }));
   await page.route('**/petclinic/api/pettypes', route => route.fulfill({ json: petTypes }));
   await page.route('**/petclinic/api/specialties', route => route.fulfill({ json: specialties }));
+  await page.route(
+    url => url.pathname.endsWith('/petclinic/api/v2/owners'),
+    route => route.fulfill({
+      json: { content: owners, page: 0, size: 5, totalElements: owners.length, totalPages: 1 }
+    })
+  );
   await page.route(
     url => url.pathname.endsWith('/petclinic/api/owners'),
     (route, request) => {

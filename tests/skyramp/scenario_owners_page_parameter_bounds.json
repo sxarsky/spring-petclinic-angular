@@ -1,0 +1,145 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"content\":[{\"id\":1,\"firstName\":\"George\",\"lastName\":\"Franklin\",\"address\":\"110 W. Liberty St.\",\"city\":\"Madison\",\"telephone\":\"6085551023\",\"pets\":[]}],\"page\":0,\"size\":1,\"totalElements\":10,\"totalPages\":10}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/petclinic/api/v2/owners",
+    "QueryParams": {
+      "page": [
+        "0"
+      ],
+      "size": [
+        "1"
+      ]
+    },
+    "StatusCode": 200,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:07:07.165Z",
+    "Scheme": "http",
+    "scenarioName": "owners_page_parameter_bounds"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"content\":[{\"id\":1,\"firstName\":\"George\",\"lastName\":\"Franklin\",\"address\":\"110 W. Liberty St.\",\"city\":\"Madison\",\"telephone\":\"6085551023\",\"pets\":[]}],\"page\":0,\"size\":100,\"totalElements\":10,\"totalPages\":1}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/petclinic/api/v2/owners",
+    "QueryParams": {
+      "size": [
+        "100"
+      ]
+    },
+    "StatusCode": 200,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:07:08.165Z",
+    "Scheme": "http",
+    "scenarioName": "owners_page_parameter_bounds"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/petclinic/api/v2/owners",
+    "QueryParams": {
+      "size": [
+        "0"
+      ]
+    },
+    "StatusCode": 400,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:07:09.165Z",
+    "Scheme": "http",
+    "scenarioName": "owners_page_parameter_bounds"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/petclinic/api/v2/owners",
+    "QueryParams": {
+      "size": [
+        "101"
+      ]
+    },
+    "StatusCode": 400,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:07:10.165Z",
+    "Scheme": "http",
+    "scenarioName": "owners_page_parameter_bounds"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/petclinic/api/v2/owners",
+    "QueryParams": {
+      "page": [
+        "-1"
+      ]
+    },
+    "StatusCode": 400,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:07:11.165Z",
+    "Scheme": "http",
+    "scenarioName": "owners_page_parameter_bounds"
+  }
+]
