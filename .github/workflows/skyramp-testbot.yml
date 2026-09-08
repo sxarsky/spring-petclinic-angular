@@ -103,7 +103,7 @@ jobs:
         with:
           node-version: '24'
 
-      - uses: skyramp/testbot@6a0b550ed761358faf6f15d90ba3664e7f7ab8a5 # v0.11.12
+      - uses: skyramp/testbot@4722126f99847b5ef600de0a4b26e3349fa0eafe # v0.11.12
         env:
           # SkyrampUtils code reuse for integration tests: modularize/reuse
           # post-steps, off by default. Set here as an env var, not an action
