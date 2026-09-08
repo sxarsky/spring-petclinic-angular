@@ -1,0 +1,146 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"petId\": 1, \"date\": \"2026-09-08\", \"description\": \"skyramp regression visit\"}",
+    "ResponseBody": "{\"description\": \"skyramp regression visit\", \"id\": 5, \"petId\": 1, \"date\": \"2026-09-08\"}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/visits",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:06:06.445Z",
+    "Scheme": "http",
+    "scenarioName": "visits_create_round_trip_and_rejections"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"description\": \"skyramp regression visit\", \"id\": 5, \"petId\": 1, \"date\": \"2026-09-08\"}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/petclinic/api/visits/5",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:06:07.445Z",
+    "Scheme": "http",
+    "scenarioName": "visits_create_round_trip_and_rejections"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"petId\": 1, \"date\": \"2026-09-08\"}",
+    "ResponseBody": "{\"title\": \"MethodArgumentNotValidException\", \"status\": 400, \"detail\": \"The request contains invalid or missing parameters\"}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/visits",
+    "QueryParams": {},
+    "StatusCode": 400,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:06:08.445Z",
+    "Scheme": "http",
+    "scenarioName": "visits_create_round_trip_and_rejections"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"petId\": 999999, \"date\": \"2026-09-08\", \"description\": \"skyramp orphan visit\"}",
+    "ResponseBody": "{\"title\": \"DataIntegrityViolationException\", \"status\": 404, \"detail\": \"The requested resource could not be processed due to a data constraint violation\"}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/visits",
+    "QueryParams": {},
+    "StatusCode": 404,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:06:09.445Z",
+    "Scheme": "http",
+    "scenarioName": "visits_create_round_trip_and_rejections"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "DELETE",
+    "Path": "/petclinic/api/visits/5",
+    "QueryParams": {},
+    "StatusCode": 204,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:06:10.445Z",
+    "Scheme": "http",
+    "scenarioName": "visits_create_round_trip_and_rejections"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/petclinic/api/visits/5",
+    "QueryParams": {},
+    "StatusCode": 404,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:06:11.445Z",
+    "Scheme": "http",
+    "scenarioName": "visits_create_round_trip_and_rejections"
+  }
+]
