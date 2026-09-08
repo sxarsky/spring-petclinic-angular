@@ -31,6 +31,8 @@ import { HttpErrorHandler } from '../error.service';
 
 import { OwnerService } from './owner.service';
 import { Owner } from './owner';
+import { OwnerPage } from './owner-page';
+import { environment } from '../../environments/environment';
 
 describe('OwnerService', () => {
     let httpTestingController: HttpTestingController;
@@ -75,6 +77,67 @@ describe('OwnerService', () => {
 
         // Respond with the mock owners
         req.flush(expectedOwners);
+    });
+
+    it('should return an owner page', () => {
+        const expectedPage: OwnerPage = {
+            content: expectedOwners,
+            page: 0,
+            size: 5,
+            totalElements: 10,
+            totalPages: 2,
+        };
+
+        ownerService
+            .getOwnersPage()
+            .subscribe({
+                next: (page) => {
+                    expect(page, 'should return the page envelope').toEqual(expectedPage);
+                    expect(page.content.length, 'content holds one page of owners')
+                        .toEqual(expectedOwners.length);
+                    expect(page.totalElements, 'totalElements counts every owner, not just this page')
+                        .toEqual(10);
+                    expect(page.totalPages, 'totalPages reflects the full result set').toEqual(2);
+                    expect(page.page, 'page index of this response').toEqual(0);
+                    expect(page.size, 'page size of this response').toEqual(5);
+                },
+                error: (error) => expect.fail(`Unexpected error: ${error}`),
+            });
+
+        const req = httpTestingController.expectOne(environment.REST_API_URL + 'v2/owners');
+        expect(req.request.method).toEqual('GET');
+        expect(req.request.params.has('lastName'), 'no lastName param when none is supplied').toBe(false);
+
+        req.flush(expectedPage);
+    });
+
+    it('should forward lastName to the paged endpoint', () => {
+        const davis = [{ id: 2, firstName: 'Betty', lastName: 'Davis' }] as Owner[];
+        const expectedPage: OwnerPage = {
+            content: davis,
+            page: 0,
+            size: 5,
+            totalElements: 1,
+            totalPages: 1,
+        };
+
+        ownerService
+            .getOwnersPage('Davis')
+            .subscribe({
+                next: (page) => {
+                    expect(page, 'should return the filtered page envelope').toEqual(expectedPage);
+                    expect(page.totalElements, 'filtered total counts only matching owners').toEqual(1);
+                },
+                error: (error) => expect.fail(`Unexpected error: ${error}`),
+            });
+
+        const req = httpTestingController.expectOne(
+            (request) => request.url === environment.REST_API_URL + 'v2/owners'
+                && request.params.get('lastName') === 'Davis'
+        );
+        expect(req.request.method).toEqual('GET');
+
+        req.flush(expectedPage);
     });
 
     it('search the owner by id', () => {

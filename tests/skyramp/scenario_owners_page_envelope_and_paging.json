@@ -1,0 +1,110 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"content\":[{\"id\":1,\"firstName\":\"George\",\"lastName\":\"Franklin\",\"address\":\"110 W. Liberty St.\",\"city\":\"Madison\",\"telephone\":\"6085551023\",\"pets\":[]},{\"id\":2,\"firstName\":\"Betty\",\"lastName\":\"Davis\",\"address\":\"638 Cardinal Ave.\",\"city\":\"Sun Prairie\",\"telephone\":\"6085551749\",\"pets\":[]},{\"id\":3,\"firstName\":\"Eduardo\",\"lastName\":\"Rodriquez\",\"address\":\"2693 Commerce St.\",\"city\":\"McFarland\",\"telephone\":\"6085558763\",\"pets\":[]},{\"id\":4,\"firstName\":\"Harold\",\"lastName\":\"Davis\",\"address\":\"563 Friendly St.\",\"city\":\"Windsor\",\"telephone\":\"6085553198\",\"pets\":[]},{\"id\":5,\"firstName\":\"Peter\",\"lastName\":\"McTavish\",\"address\":\"2387 S. Fair Way\",\"city\":\"Madison\",\"telephone\":\"6085552765\",\"pets\":[]}],\"page\":0,\"size\":5,\"totalElements\":10,\"totalPages\":2}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/petclinic/api/v2/owners",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:06:55.093Z",
+    "Scheme": "http",
+    "scenarioName": "owners_page_envelope_and_paging"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"content\":[{\"id\":6,\"firstName\":\"Jean\",\"lastName\":\"Coleman\",\"address\":\"105 N. Lake St.\",\"city\":\"Monona\",\"telephone\":\"6085552654\",\"pets\":[]},{\"id\":7,\"firstName\":\"Jeff\",\"lastName\":\"Black\",\"address\":\"1450 Oak Blvd.\",\"city\":\"Monona\",\"telephone\":\"6085555387\",\"pets\":[]},{\"id\":8,\"firstName\":\"Maria\",\"lastName\":\"Escobito\",\"address\":\"345 Maple St.\",\"city\":\"Madison\",\"telephone\":\"6085557683\",\"pets\":[]},{\"id\":9,\"firstName\":\"David\",\"lastName\":\"Schroeder\",\"address\":\"2749 Blackhawk Trail\",\"city\":\"Madison\",\"telephone\":\"6085559435\",\"pets\":[]},{\"id\":10,\"firstName\":\"Carlos\",\"lastName\":\"Estaban\",\"address\":\"2335 Independence La.\",\"city\":\"Waunakee\",\"telephone\":\"6085555487\",\"pets\":[]}],\"page\":1,\"size\":5,\"totalElements\":10,\"totalPages\":2}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/petclinic/api/v2/owners",
+    "QueryParams": {
+      "page": [
+        "1"
+      ]
+    },
+    "StatusCode": 200,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:06:56.093Z",
+    "Scheme": "http",
+    "scenarioName": "owners_page_envelope_and_paging"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"content\":[{\"id\":2,\"firstName\":\"Betty\",\"lastName\":\"Davis\",\"address\":\"638 Cardinal Ave.\",\"city\":\"Sun Prairie\",\"telephone\":\"6085551749\",\"pets\":[]},{\"id\":4,\"firstName\":\"Harold\",\"lastName\":\"Davis\",\"address\":\"563 Friendly St.\",\"city\":\"Windsor\",\"telephone\":\"6085553198\",\"pets\":[]}],\"page\":0,\"size\":5,\"totalElements\":2,\"totalPages\":1}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/petclinic/api/v2/owners",
+    "QueryParams": {
+      "lastName": [
+        "Davis"
+      ]
+    },
+    "StatusCode": 200,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:06:57.093Z",
+    "Scheme": "http",
+    "scenarioName": "owners_page_envelope_and_paging"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"content\":[],\"page\":0,\"size\":5,\"totalElements\":0,\"totalPages\":0}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/petclinic/api/v2/owners",
+    "QueryParams": {
+      "lastName": [
+        "Zzzq"
+      ]
+    },
+    "StatusCode": 200,
+    "Port": 9966,
+    "Timestamp": "2026-09-08T19:06:58.093Z",
+    "Scheme": "http",
+    "scenarioName": "owners_page_envelope_and_paging"
+  }
+]
