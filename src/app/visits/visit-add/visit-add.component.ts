@@ -20,7 +20,8 @@
  * @author Vitaliy Fedoriv
  */
 
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, inject} from '@angular/core';
+import {finalize} from 'rxjs/operators';
 import {Visit} from '../visit';
 import {VisitService} from '../visit.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -39,6 +40,7 @@ import {OwnerService} from '../../owners/owner.service';
   styleUrls: ['./visit-add.component.css']
 })
 export class VisitAddComponent implements OnInit {
+  private readonly changeDetectorRef = inject(ChangeDetectorRef);
 
   visit: Visit;
   currentPet: Pet;
@@ -62,12 +64,16 @@ export class VisitAddComponent implements OnInit {
   ngOnInit() {
     console.log(this.route.parent);
     const petId = this.route.snapshot.params.id;
-    this.petService.getPetById(petId).subscribe(
+    this.petService.getPetById(petId)
+      .pipe(finalize(() => this.changeDetectorRef.markForCheck()))
+      .subscribe(
       pet => {
         this.currentPet = pet;
         this.visit.pet = this.currentPet;
         this.currentPetType = this.currentPet.type;
-        this.ownerService.getOwnerById(pet.ownerId).subscribe(
+        this.ownerService.getOwnerById(pet.ownerId)
+          .pipe(finalize(() => this.changeDetectorRef.markForCheck()))
+          .subscribe(
           owner => {
             this.currentOwner = owner;
           }

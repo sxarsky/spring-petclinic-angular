@@ -20,7 +20,8 @@
  * @author Vitaliy Fedoriv
  */
 
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, inject} from '@angular/core';
+import {finalize} from 'rxjs/operators';
 import { OwnerService } from '../owner.service';
 import { Owner } from '../owner';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -32,6 +33,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./owner-edit.component.css'],
 })
 export class OwnerEditComponent implements OnInit {
+  private readonly changeDetectorRef = inject(ChangeDetectorRef);
   owner: Owner;
   errorMessage: string; // server error message
   ownerId: number;
@@ -45,7 +47,9 @@ export class OwnerEditComponent implements OnInit {
 
   ngOnInit() {
     const ownerId = this.route.snapshot.params.id;
-    this.ownerService.getOwnerById(ownerId).subscribe(
+    this.ownerService.getOwnerById(ownerId)
+      .pipe(finalize(() => this.changeDetectorRef.markForCheck()))
+      .subscribe(
       (owner) => (this.owner = owner),
       (error) => (this.errorMessage = error as any)
     );

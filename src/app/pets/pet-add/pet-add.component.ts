@@ -21,7 +21,8 @@
  */
 
 
-import {Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, Input, OnInit, inject} from '@angular/core';
+import {finalize} from 'rxjs/operators';
 import {Pet} from '../pet';
 import {PetType} from '../../pettypes/pettype';
 import {Owner} from '../../owners/owner';
@@ -39,6 +40,7 @@ import moment from 'moment';
   styleUrls: ['./pet-add.component.css']
 })
 export class PetAddComponent implements OnInit {
+  private readonly changeDetectorRef = inject(ChangeDetectorRef);
   pet: Pet;
   @Input() currentType: PetType;
   currentOwner: Owner;
@@ -55,12 +57,16 @@ export class PetAddComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.petTypeService.getPetTypes().subscribe(
+    this.petTypeService.getPetTypes()
+      .pipe(finalize(() => this.changeDetectorRef.markForCheck()))
+      .subscribe(
       pettypes => this.petTypes = pettypes,
       error => this.errorMessage = error as any);
 
     const ownerId = this.route.snapshot.params.id;
-    this.ownerService.getOwnerById(ownerId).subscribe(
+    this.ownerService.getOwnerById(ownerId)
+      .pipe(finalize(() => this.changeDetectorRef.markForCheck()))
+      .subscribe(
       response => {
         this.currentOwner = response;
       },

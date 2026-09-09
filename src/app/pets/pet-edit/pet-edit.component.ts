@@ -21,7 +21,8 @@
  * @author Vitaliy Fedoriv
  */
 
-import {Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, Input, OnInit, inject} from '@angular/core';
+import {finalize} from 'rxjs/operators';
 import {Pet} from '../pet';
 import {PetService} from '../pet.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -39,6 +40,7 @@ import {OwnerService} from '../../owners/owner.service';
   styleUrls: ['./pet-edit.component.css']
 })
 export class PetEditComponent implements OnInit {
+  private readonly changeDetectorRef = inject(ChangeDetectorRef);
   pet: Pet;
   @Input() currentType: PetType;
   currentOwner: Owner;
@@ -58,15 +60,21 @@ export class PetEditComponent implements OnInit {
 
   ngOnInit() {
 
-    this.petTypeService.getPetTypes().subscribe(
+    this.petTypeService.getPetTypes()
+      .pipe(finalize(() => this.changeDetectorRef.markForCheck()))
+      .subscribe(
       pettypes => this.petTypes = pettypes,
       error => this.errorMessage = error as any);
 
     const petId = this.route.snapshot.params.id;
-    this.petService.getPetById(petId).subscribe(
+    this.petService.getPetById(petId)
+      .pipe(finalize(() => this.changeDetectorRef.markForCheck()))
+      .subscribe(
       pet => {
         this.pet = pet;
-        this.ownerService.getOwnerById(pet.ownerId).subscribe(
+        this.ownerService.getOwnerById(pet.ownerId)
+          .pipe(finalize(() => this.changeDetectorRef.markForCheck()))
+          .subscribe(
           response => {
             this.currentOwner = response;
           });
