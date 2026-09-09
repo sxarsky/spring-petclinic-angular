@@ -20,7 +20,8 @@
  * @author Vitaliy Fedoriv
  */
 
-import {Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, Input, OnInit, inject} from '@angular/core';
+import {finalize} from 'rxjs/operators';
 import {Visit} from '../visit';
 import {VisitService} from '../visit.service';
 import {Router} from '@angular/router';
@@ -32,6 +33,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./visit-list.component.css']
 })
 export class VisitListComponent implements OnInit {
+  private readonly changeDetectorRef = inject(ChangeDetectorRef);
 
   @Input() visits: Visit[];
   responseStatus: number;
@@ -50,7 +52,9 @@ export class VisitListComponent implements OnInit {
   }
 
   deleteVisit(visit: Visit) {
-    this.visitService.deleteVisit(visit.id.toString()).subscribe(
+    this.visitService.deleteVisit(visit.id.toString())
+      .pipe(finalize(() => this.changeDetectorRef.markForCheck()))
+      .subscribe(
       response => {
         this.responseStatus = response;
         console.log('delete success');
