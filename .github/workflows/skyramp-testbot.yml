@@ -103,7 +103,13 @@ jobs:
         with:
           node-version: '24'
 
-      - uses: skyramp/testbot@56fac3cc7b777cd08598ed7a7586f8d9733f3507 # v0.11.11
+      - uses: skyramp/testbot@4722126f99847b5ef600de0a4b26e3349fa0eafe # v0.11.12
+        env:
+          # SkyrampUtils code reuse for integration tests. Set as an env var, not
+          # an action input: the action reads it from process.env and, since
+          # v0.11.12, forwards it explicitly to the MCP server. It must be the
+          # string "1"; anything else is treated as off.
+          SKYRAMP_FEATURE_UTILS_REUSE: "1"
         with:
           skyrampLicenseFile: ${{ secrets.SKYRAMP_LICENSE_FILE }}
           anthropicApiKey: ${{ secrets.SKYRAMP_TESTBOT_API_KEY }}
@@ -111,10 +117,7 @@ jobs:
           githubAppId: ${{ secrets.SKYRAMP_TESTBOT_APP_ID }}
           githubAppPrivateKey: ${{ secrets.SKYRAMP_TESTBOT_APP_PRIVATE_KEY }}
           workingDirectory: 'spring-petclinic-angular'
-          skyrampMcpVersion: '0.3.6-rc.1'
-          # PORTING-GUIDE 4.6: run at the default budget so allocation across test
-          # types is visible. Do not raise this without making it the arm's variable.
-          maxGenerate: 3
+          skyrampMcpVersion: '0.4.0-rc.1'
           # Read-only extra context for analysis. Tests and the report still land
           # in this repo (the primary checkout).
           relatedRepoPaths: |
