@@ -1,0 +1,194 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"firstName\":\"Skyramp\",\"lastName\":\"Roundtrip\",\"address\":\"2 Test St.\",\"city\":\"Madison\",\"telephone\":\"6085550002\"}",
+    "ResponseBody": "{\"id\":9101,\"firstName\":\"Skyramp\",\"lastName\":\"Roundtrip\",\"address\":\"2 Test St.\",\"city\":\"Madison\",\"telephone\":\"6085550002\",\"pets\":[]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-09-09T04:56:55.047Z",
+    "Scheme": "http",
+    "scenarioName": "visit_duration_create_read_update_roundtrip"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"name\":\"Roundtrip\",\"birthDate\":\"2020-01-01\",\"type\":{\"id\":1,\"name\":\"cat\"}}",
+    "ResponseBody": "{\"id\":9102,\"ownerId\":9101,\"name\":\"Roundtrip\",\"birthDate\":\"2020-01-01\",\"type\":{\"id\":1,\"name\":\"cat\"},\"visits\":[]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners/9101/pets",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-09-09T04:56:56.047Z",
+    "Scheme": "http",
+    "scenarioName": "visit_duration_create_read_update_roundtrip"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"date\":\"2026-04-01\",\"description\":\"explicit duration\",\"durationMinutes\":60}",
+    "ResponseBody": "{\"id\":9103,\"petId\":9102,\"date\":\"2026-04-01\",\"description\":\"explicit duration\",\"durationMinutes\":60}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners/9101/pets/9102/visits",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-09-09T04:56:57.047Z",
+    "Scheme": "http",
+    "scenarioName": "visit_duration_create_read_update_roundtrip"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"date\":\"2026-04-02\",\"description\":\"defaulted duration\"}",
+    "ResponseBody": "{\"id\":9104,\"petId\":9102,\"date\":\"2026-04-02\",\"description\":\"defaulted duration\",\"durationMinutes\":30}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners/9101/pets/9102/visits",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-09-09T04:56:58.047Z",
+    "Scheme": "http",
+    "scenarioName": "visit_duration_create_read_update_roundtrip"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"date\":\"2026-04-01\",\"description\":\"explicit duration\",\"durationMinutes\":45}",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "PUT",
+    "Path": "/petclinic/api/visits/9103",
+    "QueryParams": {},
+    "StatusCode": 204,
+    "Port": 9966,
+    "Timestamp": "2026-09-09T04:56:59.047Z",
+    "Scheme": "http",
+    "scenarioName": "visit_duration_create_read_update_roundtrip"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"id\":9103,\"petId\":9102,\"date\":\"2026-04-01\",\"description\":\"explicit duration\",\"durationMinutes\":45}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/petclinic/api/visits/9103",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 9966,
+    "Timestamp": "2026-09-09T04:57:00.047Z",
+    "Scheme": "http",
+    "scenarioName": "visit_duration_create_read_update_roundtrip"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/petclinic/api/visits/99999999",
+    "QueryParams": {},
+    "StatusCode": 404,
+    "Port": 9966,
+    "Timestamp": "2026-09-09T04:57:01.047Z",
+    "Scheme": "http",
+    "scenarioName": "visit_duration_create_read_update_roundtrip"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "DELETE",
+    "Path": "/petclinic/api/owners/9101",
+    "QueryParams": {},
+    "StatusCode": 204,
+    "Port": 9966,
+    "Timestamp": "2026-09-09T04:57:02.047Z",
+    "Scheme": "http",
+    "scenarioName": "visit_duration_create_read_update_roundtrip"
+  }
+]
