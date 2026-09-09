@@ -115,4 +115,30 @@ describe('OwnerDetailComponent', () => {
         expect(router.navigate).toHaveBeenCalledWith(['/owners']);
     });
 
+    it('shows the empty state when the owner has no reminders', () => {
+        const emptyState = fixture.debugElement.query(By.css('#noReminders'));
+        expect(emptyState).not.toBeNull();
+        expect(emptyState.nativeElement.textContent.trim()).toBe('Nothing coming up for this owner.');
+        expect(fixture.debugElement.query(By.css('#remindersTable'))).toBeNull();
+    });
+
+    it('lists the owner reminders soonest first', () => {
+        const reminders = [
+            { id: 1, date: '2026-09-20', description: 'rabies shot', petId: 1 },
+            { id: 2, date: '2026-09-27', description: 'check-up', petId: 1 },
+        ] as unknown as Visit[];
+        vi.spyOn(TestBed.inject(OwnerService), 'getOwnerReminders').mockReturnValue(of(reminders));
+
+        const populated = TestBed.createComponent(OwnerDetailComponent);
+        populated.detectChanges();
+
+        expect(populated.debugElement.query(By.css('#remindersTable'))).not.toBeNull();
+        const rows = populated.debugElement.queryAll(By.css('#remindersTable tr'));
+        expect(rows.length).toBe(3);
+        const firstReminderCells = rows[1].queryAll(By.css('td'));
+        expect(firstReminderCells[0].nativeElement.textContent).toContain('2026-09-20');
+        expect(firstReminderCells[1].nativeElement.textContent).toContain('rabies shot');
+        expect(populated.debugElement.query(By.css('#noReminders'))).toBeNull();
+    });
+
 });
