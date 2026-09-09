@@ -1,0 +1,170 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"firstName\":\"Emilia\",\"lastName\":\"Mailford\",\"address\":\"42 Inbox Lane\",\"city\":\"Madison\",\"telephone\":\"6085552601\",\"email\":\"emilia.mailford@example.com\"}",
+    "ResponseBody": "{\"id\":9001,\"firstName\":\"Emilia\",\"lastName\":\"Mailford\",\"address\":\"42 Inbox Lane\",\"city\":\"Madison\",\"telephone\":\"6085552601\",\"email\":\"emilia.mailford@example.com\",\"pets\":[]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-09-09T04:45:27.960Z",
+    "Scheme": "http",
+    "scenarioName": "api-owner-email-lifecycle"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"id\":9001,\"firstName\":\"Emilia\",\"lastName\":\"Mailford\",\"address\":\"42 Inbox Lane\",\"city\":\"Madison\",\"telephone\":\"6085552601\",\"email\":\"emilia.mailford@example.com\",\"pets\":[]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/petclinic/api/owners/9001",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 9966,
+    "Timestamp": "2026-09-09T04:45:28.960Z",
+    "Scheme": "http",
+    "scenarioName": "api-owner-email-lifecycle"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"firstName\":\"Emilia\",\"lastName\":\"Mailford\",\"address\":\"42 Inbox Lane\",\"city\":\"Madison\",\"telephone\":\"6085552601\",\"email\":\"emilia.updated@example.com\"}",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "PUT",
+    "Path": "/petclinic/api/owners/9001",
+    "QueryParams": {},
+    "StatusCode": 204,
+    "Port": 9966,
+    "Timestamp": "2026-09-09T04:45:29.960Z",
+    "Scheme": "http",
+    "scenarioName": "api-owner-email-lifecycle"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"id\":9001,\"firstName\":\"Emilia\",\"lastName\":\"Mailford\",\"address\":\"42 Inbox Lane\",\"city\":\"Madison\",\"telephone\":\"6085552601\",\"email\":\"emilia.updated@example.com\",\"pets\":[]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/petclinic/api/owners/9001",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 9966,
+    "Timestamp": "2026-09-09T04:45:30.960Z",
+    "Scheme": "http",
+    "scenarioName": "api-owner-email-lifecycle"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"firstName\":\"Emilia\",\"lastName\":\"Mailford\",\"address\":\"42 Inbox Lane\",\"city\":\"Monona\",\"telephone\":\"6085552601\"}",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "PUT",
+    "Path": "/petclinic/api/owners/9001",
+    "QueryParams": {},
+    "StatusCode": 204,
+    "Port": 9966,
+    "Timestamp": "2026-09-09T04:45:31.960Z",
+    "Scheme": "http",
+    "scenarioName": "api-owner-email-lifecycle"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"id\":9001,\"firstName\":\"Emilia\",\"lastName\":\"Mailford\",\"address\":\"42 Inbox Lane\",\"city\":\"Monona\",\"telephone\":\"6085552601\",\"email\":\"emilia.updated@example.com\",\"pets\":[]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/petclinic/api/owners/9001",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 9966,
+    "Timestamp": "2026-09-09T04:45:32.960Z",
+    "Scheme": "http",
+    "scenarioName": "api-owner-email-lifecycle"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "DELETE",
+    "Path": "/petclinic/api/owners/9001",
+    "QueryParams": {},
+    "StatusCode": 204,
+    "Port": 9966,
+    "Timestamp": "2026-09-09T04:45:33.960Z",
+    "Scheme": "http",
+    "scenarioName": "api-owner-email-lifecycle"
+  }
+]
