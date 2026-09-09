@@ -31,6 +31,7 @@ import { HttpErrorHandler } from '../error.service';
 
 import { OwnerService } from './owner.service';
 import { Owner } from './owner';
+import { Visit } from '../visits/visit';
 
 describe('OwnerService', () => {
     let httpTestingController: HttpTestingController;
@@ -154,6 +155,26 @@ describe('OwnerService', () => {
         const req = httpTestingController.expectOne(ownerService.entityUrl + '/1');
         expect(req.request.method).toEqual('DELETE');
         expect(req.request.body).toEqual(null);
+    });
+
+    it('get owner reminders', () => {
+        const expectedReminders = [
+            { id: 1, date: '2026-09-20', description: 'rabies shot', petId: 1 },
+            { id: 2, date: '2026-09-21', description: 'check-up', petId: 1 },
+        ] as unknown as Visit[];
+
+        ownerService.getOwnerReminders(1).subscribe({
+            next: (reminders) => {
+                expect(reminders.length).toEqual(2);
+                expect(reminders[0].date).toEqual('2026-09-20');
+                expect(reminders[0].description).toEqual('rabies shot');
+            },
+            error: (error) => expect.fail(`Unexpected error: ${error}`),
+        });
+
+        const req = httpTestingController.expectOne(ownerService.entityUrl + '/1/reminders');
+        expect(req.request.method).toEqual('GET');
+        req.flush(expectedReminders);
     });
 
     it('should report a 404 response', () => {

@@ -40,6 +40,10 @@ async function mockBackend(page: Page) {
       await route.fulfill({ json: owner });
       return;
     }
+    if (resource === 'owners/1/reminders') {
+      await route.fulfill({ json: [] });
+      return;
+    }
     if (resource === 'vets') {
       await route.fulfill({ json: vets });
       return;
@@ -211,6 +215,9 @@ for (const viewport of [
       await page.goto(target.path);
       await expect(page.getByRole('heading', { name: target.heading })).toBeVisible();
       await expect(page.locator('main')).toBeVisible();
+      if (target.path === '/petclinic/owners/1') {
+        await expect(page.locator('#noReminders')).toHaveText('Nothing coming up for this owner.');
+      }
     }
 
     await testInfo.attach(`petclinic-${viewport.name}.png`, {
