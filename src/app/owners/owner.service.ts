@@ -22,6 +22,7 @@
 
 import { Injectable } from '@angular/core';
 import { Owner } from './owner';
+import { Visit } from '../visits/visit';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
@@ -45,6 +46,12 @@ export class OwnerService {
     return this.http
       .get<Owner[]>(this.entityUrl)
       .pipe(catchError(this.handlerError('getOwners', [])));
+  }
+
+  getOwnerReminders(ownerId: number): Observable<Visit[]> {
+    return this.http
+      .get<Visit[]>(this.entityUrl + '/' + ownerId + '/reminders')
+      .pipe(catchError(this.handlerError('getOwnerReminders', [])));
   }
 
   getOwnerById(ownerId: number): Observable<Owner> {

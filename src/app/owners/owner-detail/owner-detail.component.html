@@ -48,6 +48,23 @@
     <br />
     <br />
     <br />
+    <h2>Upcoming reminders</h2>
+
+    <p *ngIf="reminders.length === 0" id="noReminders">Nothing coming up for this owner.</p>
+
+    <table class="table table-striped" *ngIf="reminders.length > 0" id="remindersTable">
+      <tr>
+        <th>Date</th>
+        <th>Description</th>
+      </tr>
+      <tr *ngFor="let reminder of reminders">
+        <td>{{ reminder.date }}</td>
+        <td>{{ reminder.description }}</td>
+      </tr>
+    </table>
+
+    <br />
+
     <h2>Pets and Visits</h2>
 
     <table class="table table-striped">

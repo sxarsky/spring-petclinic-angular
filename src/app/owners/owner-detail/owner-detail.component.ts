@@ -25,6 +25,7 @@ import {finalize} from 'rxjs/operators';
 import {OwnerService} from '../owner.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Owner} from '../owner';
+import {Visit} from '../../visits/visit';
 
 
 @Component({
@@ -37,6 +38,7 @@ export class OwnerDetailComponent implements OnInit {
   private readonly changeDetectorRef = inject(ChangeDetectorRef);
   errorMessage: string;
   owner: Owner;
+  reminders: Visit[] = [];
 
   constructor(private route: ActivatedRoute, private router: Router, private ownerService: OwnerService) {
     this.owner = {} as Owner;
@@ -48,6 +50,11 @@ export class OwnerDetailComponent implements OnInit {
       .pipe(finalize(() => this.changeDetectorRef.markForCheck()))
       .subscribe(
       owner => this.owner = owner,
+      error => this.errorMessage = error as any);
+    this.ownerService.getOwnerReminders(ownerId)
+      .pipe(finalize(() => this.changeDetectorRef.markForCheck()))
+      .subscribe(
+      reminders => this.reminders = reminders,
       error => this.errorMessage = error as any);
   }
 

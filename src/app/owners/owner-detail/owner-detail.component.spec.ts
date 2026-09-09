@@ -31,11 +31,15 @@ import { OwnerService } from '../owner.service';
 import { ActivatedRoute, provideRouter, Router } from '@angular/router';
 import { ActivatedRouteStub, RouterStub } from '../../testing/router-stubs';
 import { Owner } from '../owner';
+import { Visit } from '../../visits/visit';
 import { Observable, of } from 'rxjs';
 
 class OwnerServiceStub {
     getOwnerById(): Observable<Owner> {
         return of({ id: 1, firstName: 'James', lastName: 'Franklin' } as Owner);
+    }
+    getOwnerReminders(): Observable<Visit[]> {
+        return of([] as Visit[]);
     }
 }
 
