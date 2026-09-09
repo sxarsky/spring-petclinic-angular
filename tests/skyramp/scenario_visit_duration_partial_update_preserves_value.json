@@ -1,0 +1,146 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"firstName\":\"Skyramp\",\"lastName\":\"Duration\",\"address\":\"1 Test St.\",\"city\":\"Madison\",\"telephone\":\"6085550001\"}",
+    "ResponseBody": "{\"id\":9001,\"firstName\":\"Skyramp\",\"lastName\":\"Duration\",\"address\":\"1 Test St.\",\"city\":\"Madison\",\"telephone\":\"6085550001\",\"pets\":[]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-09-09T04:56:44.470Z",
+    "Scheme": "http",
+    "scenarioName": "visit_duration_partial_update_preserves_value"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"name\":\"Duration\",\"birthDate\":\"2020-01-01\",\"type\":{\"id\":1,\"name\":\"cat\"}}",
+    "ResponseBody": "{\"id\":9002,\"ownerId\":9001,\"name\":\"Duration\",\"birthDate\":\"2020-01-01\",\"type\":{\"id\":1,\"name\":\"cat\"},\"visits\":[]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners/9001/pets",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-09-09T04:56:45.470Z",
+    "Scheme": "http",
+    "scenarioName": "visit_duration_partial_update_preserves_value"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"date\":\"2026-03-01\",\"description\":\"sixty minute booking\",\"durationMinutes\":60}",
+    "ResponseBody": "{\"id\":9003,\"petId\":9002,\"date\":\"2026-03-01\",\"description\":\"sixty minute booking\",\"durationMinutes\":60}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners/9001/pets/9002/visits",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-09-09T04:56:46.470Z",
+    "Scheme": "http",
+    "scenarioName": "visit_duration_partial_update_preserves_value"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"date\":\"2026-03-01\",\"description\":\"sixty minute booking, renamed\"}",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "PUT",
+    "Path": "/petclinic/api/visits/9003",
+    "QueryParams": {},
+    "StatusCode": 204,
+    "Port": 9966,
+    "Timestamp": "2026-09-09T04:56:47.470Z",
+    "Scheme": "http",
+    "scenarioName": "visit_duration_partial_update_preserves_value"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"id\":9003,\"petId\":9002,\"date\":\"2026-03-01\",\"description\":\"sixty minute booking, renamed\",\"durationMinutes\":60}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/petclinic/api/visits/9003",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 9966,
+    "Timestamp": "2026-09-09T04:56:48.470Z",
+    "Scheme": "http",
+    "scenarioName": "visit_duration_partial_update_preserves_value"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "DELETE",
+    "Path": "/petclinic/api/owners/9001",
+    "QueryParams": {},
+    "StatusCode": 204,
+    "Port": 9966,
+    "Timestamp": "2026-09-09T04:56:49.470Z",
+    "Scheme": "http",
+    "scenarioName": "visit_duration_partial_update_preserves_value"
+  }
+]

@@ -108,4 +108,27 @@ describe('VisitAddComponent', () => {
     it('should create VisitAddComponent', () => {
         expect(component).toBeTruthy();
     });
+
+    it('should render the duration input bounded to 5-240 minutes', () => {
+        const input: HTMLInputElement =
+            fixture.nativeElement.querySelector('#durationMinutes');
+        expect(input).toBeTruthy();
+        expect(input.getAttribute('type')).toBe('number');
+        expect(input.getAttribute('min')).toBe('5');
+        expect(input.getAttribute('max')).toBe('240');
+    });
+
+    it('should show the range message for a duration below the minimum', async () => {
+        const input: HTMLInputElement =
+            fixture.nativeElement.querySelector('#durationMinutes');
+        input.value = '2';
+        input.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+        await fixture.whenStable();
+        fixture.detectChanges();
+
+        expect(input.classList).toContain('is-invalid');
+        expect(fixture.nativeElement.textContent)
+            .toContain('Duration must be between 5 and 240 minutes');
+    });
 });

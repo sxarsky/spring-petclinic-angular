@@ -1,0 +1,218 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"firstName\":\"Skyramp\",\"lastName\":\"Range\",\"address\":\"3 Test St.\",\"city\":\"Madison\",\"telephone\":\"6085550003\"}",
+    "ResponseBody": "{\"id\":9201,\"firstName\":\"Skyramp\",\"lastName\":\"Range\",\"address\":\"3 Test St.\",\"city\":\"Madison\",\"telephone\":\"6085550003\",\"pets\":[]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-09-09T04:57:07.852Z",
+    "Scheme": "http",
+    "scenarioName": "visit_duration_range_rejected"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"name\":\"Range\",\"birthDate\":\"2020-01-01\",\"type\":{\"id\":1,\"name\":\"cat\"}}",
+    "ResponseBody": "{\"id\":9202,\"ownerId\":9201,\"name\":\"Range\",\"birthDate\":\"2020-01-01\",\"type\":{\"id\":1,\"name\":\"cat\"},\"visits\":[]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners/9201/pets",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-09-09T04:57:08.852Z",
+    "Scheme": "http",
+    "scenarioName": "visit_duration_range_rejected"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"date\":\"2026-05-01\",\"description\":\"in range\",\"durationMinutes\":30}",
+    "ResponseBody": "{\"id\":9203,\"petId\":9202,\"date\":\"2026-05-01\",\"description\":\"in range\",\"durationMinutes\":30}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners/9201/pets/9202/visits",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-09-09T04:57:09.852Z",
+    "Scheme": "http",
+    "scenarioName": "visit_duration_range_rejected"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"date\":\"2026-05-01\",\"description\":\"below minimum\",\"durationMinutes\":4}",
+    "ResponseBody": "{\"status\":400,\"title\":\"MethodArgumentNotValidException\"}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners/9201/pets/9202/visits",
+    "QueryParams": {},
+    "StatusCode": 400,
+    "Port": 9966,
+    "Timestamp": "2026-09-09T04:57:10.852Z",
+    "Scheme": "http",
+    "scenarioName": "visit_duration_range_rejected"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"date\":\"2026-05-01\",\"description\":\"above maximum\",\"durationMinutes\":241}",
+    "ResponseBody": "{\"status\":400,\"title\":\"MethodArgumentNotValidException\"}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners/9201/pets/9202/visits",
+    "QueryParams": {},
+    "StatusCode": 400,
+    "Port": 9966,
+    "Timestamp": "2026-09-09T04:57:11.852Z",
+    "Scheme": "http",
+    "scenarioName": "visit_duration_range_rejected"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"date\":\"2026-05-01\",\"description\":\"at minimum\",\"durationMinutes\":5}",
+    "ResponseBody": "{\"id\":9204,\"petId\":9202,\"date\":\"2026-05-01\",\"description\":\"at minimum\",\"durationMinutes\":5}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners/9201/pets/9202/visits",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-09-09T04:57:12.852Z",
+    "Scheme": "http",
+    "scenarioName": "visit_duration_range_rejected"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"date\":\"2026-05-01\",\"description\":\"at maximum\",\"durationMinutes\":240}",
+    "ResponseBody": "{\"id\":9205,\"petId\":9202,\"date\":\"2026-05-01\",\"description\":\"at maximum\",\"durationMinutes\":240}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/petclinic/api/owners/9201/pets/9202/visits",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 9966,
+    "Timestamp": "2026-09-09T04:57:13.852Z",
+    "Scheme": "http",
+    "scenarioName": "visit_duration_range_rejected"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"date\":\"2026-05-01\",\"description\":\"in range\",\"durationMinutes\":2}",
+    "ResponseBody": "{\"status\":400,\"title\":\"MethodArgumentNotValidException\"}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "PUT",
+    "Path": "/petclinic/api/visits/9203",
+    "QueryParams": {},
+    "StatusCode": 400,
+    "Port": 9966,
+    "Timestamp": "2026-09-09T04:57:14.852Z",
+    "Scheme": "http",
+    "scenarioName": "visit_duration_range_rejected"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "DELETE",
+    "Path": "/petclinic/api/owners/9201",
+    "QueryParams": {},
+    "StatusCode": 204,
+    "Port": 9966,
+    "Timestamp": "2026-09-09T04:57:15.852Z",
+    "Scheme": "http",
+    "scenarioName": "visit_duration_range_rejected"
+  }
+]
